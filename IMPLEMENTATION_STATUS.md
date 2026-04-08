@@ -32,6 +32,20 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
 
+### Namespaces
+- `GetAllAsync` / `GetAll`
+- `GetByPrefixAsync` / `GetByPrefix`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### Layer Groups
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
 ### Layers
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -48,8 +62,6 @@ This file tracks what is implemented in the wrapper and what remains.
 ## Remaining API Areas
 
 - About, manifests, system-status
-- Namespaces
-- Layer groups
 - Coverages and structured coverages
 - Fonts
 - Global settings and OWS service settings
@@ -64,12 +76,12 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Test Status
 
-- Unit tests: Implemented for each method in every Phase 1 endpoint client.
+- Unit tests: Implemented for each method in every currently implemented endpoint client.
 - Integration tests: Live GeoServer workspace CRUD flow implemented.
 
 ## Next Expansion Priorities
 
-1. Namespaces + layer groups.
-2. Coverages (including structured coverage operations).
-3. Settings/service configuration APIs.
-4. Security APIs.
+1. Coverages (including structured coverage operations).
+2. Settings/service configuration APIs.
+3. Security APIs.
+4. WMS/WMTS stores and layers.

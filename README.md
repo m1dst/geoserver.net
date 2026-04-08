@@ -12,12 +12,14 @@
 - CI support for GitHub Actions and Bitbucket Pipelines.
 - NuGet-ready packaging configuration.
 
-## Implemented Endpoints (Phase 1)
+## Implemented Endpoints
 
 - Workspaces
 - Data Stores
 - Coverage Stores
 - Feature Types
+- Namespaces
+- Layer Groups
 - Layers
 - Styles
 
