@@ -1,0 +1,48 @@
+# Build outputs
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+artifacts/
+
+# Test outputs
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE / editor
+.vs/
+.vscode/
+*.code-workspace
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!.config/dotnet-tools.json
+
+# Logs
+*.log
+logs/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Environment overrides
+.env
+.env.*
+!.env.example
+
+# Docker local overrides
+docker-compose.override.yml

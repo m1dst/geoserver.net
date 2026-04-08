@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GeoServer.Net/GeoServer.Net.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GeoServer.Net.IntegrationTests/GeoServer.Net.IntegrationTests.csproj" />
+    <Project Path="tests/GeoServer.Net.Tests/GeoServer.Net.Tests.csproj" />
+  </Folder>
+</Solution>
