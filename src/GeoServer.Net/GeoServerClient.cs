@@ -42,6 +42,7 @@ public sealed class GeoServerClient : IDisposable
         WmtsLayers = new WmtsLayersClient(_httpClient);
         Operations = new OperationsClient(_httpClient);
         About = new AboutClient(_httpClient);
+        UrlChecks = new UrlChecksClient(_httpClient);
     }
 
     /// <summary>
@@ -75,6 +76,7 @@ public sealed class GeoServerClient : IDisposable
         WmtsLayers = new WmtsLayersClient(_httpClient);
         Operations = new OperationsClient(_httpClient);
         About = new AboutClient(_httpClient);
+        UrlChecks = new UrlChecksClient(_httpClient);
     }
 
     /// <summary>
@@ -186,6 +188,11 @@ public sealed class GeoServerClient : IDisposable
     /// About/version/manifest/status endpoints.
     /// </summary>
     public AboutClient About { get; }
+
+    /// <summary>
+    /// URL external access checks endpoints.
+    /// </summary>
+    public UrlChecksClient UrlChecks { get; }
 
     /// <inheritdoc />
     public void Dispose()

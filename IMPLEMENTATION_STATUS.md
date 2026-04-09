@@ -140,6 +140,13 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetVersionAsync` / `GetVersion`
 - `GetStatusAsync` / `GetStatus`
 
+### URL Checks
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -178,7 +185,6 @@ This file tracks what is implemented in the wrapper and what remains.
 
 - Fonts
 - Resource APIs
-- URL checks
 - Templates and transforms
 - GeoWebCache REST APIs
 - Importer extension APIs
@@ -190,7 +196,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. URL checks and resource APIs.
+1. Resource APIs.
 2. Fonts and templates/transforms.
 3. GeoWebCache and importer extension APIs.
 4. Broaden integration tests to cover newer endpoint groups.
