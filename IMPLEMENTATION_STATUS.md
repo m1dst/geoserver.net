@@ -171,6 +171,12 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
 
+### GeoWebCache Core
+- `GetIndexRawAsync` / `GetIndexRaw`
+- `ReloadAsync` / `Reload`
+- `GetGlobalAsync` / `GetGlobal`
+- `UpdateGlobalAsync` / `UpdateGlobal`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -207,7 +213,6 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Remaining API Areas
 
-- GeoWebCache REST APIs
 - Importer extension APIs
 
 ## Test Status
@@ -217,7 +222,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. GeoWebCache and importer extension APIs.
-2. Broaden integration tests to cover newer endpoint groups.
-3. Expand typed models for newer generic/raw endpoints.
-4. Add real-server integration coverage for non-CRUD endpoints.
+1. Importer extension APIs.
+2. Expand GeoWebCache coverage (layers/seed/truncate/blobstores/gridsets).
+3. Broaden integration tests to cover newer endpoint groups.
+4. Expand typed models for newer generic/raw endpoints.

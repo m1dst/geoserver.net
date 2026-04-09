@@ -39,6 +39,7 @@
 - Fonts endpoint
 - Templates endpoints (server/workspace/store/type/coverage scopes)
 - WFS transforms endpoints
+- GeoWebCache core endpoints (index, reload, global config)
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

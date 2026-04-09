@@ -47,6 +47,7 @@ public sealed class GeoServerClient : IDisposable
         Fonts = new FontsClient(_httpClient);
         Templates = new TemplatesClient(_httpClient);
         Transforms = new TransformsClient(_httpClient);
+        GeoWebCache = new GeoWebCacheClient(_httpClient);
     }
 
     /// <summary>
@@ -85,6 +86,7 @@ public sealed class GeoServerClient : IDisposable
         Fonts = new FontsClient(_httpClient);
         Templates = new TemplatesClient(_httpClient);
         Transforms = new TransformsClient(_httpClient);
+        GeoWebCache = new GeoWebCacheClient(_httpClient);
     }
 
     /// <summary>
@@ -221,6 +223,11 @@ public sealed class GeoServerClient : IDisposable
     /// WFS transforms endpoints.
     /// </summary>
     public TransformsClient Transforms { get; }
+
+    /// <summary>
+    /// GeoWebCache core endpoints.
+    /// </summary>
+    public GeoWebCacheClient GeoWebCache { get; }
 
     /// <inheritdoc />
     public void Dispose()
