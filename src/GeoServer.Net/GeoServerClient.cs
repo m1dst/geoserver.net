@@ -30,6 +30,8 @@ public sealed class GeoServerClient : IDisposable
         LayerGroups = new LayerGroupsClient(_httpClient);
         Layers = new LayersClient(_httpClient);
         Styles = new StylesClient(_httpClient);
+        Settings = new SettingsClient(_httpClient);
+        OwsServices = new OwsServicesClient(_httpClient);
     }
 
     /// <summary>
@@ -51,6 +53,8 @@ public sealed class GeoServerClient : IDisposable
         LayerGroups = new LayerGroupsClient(_httpClient);
         Layers = new LayersClient(_httpClient);
         Styles = new StylesClient(_httpClient);
+        Settings = new SettingsClient(_httpClient);
+        OwsServices = new OwsServicesClient(_httpClient);
     }
 
     /// <summary>
@@ -102,6 +106,16 @@ public sealed class GeoServerClient : IDisposable
     /// Style endpoints.
     /// </summary>
     public StylesClient Styles { get; }
+
+    /// <summary>
+    /// Global and workspace settings endpoints.
+    /// </summary>
+    public SettingsClient Settings { get; }
+
+    /// <summary>
+    /// OWS service settings endpoints.
+    /// </summary>
+    public OwsServicesClient OwsServices { get; }
 
     /// <inheritdoc />
     public void Dispose()

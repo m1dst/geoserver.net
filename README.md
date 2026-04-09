@@ -24,6 +24,8 @@
 - Layer Groups
 - Layers
 - Styles
+- Settings (global, contact, workspace)
+- OWS Service Settings (WMS/WFS/WCS/WMTS, global + workspace)
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

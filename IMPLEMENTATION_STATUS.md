@@ -38,6 +38,23 @@ This file tracks what is implemented in the wrapper and what remains.
 - `DeleteGranulesAsync` / `DeleteGranules`
 - `GetGranuleByIdAsync` / `GetGranuleById`
 
+### Settings
+- `GetGlobalAsync` / `GetGlobal`
+- `UpdateGlobalAsync` / `UpdateGlobal`
+- `GetContactAsync` / `GetContact`
+- `UpdateContactAsync` / `UpdateContact`
+- `GetWorkspaceAsync` / `GetWorkspace`
+- `CreateWorkspaceAsync` / `CreateWorkspace`
+- `UpdateWorkspaceAsync` / `UpdateWorkspace`
+- `DeleteWorkspaceAsync` / `DeleteWorkspace`
+
+### OWS Service Settings
+- `GetGlobalAsync` / `GetGlobal` (WMS/WFS/WCS/WMTS)
+- `UpdateGlobalAsync` / `UpdateGlobal` (WMS/WFS/WCS/WMTS)
+- `GetWorkspaceAsync` / `GetWorkspace` (WMS/WFS/WCS/WMTS)
+- `UpdateWorkspaceAsync` / `UpdateWorkspace` (WMS/WFS/WCS/WMTS)
+- `DeleteWorkspaceAsync` / `DeleteWorkspace` (WMS/WFS/WCS/WMTS)
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -76,7 +93,6 @@ This file tracks what is implemented in the wrapper and what remains.
 
 - About, manifests, system-status
 - Fonts
-- Global settings and OWS service settings
 - Reload, logging, monitoring
 - Resource APIs
 - Security APIs (roles, user groups, auth providers, filter chains)
@@ -93,7 +109,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Settings/service configuration APIs.
-2. Security APIs.
-3. WMS/WMTS stores and layers.
+1. Security APIs.
+2. WMS/WMTS stores and layers.
+3. Reload, logging, monitoring.
 4. Fonts and templates/transforms.
