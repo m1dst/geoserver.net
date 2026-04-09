@@ -30,6 +30,8 @@
 - Security User/Group management
 - Security Authentication Providers
 - Security Authentication Filters
+- WMS Stores and Layers
+- WMTS Stores and Layers
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

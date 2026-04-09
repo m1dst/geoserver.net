@@ -94,6 +94,38 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
 
+### WMS Stores
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### WMS Layers
+- `GetAllAsync` / `GetAll`
+- `GetAllForStoreAsync` / `GetAllForStore`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `CreateForStoreAsync` / `CreateForStore`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### WMTS Stores
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### WMTS Layers
+- `GetAllAsync` / `GetAll`
+- `GetAllForStoreAsync` / `GetAllForStore`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `CreateForStoreAsync` / `CreateForStore`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -135,7 +167,6 @@ This file tracks what is implemented in the wrapper and what remains.
 - Reload, logging, monitoring
 - Resource APIs
 - URL checks
-- WMS/WMTS stores and layers
 - Templates and transforms
 - GeoWebCache REST APIs
 - Importer extension APIs
@@ -147,7 +178,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. WMS/WMTS stores and layers.
-2. Reload, logging, monitoring.
-3. URL checks and resource APIs.
-4. Fonts and templates/transforms.
+1. Reload, logging, monitoring.
+2. URL checks and resource APIs.
+3. Fonts and templates/transforms.
+4. GeoWebCache and importer extension APIs.

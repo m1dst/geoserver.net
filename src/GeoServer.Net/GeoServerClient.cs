@@ -36,6 +36,10 @@ public sealed class GeoServerClient : IDisposable
         UserGroups = new UserGroupsClient(_httpClient);
         AuthProviders = new AuthProvidersClient(_httpClient);
         AuthFilters = new AuthFiltersClient(_httpClient);
+        WmsStores = new WmsStoresClient(_httpClient);
+        WmsLayers = new WmsLayersClient(_httpClient);
+        WmtsStores = new WmtsStoresClient(_httpClient);
+        WmtsLayers = new WmtsLayersClient(_httpClient);
     }
 
     /// <summary>
@@ -63,6 +67,10 @@ public sealed class GeoServerClient : IDisposable
         UserGroups = new UserGroupsClient(_httpClient);
         AuthProviders = new AuthProvidersClient(_httpClient);
         AuthFilters = new AuthFiltersClient(_httpClient);
+        WmsStores = new WmsStoresClient(_httpClient);
+        WmsLayers = new WmsLayersClient(_httpClient);
+        WmtsStores = new WmtsStoresClient(_httpClient);
+        WmtsLayers = new WmtsLayersClient(_httpClient);
     }
 
     /// <summary>
@@ -144,6 +152,26 @@ public sealed class GeoServerClient : IDisposable
     /// Security authentication filters endpoints.
     /// </summary>
     public AuthFiltersClient AuthFilters { get; }
+
+    /// <summary>
+    /// WMS stores endpoints.
+    /// </summary>
+    public WmsStoresClient WmsStores { get; }
+
+    /// <summary>
+    /// WMS layers endpoints.
+    /// </summary>
+    public WmsLayersClient WmsLayers { get; }
+
+    /// <summary>
+    /// WMTS stores endpoints.
+    /// </summary>
+    public WmtsStoresClient WmtsStores { get; }
+
+    /// <summary>
+    /// WMTS layers endpoints.
+    /// </summary>
+    public WmtsLayersClient WmtsLayers { get; }
 
     /// <inheritdoc />
     public void Dispose()
