@@ -59,6 +59,8 @@ public abstract class GeoServerClientBase
     protected async Task<string> SendRawAsync(HttpMethod method, string path, object? body = null, CancellationToken cancellationToken = default)
     {
         var request = BuildRequest(method, path, body);
+        request.Headers.Accept.Clear();
+        request.Headers.Accept.ParseAdd("*/*");
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         var content = response.Content is null
             ? string.Empty

@@ -189,6 +189,12 @@ Integration tests include:
 docker compose up -d geoserver
 ```
 
+Health and endpoint check:
+
+```bash
+curl -u admin:geoserver http://localhost:8080/geoserver/rest/about/status.json
+```
+
 ## Packaging
 
 ```bash

@@ -14,6 +14,47 @@ public sealed class AboutTypedResponse
     /// </summary>
     [JsonProperty("about")]
     public AboutEnvelopeDto About { get; set; } = new();
+
+    /// <summary>
+    /// Backward-compatible alias for status payloads that return <c>statuss</c>.
+    /// </summary>
+    [JsonProperty("statuss")]
+    private JObject? StatusAlias
+    {
+        set
+        {
+            if (value is null)
+            {
+                return;
+            }
+
+            var statusItems = value["status"] as JArray;
+            if (statusItems is null)
+            {
+                return;
+            }
+
+            var mapped = new List<AboutResourceDto>();
+            foreach (var item in statusItems)
+            {
+                if (item is not JObject obj)
+                {
+                    continue;
+                }
+
+                mapped.Add(new AboutResourceDto
+                {
+                    Name = (string?)obj["name"],
+                    Href = (string?)obj["href"]
+                });
+            }
+
+            if (mapped.Count > 0)
+            {
+                About.Resources = mapped;
+            }
+        }
+    }
 }
 
 /// <summary>
@@ -26,6 +67,21 @@ public sealed class AboutEnvelopeDto
     /// </summary>
     [JsonProperty("resource")]
     public List<AboutResourceDto> Resources { get; set; } = new();
+
+    /// <summary>
+    /// Backward-compatible alias for payloads using <c>resources</c>.
+    /// </summary>
+    [JsonProperty("resources")]
+    private List<AboutResourceDto>? ResourcesAlias
+    {
+        set
+        {
+            if (value is not null && value.Count > 0)
+            {
+                Resources = value;
+            }
+        }
+    }
 }
 
 /// <summary>
@@ -44,6 +100,12 @@ public sealed class AboutResourceDto
     /// </summary>
     [JsonProperty("manifest")]
     public string? Manifest { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Href value.
+    /// </summary>
+    [JsonProperty("href")]
+    public string? Href { get; set; }
 
     /// <summary>
     /// Gets or sets the Available value.

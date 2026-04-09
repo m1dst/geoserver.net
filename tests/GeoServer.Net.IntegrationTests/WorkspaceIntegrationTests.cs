@@ -34,7 +34,7 @@ public sealed class WorkspaceIntegrationTests : IClassFixture<GeoServerIntegrati
         var fetched = await client.Workspaces.GetByNameAsync(wsName);
         Assert.Equal(wsName, fetched.Workspace.Name);
 
-        client.Workspaces.Delete(wsName);
+        await client.Workspaces.DeleteAsync(wsName);
         var afterDelete = await client.Workspaces.GetAllAsync();
         Assert.DoesNotContain(afterDelete.Workspaces.Workspace, w => string.Equals(w.Name, wsName, StringComparison.Ordinal));
     }
