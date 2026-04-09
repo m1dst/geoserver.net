@@ -194,6 +194,114 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     public void UpdateDiskQuota(object diskQuotaPayload)
         => Send(HttpMethod.Put, "/geoserver/gwc/rest/diskquota", diskQuotaPayload);
 
+    /// <summary>
+    /// Lists configured blob stores.
+    /// </summary>
+    public Task<GwcBlobStoresResponse> GetBlobStoresAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcBlobStoresResponse>(HttpMethod.Get, "/geoserver/gwc/rest/blobstores.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists configured blob stores (synchronous).
+    /// </summary>
+    public GwcBlobStoresResponse GetBlobStores()
+        => Send<GwcBlobStoresResponse>(HttpMethod.Get, "/geoserver/gwc/rest/blobstores.json");
+
+    /// <summary>
+    /// Gets one configured blob store.
+    /// </summary>
+    public Task<GwcBlobStoresResponse> GetBlobStoreAsync(string blobStoreName, CancellationToken cancellationToken = default)
+        => SendAsync<GwcBlobStoresResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets one configured blob store (synchronous).
+    /// </summary>
+    public GwcBlobStoresResponse GetBlobStore(string blobStoreName)
+        => Send<GwcBlobStoresResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}.json");
+
+    /// <summary>
+    /// Creates or updates a blob store.
+    /// </summary>
+    public Task PutBlobStoreAsync(string blobStoreName, object blobStorePayload, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Put, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}", blobStorePayload, cancellationToken);
+
+    /// <summary>
+    /// Creates or updates a blob store (synchronous).
+    /// </summary>
+    public void PutBlobStore(string blobStoreName, object blobStorePayload)
+        => Send(HttpMethod.Put, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}", blobStorePayload);
+
+    /// <summary>
+    /// Deletes a configured blob store.
+    /// </summary>
+    public Task DeleteBlobStoreAsync(string blobStoreName, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Delete, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Deletes a configured blob store (synchronous).
+    /// </summary>
+    public void DeleteBlobStore(string blobStoreName)
+        => Send(HttpMethod.Delete, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}");
+
+    /// <summary>
+    /// Lists configured grid sets.
+    /// </summary>
+    public Task<GwcGridSetsResponse> GetGridSetsAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcGridSetsResponse>(HttpMethod.Get, "/geoserver/gwc/rest/gridsets.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists configured grid sets (synchronous).
+    /// </summary>
+    public GwcGridSetsResponse GetGridSets()
+        => Send<GwcGridSetsResponse>(HttpMethod.Get, "/geoserver/gwc/rest/gridsets.json");
+
+    /// <summary>
+    /// Gets one configured grid set.
+    /// </summary>
+    public Task<GwcGridSetsResponse> GetGridSetAsync(string gridSetName, CancellationToken cancellationToken = default)
+        => SendAsync<GwcGridSetsResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets one configured grid set (synchronous).
+    /// </summary>
+    public GwcGridSetsResponse GetGridSet(string gridSetName)
+        => Send<GwcGridSetsResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}.json");
+
+    /// <summary>
+    /// Creates or updates a grid set.
+    /// </summary>
+    public Task PutGridSetAsync(string gridSetName, object gridSetPayload, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Put, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}", gridSetPayload, cancellationToken);
+
+    /// <summary>
+    /// Creates or updates a grid set (synchronous).
+    /// </summary>
+    public void PutGridSet(string gridSetName, object gridSetPayload)
+        => Send(HttpMethod.Put, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}", gridSetPayload);
+
+    /// <summary>
+    /// Deletes a configured grid set.
+    /// </summary>
+    public Task DeleteGridSetAsync(string gridSetName, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Delete, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Deletes a configured grid set (synchronous).
+    /// </summary>
+    public void DeleteGridSet(string gridSetName)
+        => Send(HttpMethod.Delete, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}");
+
+    /// <summary>
+    /// Gets bounds text for a layer/SRS pair.
+    /// </summary>
+    public Task<string> GetBoundsRawAsync(string layerName, string srs, CancellationToken cancellationToken = default)
+        => SendRawAsync(HttpMethod.Get, $"/geoserver/gwc/rest/bounds/{Encode(layerName)}/{Encode(srs)}/java", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets bounds text for a layer/SRS pair (synchronous).
+    /// </summary>
+    public string GetBoundsRaw(string layerName, string srs)
+        => SendRaw(HttpMethod.Get, $"/geoserver/gwc/rest/bounds/{Encode(layerName)}/{Encode(srs)}/java");
+
     private static string BuildMassTruncatePath(string requestType, string? layer)
     {
         if (string.IsNullOrWhiteSpace(requestType))

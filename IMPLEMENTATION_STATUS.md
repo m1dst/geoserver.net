@@ -192,6 +192,17 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetDiskQuotaAsync` / `GetDiskQuota`
 - `UpdateDiskQuotaAsync` / `UpdateDiskQuota`
 
+### GeoWebCache Advanced
+- `GetBlobStoresAsync` / `GetBlobStores`
+- `GetBlobStoreAsync` / `GetBlobStore`
+- `PutBlobStoreAsync` / `PutBlobStore`
+- `DeleteBlobStoreAsync` / `DeleteBlobStore`
+- `GetGridSetsAsync` / `GetGridSets`
+- `GetGridSetAsync` / `GetGridSet`
+- `PutGridSetAsync` / `PutGridSet`
+- `DeleteGridSetAsync` / `DeleteGridSet`
+- `GetBoundsRawAsync` / `GetBoundsRaw`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -238,6 +249,6 @@ This file tracks what is implemented in the wrapper and what remains.
 ## Next Expansion Priorities
 
 1. Importer extension APIs.
-2. Expand GeoWebCache coverage (blobstores/gridsets/bounds).
-3. Broaden integration tests to cover newer endpoint groups.
-4. Expand typed models for newer generic/raw endpoints.
+2. Broaden integration tests to cover newer endpoint groups.
+3. Expand typed models for newer generic/raw endpoints.
+4. Add real-server coverage for GeoWebCache surfaces.

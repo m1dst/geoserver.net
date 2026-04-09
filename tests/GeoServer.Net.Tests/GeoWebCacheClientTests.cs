@@ -258,4 +258,118 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
         Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
     }
+
+    [Fact]
+    public async Task BlobStoresCrudAsync_UsesExpectedRoutes()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""blobStores"":{}}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetBlobStoresAsync();
+            _ = await client.GeoWebCache.GetBlobStoreAsync("defaultCache");
+            await client.GeoWebCache.PutBlobStoreAsync("defaultCache", new { id = "defaultCache", enabled = true });
+            await client.GeoWebCache.DeleteBlobStoreAsync("defaultCache");
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/blobstores.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/blobstores/defaultCache.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Put, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
+    }
+
+    [Fact]
+    public async Task GridSetsCrudAsync_UsesExpectedRoutes()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""gridSets"":{}}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetGridSetsAsync();
+            _ = await client.GeoWebCache.GetGridSetAsync("EPSG:4326");
+            await client.GeoWebCache.PutGridSetAsync("EPSG:4326", new { name = "EPSG:4326" });
+            await client.GeoWebCache.DeleteGridSetAsync("EPSG:4326");
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/gridsets.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/gridsets/EPSG%3A4326.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Put, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
+    }
+
+    [Fact]
+    public async Task BoundsEndpointsAsync_UseExpectedRoute()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent());
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetBoundsRawAsync("ws:roads", "EPSG:4326");
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/bounds/ws%3Aroads/EPSG%3A4326/java", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+    }
+
+    [Fact]
+    public void AdvancedSyncMethods_UseExpectedVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                if (request.RequestUri!.AbsolutePath.Contains("/bounds/"))
+                {
+                    return TestHttpMessageHandler.NoContent();
+                }
+
+                if (request.RequestUri.AbsolutePath.Contains("/gridsets"))
+                {
+                    return TestHttpMessageHandler.Json(@"{""gridSets"":{}}");
+                }
+
+                return TestHttpMessageHandler.Json(@"{""blobStores"":{}}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = client.GeoWebCache.GetBlobStores();
+            _ = client.GeoWebCache.GetBlobStore("defaultCache");
+            client.GeoWebCache.PutBlobStore("defaultCache", new { id = "defaultCache" });
+            client.GeoWebCache.DeleteBlobStore("defaultCache");
+            _ = client.GeoWebCache.GetGridSets();
+            _ = client.GeoWebCache.GetGridSet("EPSG:4326");
+            client.GeoWebCache.PutGridSet("EPSG:4326", new { name = "EPSG:4326" });
+            client.GeoWebCache.DeleteGridSet("EPSG:4326");
+            _ = client.GeoWebCache.GetBoundsRaw("ws:roads", "EPSG:4326");
+        }
+
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[5].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[6].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[7].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[8].Method);
+    }
 }
