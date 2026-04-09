@@ -86,6 +86,13 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
 
             var typedImports = await client.Importer.GetAllTypedAsync();
             Assert.NotNull(typedImports.Imports);
+
+            var firstImportId = typedImports.Imports.Count > 0 ? typedImports.Imports[0].Id : null;
+            if (!string.IsNullOrWhiteSpace(firstImportId))
+            {
+                var typedImport = await client.Importer.GetByIdTypedAsync(firstImportId!);
+                Assert.NotNull(typedImport.Import);
+            }
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
