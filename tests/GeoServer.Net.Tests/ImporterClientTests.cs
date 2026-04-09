@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -224,5 +225,35 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
         Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
         Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
+    }
+
+    [Fact]
+    public async Task UploadTaskFileAsync_UsesPutWithBinaryContent()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created));
+        using (client)
+        {
+            await client.Importer.UploadTaskFileAsync("12", "roads.zip", Encoding.UTF8.GetBytes("abc"), "application/zip");
+        }
+
+        var request = handler.Requests[0];
+        Assert.Equal(HttpMethod.Put, request.Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/roads.zip", request.RequestUri!.AbsolutePath);
+        Assert.Equal("application/zip", request.Content!.Headers.ContentType!.MediaType);
+    }
+
+    [Fact]
+    public async Task CreateTaskFromUrlAsync_UsesFormUrlEncodedPost()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created));
+        using (client)
+        {
+            await client.Importer.CreateTaskFromUrlAsync("12", "file:/tmp/data/roads.zip");
+        }
+
+        var request = handler.Requests[0];
+        Assert.Equal(HttpMethod.Post, request.Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks", request.RequestUri!.AbsolutePath);
+        Assert.Equal("application/x-www-form-urlencoded", request.Content!.Headers.ContentType!.MediaType);
     }
 }

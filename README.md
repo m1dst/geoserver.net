@@ -46,6 +46,7 @@
 - Importer extension core endpoints (imports lifecycle)
 - Importer extension task and data endpoints
 - Importer extension transform endpoints
+- Importer upload helpers (raw file upload + URL task creation)
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

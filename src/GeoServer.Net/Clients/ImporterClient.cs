@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -374,6 +375,79 @@ public sealed class ImporterClient : GeoServerClientBase
     /// </summary>
     public void DeleteTaskTransform(string importId, string taskId, string transformId)
         => Send(HttpMethod.Delete, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}");
+
+    /// <summary>
+    /// Creates a task by uploading raw file content to imports/{importId}/tasks/{filename}.
+    /// </summary>
+    public async Task UploadTaskFileAsync(
+        string importId,
+        string fileName,
+        byte[] fileBytes,
+        string mediaType = "application/octet-stream",
+        string expand = "self",
+        CancellationToken cancellationToken = default)
+    {
+        if (fileBytes is null)
+        {
+            throw new ArgumentNullException(nameof(fileBytes));
+        }
+
+        var request = new HttpRequestMessage(HttpMethod.Put, $"imports/{Encode(importId)}/tasks/{Encode(fileName)}?expand={Encode(expand)}")
+        {
+            Content = new ByteArrayContent(fileBytes)
+        };
+        request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(mediaType);
+
+        using var response = await HttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        var content = response.Content is null
+            ? string.Empty
+            : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new GeoServerApiException(response.StatusCode, content, $"GeoServer REST call failed for '{request.RequestUri}'.");
+        }
+    }
+
+    /// <summary>
+    /// Creates a task by uploading raw file content (synchronous).
+    /// </summary>
+    public void UploadTaskFile(string importId, string fileName, byte[] fileBytes, string mediaType = "application/octet-stream", string expand = "self")
+        => UploadTaskFileAsync(importId, fileName, fileBytes, mediaType, expand).GetAwaiter().GetResult();
+
+    /// <summary>
+    /// Creates a task by posting a URL via application/x-www-form-urlencoded body.
+    /// </summary>
+    public async Task CreateTaskFromUrlAsync(
+        string importId,
+        string fileUrl,
+        string expand = "none",
+        CancellationToken cancellationToken = default)
+    {
+        var values = new Dictionary<string, string>
+        {
+            ["url"] = fileUrl ?? throw new ArgumentNullException(nameof(fileUrl))
+        };
+
+        var request = new HttpRequestMessage(HttpMethod.Post, $"imports/{Encode(importId)}/tasks?expand={Encode(expand)}")
+        {
+            Content = new FormUrlEncodedContent(values)
+        };
+
+        using var response = await HttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        var content = response.Content is null
+            ? string.Empty
+            : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new GeoServerApiException(response.StatusCode, content, $"GeoServer REST call failed for '{request.RequestUri}'.");
+        }
+    }
+
+    /// <summary>
+    /// Creates a task by posting a URL via application/x-www-form-urlencoded body (synchronous).
+    /// </summary>
+    public void CreateTaskFromUrl(string importId, string fileUrl, string expand = "none")
+        => CreateTaskFromUrlAsync(importId, fileUrl, expand).GetAwaiter().GetResult();
 
     private static string BuildImportsPath(string expand)
         => $"imports?expand={Encode(expand)}";

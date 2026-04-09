@@ -239,6 +239,10 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateTaskTransformAsync` / `UpdateTaskTransform`
 - `DeleteTaskTransformAsync` / `DeleteTaskTransform`
 
+### Importer Upload Helpers
+- `UploadTaskFileAsync` / `UploadTaskFile`
+- `CreateTaskFromUrlAsync` / `CreateTaskFromUrl`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -286,4 +290,4 @@ This file tracks what is implemented in the wrapper and what remains.
 1. Broaden integration tests to cover newer endpoint groups.
 2. Expand typed models for newer generic/raw endpoints.
 3. Add real-server coverage for GeoWebCache/importer surfaces.
-4. Add importer file-upload helper methods for multipart/raw task creation.
+4. Add multipart/form-data task upload helpers.
