@@ -167,4 +167,62 @@ public sealed class ImporterClientTests
         Assert.Equal("/geoserver/rest/imports/12/tasks/3/data/files/roads.shp", handler.Requests[6].RequestUri!.AbsolutePath);
         Assert.Equal(HttpMethod.Delete, handler.Requests[7].Method);
     }
+
+    [Fact]
+    public async Task TransformEndpointsAsync_UseExpectedRoutesAndVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""transforms"":[]}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = await client.Importer.GetTaskTransformsAsync("12", "3");
+            await client.Importer.CreateTaskTransformAsync("12", "3", new { type = "ReprojectTransform", target = "EPSG:4326" });
+            _ = await client.Importer.GetTaskTransformAsync("12", "3", "1");
+            await client.Importer.UpdateTaskTransformAsync("12", "3", "1", new { type = "ReprojectTransform", target = "EPSG:3857" });
+            await client.Importer.DeleteTaskTransformAsync("12", "3", "1");
+        }
+
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3/transforms", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3/transforms/1", handler.Requests[2].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
+    }
+
+    [Fact]
+    public void TransformEndpointsSync_UseExpectedVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""transforms"":[]}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = client.Importer.GetTaskTransforms("12", "3");
+            client.Importer.CreateTaskTransform("12", "3", new { type = "DateFormatTransform", field = "date", format = "yyyyMMdd" });
+            _ = client.Importer.GetTaskTransform("12", "3", "1");
+            client.Importer.UpdateTaskTransform("12", "3", "1", new { type = "DateFormatTransform", field = "date", format = "yyyy-MM-dd" });
+            client.Importer.DeleteTaskTransform("12", "3", "1");
+        }
+
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
+    }
 }

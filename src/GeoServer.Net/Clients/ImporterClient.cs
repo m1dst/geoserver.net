@@ -315,6 +315,66 @@ public sealed class ImporterClient : GeoServerClientBase
     public void DeleteTaskDataFile(string importId, string taskId, string fileName)
         => Send(HttpMethod.Delete, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/data/files/{Encode(fileName)}");
 
+    /// <summary>
+    /// Lists transforms for an import task.
+    /// </summary>
+    public Task<ImportsResponse> GetTaskTransformsAsync(string importId, string taskId, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists transforms for an import task (synchronous).
+    /// </summary>
+    public ImportsResponse GetTaskTransforms(string importId, string taskId, string expand = "self")
+        => Send<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}");
+
+    /// <summary>
+    /// Creates a transform for an import task.
+    /// </summary>
+    public Task CreateTaskTransformAsync(string importId, string taskId, object transformPayload, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Post, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}", transformPayload, cancellationToken);
+
+    /// <summary>
+    /// Creates a transform for an import task (synchronous).
+    /// </summary>
+    public void CreateTaskTransform(string importId, string taskId, object transformPayload, string expand = "self")
+        => Send(HttpMethod.Post, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}", transformPayload);
+
+    /// <summary>
+    /// Gets a transform by id for an import task.
+    /// </summary>
+    public Task<ImportsResponse> GetTaskTransformAsync(string importId, string taskId, string transformId, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets a transform by id for an import task (synchronous).
+    /// </summary>
+    public ImportsResponse GetTaskTransform(string importId, string taskId, string transformId, string expand = "self")
+        => Send<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}");
+
+    /// <summary>
+    /// Updates a transform by id for an import task.
+    /// </summary>
+    public Task UpdateTaskTransformAsync(string importId, string taskId, string transformId, object transformPayload, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Put, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}", transformPayload, cancellationToken);
+
+    /// <summary>
+    /// Updates a transform by id for an import task (synchronous).
+    /// </summary>
+    public void UpdateTaskTransform(string importId, string taskId, string transformId, object transformPayload, string expand = "self")
+        => Send(HttpMethod.Put, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}", transformPayload);
+
+    /// <summary>
+    /// Deletes a transform by id for an import task.
+    /// </summary>
+    public Task DeleteTaskTransformAsync(string importId, string taskId, string transformId, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Delete, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Deletes a transform by id for an import task (synchronous).
+    /// </summary>
+    public void DeleteTaskTransform(string importId, string taskId, string transformId)
+        => Send(HttpMethod.Delete, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}");
+
     private static string BuildImportsPath(string expand)
         => $"imports?expand={Encode(expand)}";
 

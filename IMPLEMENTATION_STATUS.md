@@ -232,6 +232,13 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetTaskDataFileAsync` / `GetTaskDataFile`
 - `DeleteTaskDataFileAsync` / `DeleteTaskDataFile`
 
+### Importer Transforms
+- `GetTaskTransformsAsync` / `GetTaskTransforms`
+- `CreateTaskTransformAsync` / `CreateTaskTransform`
+- `GetTaskTransformAsync` / `GetTaskTransform`
+- `UpdateTaskTransformAsync` / `UpdateTaskTransform`
+- `DeleteTaskTransformAsync` / `DeleteTaskTransform`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -276,7 +283,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Importer transforms endpoints.
-2. Broaden integration tests to cover newer endpoint groups.
-3. Expand typed models for newer generic/raw endpoints.
-4. Add real-server coverage for GeoWebCache/importer surfaces.
+1. Broaden integration tests to cover newer endpoint groups.
+2. Expand typed models for newer generic/raw endpoints.
+3. Add real-server coverage for GeoWebCache/importer surfaces.
+4. Add importer file-upload helper methods for multipart/raw task creation.

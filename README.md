@@ -45,6 +45,7 @@
 - GeoWebCache blobstores, gridsets, and bounds endpoints
 - Importer extension core endpoints (imports lifecycle)
 - Importer extension task and data endpoints
+- Importer extension transform endpoints
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 
