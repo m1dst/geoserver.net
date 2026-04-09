@@ -43,6 +43,7 @@
 - GeoWebCache layer and seed endpoints
 - GeoWebCache mass truncate and disk quota endpoints
 - GeoWebCache blobstores, gridsets, and bounds endpoints
+- Importer extension core endpoints (imports lifecycle)
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

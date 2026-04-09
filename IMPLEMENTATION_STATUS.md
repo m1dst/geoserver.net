@@ -203,6 +203,15 @@ This file tracks what is implemented in the wrapper and what remains.
 - `DeleteGridSetAsync` / `DeleteGridSet`
 - `GetBoundsRawAsync` / `GetBoundsRaw`
 
+### Importer Core
+- `GetAllAsync` / `GetAll`
+- `CreateAsync` / `Create`
+- `DeleteAllAsync` / `DeleteAll`
+- `GetByIdAsync` / `GetById`
+- `CreateOrExecuteAsync` / `CreateOrExecute`
+- `PutImportAsync` / `PutImport`
+- `DeleteByIdAsync` / `DeleteById`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -239,7 +248,6 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Remaining API Areas
 
-- Importer extension APIs
 
 ## Test Status
 
@@ -248,7 +256,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Importer extension APIs.
+1. Importer extension task/data/transform endpoints.
 2. Broaden integration tests to cover newer endpoint groups.
 3. Expand typed models for newer generic/raw endpoints.
-4. Add real-server coverage for GeoWebCache surfaces.
+4. Add real-server coverage for GeoWebCache/importer surfaces.

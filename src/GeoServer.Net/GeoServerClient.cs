@@ -48,6 +48,7 @@ public sealed class GeoServerClient : IDisposable
         Templates = new TemplatesClient(_httpClient);
         Transforms = new TransformsClient(_httpClient);
         GeoWebCache = new GeoWebCacheClient(_httpClient);
+        Importer = new ImporterClient(_httpClient);
     }
 
     /// <summary>
@@ -87,6 +88,7 @@ public sealed class GeoServerClient : IDisposable
         Templates = new TemplatesClient(_httpClient);
         Transforms = new TransformsClient(_httpClient);
         GeoWebCache = new GeoWebCacheClient(_httpClient);
+        Importer = new ImporterClient(_httpClient);
     }
 
     /// <summary>
@@ -228,6 +230,11 @@ public sealed class GeoServerClient : IDisposable
     /// GeoWebCache core endpoints.
     /// </summary>
     public GeoWebCacheClient GeoWebCache { get; }
+
+    /// <summary>
+    /// Importer extension core endpoints.
+    /// </summary>
+    public ImporterClient Importer { get; }
 
     /// <inheritdoc />
     public void Dispose()
