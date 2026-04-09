@@ -244,6 +244,14 @@ This file tracks what is implemented in the wrapper and what remains.
 - `CreateTaskFromUrlAsync` / `CreateTaskFromUrl`
 - `CreateTaskMultipartAsync` / `CreateTaskMultipart`
 
+### Importer Typed Methods
+- `GetAllTypedAsync` / `GetAllTyped`
+- `GetByIdTypedAsync` / `GetByIdTyped`
+- `GetTasksTypedAsync` / `GetTasksTyped`
+- `GetTaskTypedAsync` / `GetTaskTyped`
+- `GetTaskTransformsTypedAsync` / `GetTaskTransformsTyped`
+- `GetTaskTransformTypedAsync` / `GetTaskTransformTyped`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -294,7 +302,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Expand typed models for newer generic/raw endpoints.
+1. Expand typed models for additional generic/raw endpoints beyond importer.
 2. Add selective integration smoke tests for optional extension detection.
 3. Add optional-extension aware integration checks for more endpoint groups.
 4. Expand importer integration coverage beyond read-only checks.

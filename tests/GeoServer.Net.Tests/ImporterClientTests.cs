@@ -14,11 +14,13 @@ public sealed class ImporterClientTests
         using (client)
         {
             _ = await client.Importer.GetAllAsync();
+            _ = await client.Importer.GetAllTypedAsync();
         }
 
         Assert.Equal("/geoserver/rest/imports", handler.Requests[0].RequestUri!.AbsolutePath);
         Assert.Contains("expand=none", handler.Requests[0].RequestUri!.Query);
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
     }
 
     [Fact]
@@ -52,6 +54,7 @@ public sealed class ImporterClientTests
         using (client)
         {
             _ = await client.Importer.GetByIdAsync("12");
+            _ = await client.Importer.GetByIdTypedAsync("12");
             await client.Importer.CreateOrExecuteAsync("12", new { import = new { targetWorkspace = "ws1" } }, exec: false);
             await client.Importer.PutImportAsync("12", new { import = new { targetWorkspace = "ws1" } }, exec: true);
             await client.Importer.DeleteByIdAsync("12");
@@ -59,9 +62,10 @@ public sealed class ImporterClientTests
 
         Assert.Equal("/geoserver/rest/imports/12", handler.Requests[0].RequestUri!.AbsolutePath);
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
-        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
-        Assert.Equal(HttpMethod.Put, handler.Requests[2].Method);
-        Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
     }
 
     [Fact]
@@ -80,8 +84,10 @@ public sealed class ImporterClientTests
         using (client)
         {
             _ = client.Importer.GetAll();
+            _ = client.Importer.GetAllTyped();
             client.Importer.Create(new { import = new { targetWorkspace = "ws1" } });
             _ = client.Importer.GetById("12");
+            _ = client.Importer.GetByIdTyped("12");
             client.Importer.CreateOrExecute("12", new { import = new { targetWorkspace = "ws1" } });
             client.Importer.PutImport("12", new { import = new { targetWorkspace = "ws1" } });
             client.Importer.DeleteById("12");
@@ -89,12 +95,14 @@ public sealed class ImporterClientTests
         }
 
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
-        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
-        Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
-        Assert.Equal(HttpMethod.Post, handler.Requests[3].Method);
-        Assert.Equal(HttpMethod.Put, handler.Requests[4].Method);
-        Assert.Equal(HttpMethod.Delete, handler.Requests[5].Method);
-        Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[5].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[6].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[7].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[8].Method);
     }
 
     [Fact]
@@ -113,8 +121,10 @@ public sealed class ImporterClientTests
         using (client)
         {
             _ = await client.Importer.GetTasksAsync("12");
+            _ = await client.Importer.GetTasksTypedAsync("12");
             await client.Importer.CreateTaskAsync("12", new { task = new { updateMode = "CREATE" } });
             _ = await client.Importer.GetTaskAsync("12", "3");
+            _ = await client.Importer.GetTaskTypedAsync("12", "3");
             await client.Importer.UpdateTaskAsync("12", "3", new { task = new { updateMode = "APPEND" } });
             await client.Importer.DeleteTaskAsync("12", "3");
             _ = await client.Importer.GetTaskProgressAsync("12", "3");
@@ -125,13 +135,14 @@ public sealed class ImporterClientTests
         }
 
         Assert.Equal("/geoserver/rest/imports/12/tasks", handler.Requests[0].RequestUri!.AbsolutePath);
-        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
-        Assert.Equal("/geoserver/rest/imports/12/tasks/3", handler.Requests[2].RequestUri!.AbsolutePath);
-        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
-        Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
-        Assert.Equal("/geoserver/rest/imports/12/tasks/3/progress", handler.Requests[5].RequestUri!.AbsolutePath);
-        Assert.Equal("/geoserver/rest/imports/12/tasks/3/target", handler.Requests[6].RequestUri!.AbsolutePath);
-        Assert.Equal("/geoserver/rest/imports/12/tasks/3/layer", handler.Requests[8].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3", handler.Requests[3].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Get, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[5].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3/progress", handler.Requests[7].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3/target", handler.Requests[8].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3/layer", handler.Requests[10].RequestUri!.AbsolutePath);
     }
 
     [Fact]
@@ -185,17 +196,21 @@ public sealed class ImporterClientTests
         using (client)
         {
             _ = await client.Importer.GetTaskTransformsAsync("12", "3");
+            _ = await client.Importer.GetTaskTransformsTypedAsync("12", "3");
             await client.Importer.CreateTaskTransformAsync("12", "3", new { type = "ReprojectTransform", target = "EPSG:4326" });
             _ = await client.Importer.GetTaskTransformAsync("12", "3", "1");
+            _ = await client.Importer.GetTaskTransformTypedAsync("12", "3", "1");
             await client.Importer.UpdateTaskTransformAsync("12", "3", "1", new { type = "ReprojectTransform", target = "EPSG:3857" });
             await client.Importer.DeleteTaskTransformAsync("12", "3", "1");
         }
 
         Assert.Equal("/geoserver/rest/imports/12/tasks/3/transforms", handler.Requests[0].RequestUri!.AbsolutePath);
-        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
-        Assert.Equal("/geoserver/rest/imports/12/tasks/3/transforms/1", handler.Requests[2].RequestUri!.AbsolutePath);
-        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
-        Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[2].Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks/3/transforms/1", handler.Requests[3].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Get, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[5].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
     }
 
     [Fact]
@@ -214,17 +229,21 @@ public sealed class ImporterClientTests
         using (client)
         {
             _ = client.Importer.GetTaskTransforms("12", "3");
+            _ = client.Importer.GetTaskTransformsTyped("12", "3");
             client.Importer.CreateTaskTransform("12", "3", new { type = "DateFormatTransform", field = "date", format = "yyyyMMdd" });
             _ = client.Importer.GetTaskTransform("12", "3", "1");
+            _ = client.Importer.GetTaskTransformTyped("12", "3", "1");
             client.Importer.UpdateTaskTransform("12", "3", "1", new { type = "DateFormatTransform", field = "date", format = "yyyy-MM-dd" });
             client.Importer.DeleteTaskTransform("12", "3", "1");
         }
 
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
-        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
-        Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
-        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
-        Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[5].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
     }
 
     [Fact]

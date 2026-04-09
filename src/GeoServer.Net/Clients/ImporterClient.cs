@@ -23,10 +23,22 @@ public sealed class ImporterClient : GeoServerClientBase
         => SendAsync<ImportsResponse>(HttpMethod.Get, BuildImportsPath(expand), cancellationToken: cancellationToken);
 
     /// <summary>
+    /// Lists imports using typed importer models.
+    /// </summary>
+    public Task<ImporterListResponse> GetAllTypedAsync(string expand = "none", CancellationToken cancellationToken = default)
+        => SendAsync<ImporterListResponse>(HttpMethod.Get, BuildImportsPath(expand), cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Lists imports (synchronous).
     /// </summary>
     public ImportsResponse GetAll(string expand = "none")
         => Send<ImportsResponse>(HttpMethod.Get, BuildImportsPath(expand));
+
+    /// <summary>
+    /// Lists imports using typed importer models (synchronous).
+    /// </summary>
+    public ImporterListResponse GetAllTyped(string expand = "none")
+        => Send<ImporterListResponse>(HttpMethod.Get, BuildImportsPath(expand));
 
     /// <summary>
     /// Creates an import.
@@ -59,10 +71,22 @@ public sealed class ImporterClient : GeoServerClientBase
         => SendAsync<ImportsResponse>(HttpMethod.Get, BuildImportByIdPath(importId, expand), cancellationToken: cancellationToken);
 
     /// <summary>
+    /// Gets an import by id using typed importer models.
+    /// </summary>
+    public Task<ImporterContextResponse> GetByIdTypedAsync(string importId, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync<ImporterContextResponse>(HttpMethod.Get, BuildImportByIdPath(importId, expand), cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Gets an import by id (synchronous).
     /// </summary>
     public ImportsResponse GetById(string importId, string expand = "self")
         => Send<ImportsResponse>(HttpMethod.Get, BuildImportByIdPath(importId, expand));
+
+    /// <summary>
+    /// Gets an import by id using typed importer models (synchronous).
+    /// </summary>
+    public ImporterContextResponse GetByIdTyped(string importId, string expand = "self")
+        => Send<ImporterContextResponse>(HttpMethod.Get, BuildImportByIdPath(importId, expand));
 
     /// <summary>
     /// Creates a specific import id or executes an existing import id.
@@ -107,10 +131,22 @@ public sealed class ImporterClient : GeoServerClientBase
         => SendAsync<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks?expand={Encode(expand)}", cancellationToken: cancellationToken);
 
     /// <summary>
+    /// Lists tasks for an import using typed importer models.
+    /// </summary>
+    public Task<ImporterTasksResponse> GetTasksTypedAsync(string importId, string expand = "none", CancellationToken cancellationToken = default)
+        => SendAsync<ImporterTasksResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks?expand={Encode(expand)}", cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Lists tasks for an import (synchronous).
     /// </summary>
     public ImportsResponse GetTasks(string importId, string expand = "none")
         => Send<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks?expand={Encode(expand)}");
+
+    /// <summary>
+    /// Lists tasks for an import using typed importer models (synchronous).
+    /// </summary>
+    public ImporterTasksResponse GetTasksTyped(string importId, string expand = "none")
+        => Send<ImporterTasksResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks?expand={Encode(expand)}");
 
     /// <summary>
     /// Creates a task for an import.
@@ -131,10 +167,22 @@ public sealed class ImporterClient : GeoServerClientBase
         => SendAsync<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}?expand={Encode(expand)}", cancellationToken: cancellationToken);
 
     /// <summary>
+    /// Gets a task by id using typed importer models.
+    /// </summary>
+    public Task<ImporterTaskResponse> GetTaskTypedAsync(string importId, string taskId, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync<ImporterTaskResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}?expand={Encode(expand)}", cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Gets a task by id (synchronous).
     /// </summary>
     public ImportsResponse GetTask(string importId, string taskId, string expand = "self")
         => Send<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}?expand={Encode(expand)}");
+
+    /// <summary>
+    /// Gets a task by id using typed importer models (synchronous).
+    /// </summary>
+    public ImporterTaskResponse GetTaskTyped(string importId, string taskId, string expand = "self")
+        => Send<ImporterTaskResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}?expand={Encode(expand)}");
 
     /// <summary>
     /// Updates a task.
@@ -323,10 +371,22 @@ public sealed class ImporterClient : GeoServerClientBase
         => SendAsync<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}", cancellationToken: cancellationToken);
 
     /// <summary>
+    /// Lists transforms for an import task using typed importer models.
+    /// </summary>
+    public Task<ImporterTransformsResponse> GetTaskTransformsTypedAsync(string importId, string taskId, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync<ImporterTransformsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}", cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Lists transforms for an import task (synchronous).
     /// </summary>
     public ImportsResponse GetTaskTransforms(string importId, string taskId, string expand = "self")
         => Send<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}");
+
+    /// <summary>
+    /// Lists transforms for an import task using typed importer models (synchronous).
+    /// </summary>
+    public ImporterTransformsResponse GetTaskTransformsTyped(string importId, string taskId, string expand = "self")
+        => Send<ImporterTransformsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms?expand={Encode(expand)}");
 
     /// <summary>
     /// Creates a transform for an import task.
@@ -347,10 +407,22 @@ public sealed class ImporterClient : GeoServerClientBase
         => SendAsync<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}", cancellationToken: cancellationToken);
 
     /// <summary>
+    /// Gets a transform by id for an import task using typed importer models.
+    /// </summary>
+    public Task<ImporterTransformResponse> GetTaskTransformTypedAsync(string importId, string taskId, string transformId, string expand = "self", CancellationToken cancellationToken = default)
+        => SendAsync<ImporterTransformResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}", cancellationToken: cancellationToken);
+
+    /// <summary>
     /// Gets a transform by id for an import task (synchronous).
     /// </summary>
     public ImportsResponse GetTaskTransform(string importId, string taskId, string transformId, string expand = "self")
         => Send<ImportsResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}");
+
+    /// <summary>
+    /// Gets a transform by id for an import task using typed importer models (synchronous).
+    /// </summary>
+    public ImporterTransformResponse GetTaskTransformTyped(string importId, string taskId, string transformId, string expand = "self")
+        => Send<ImporterTransformResponse>(HttpMethod.Get, $"imports/{Encode(importId)}/tasks/{Encode(taskId)}/transforms/{Encode(transformId)}?expand={Encode(expand)}");
 
     /// <summary>
     /// Updates a transform by id for an import task.
