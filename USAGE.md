@@ -136,5 +136,7 @@ catch (GeoServerApiException ex)
 - Some endpoints require optional GeoServer extensions (for example Importer and GeoWebCache).
 - Async and sync methods are available for implemented operations.
 - See `README.md` for endpoint coverage and `IMPLEMENTATION_STATUS.md` for detailed status.
-- For local integration testing, start GeoServer with `docker compose up -d geoserver` before running `dotnet test` on the integration project.
+- For local integration testing, use `powershell -ExecutionPolicy Bypass -File .\scripts\run-integration.ps1` to start GeoServer, wait for readiness, run tests, and tear down automatically.
+- To print each test result, run `powershell -ExecutionPolicy Bypass -File .\scripts\run-integration.ps1 -DetailedTestOutput`.
 - You can also orchestrate GeoServer with Aspire using `dotnet run --project src\GeoServer.Net.AppHost\GeoServer.Net.AppHost.csproj`.
+
