@@ -11,6 +11,7 @@
 - Integration tests against a real GeoServer instance.
 - CI support for GitHub Actions and Bitbucket Pipelines.
 - NuGet-ready packaging configuration.
+- CI explicitly builds both `net10.0` and `net48` targets.
 
 ## Implemented Endpoints
 
