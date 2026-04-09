@@ -1,0 +1,28 @@
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using geoserver.net.Models.Fonts;
+
+namespace geoserver.net.Clients;
+
+/// <summary>
+/// Wrapper around GeoServer fonts endpoint.
+/// </summary>
+public sealed class FontsClient : GeoServerClientBase
+{
+    internal FontsClient(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
+    /// <summary>
+    /// Lists installed fonts.
+    /// </summary>
+    public Task<FontsResponse> GetAllAsync(CancellationToken cancellationToken = default)
+        => SendAsync<FontsResponse>(HttpMethod.Get, "fonts", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists installed fonts (synchronous).
+    /// </summary>
+    public FontsResponse GetAll()
+        => Send<FontsResponse>(HttpMethod.Get, "fonts");
+}

@@ -36,6 +36,9 @@
 - About endpoints (Manifest, Version, Status)
 - URL Checks endpoints
 - Resource endpoints (read metadata/content, HEAD, upload/update, delete)
+- Fonts endpoint
+- Templates endpoints (server/workspace/store/type/coverage scopes)
+- WFS transforms endpoints
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

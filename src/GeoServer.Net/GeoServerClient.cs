@@ -44,6 +44,9 @@ public sealed class GeoServerClient : IDisposable
         About = new AboutClient(_httpClient);
         UrlChecks = new UrlChecksClient(_httpClient);
         Resources = new ResourcesClient(_httpClient);
+        Fonts = new FontsClient(_httpClient);
+        Templates = new TemplatesClient(_httpClient);
+        Transforms = new TransformsClient(_httpClient);
     }
 
     /// <summary>
@@ -79,6 +82,9 @@ public sealed class GeoServerClient : IDisposable
         About = new AboutClient(_httpClient);
         UrlChecks = new UrlChecksClient(_httpClient);
         Resources = new ResourcesClient(_httpClient);
+        Fonts = new FontsClient(_httpClient);
+        Templates = new TemplatesClient(_httpClient);
+        Transforms = new TransformsClient(_httpClient);
     }
 
     /// <summary>
@@ -200,6 +206,21 @@ public sealed class GeoServerClient : IDisposable
     /// Data directory resource endpoints.
     /// </summary>
     public ResourcesClient Resources { get; }
+
+    /// <summary>
+    /// Fonts endpoints.
+    /// </summary>
+    public FontsClient Fonts { get; }
+
+    /// <summary>
+    /// Templates endpoints.
+    /// </summary>
+    public TemplatesClient Templates { get; }
+
+    /// <summary>
+    /// WFS transforms endpoints.
+    /// </summary>
+    public TransformsClient Transforms { get; }
 
     /// <inheritdoc />
     public void Dispose()
