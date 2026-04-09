@@ -32,6 +32,10 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
 
         var typedStatus = await client.About.GetStatusTypedAsync();
         Assert.NotNull(typedStatus.About);
+
+        var typedManifest = await client.About.GetManifestTypedAsync();
+        Assert.NotNull(typedManifest.About);
+        Assert.NotNull(typedManifest.About.Resources);
     }
 
     [Fact]
