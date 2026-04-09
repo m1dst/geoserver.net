@@ -146,6 +146,70 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     public void SeedLayer(string layerName, object seedRequest)
         => Send(HttpMethod.Post, $"/geoserver/gwc/rest/seed/{Encode(layerName)}.json", seedRequest);
 
+    /// <summary>
+    /// Gets mass truncate request capabilities as raw XML.
+    /// </summary>
+    public Task<string> GetMassTruncateCapabilitiesRawAsync(CancellationToken cancellationToken = default)
+        => SendRawAsync(HttpMethod.Get, "/geoserver/gwc/rest/masstruncate", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets mass truncate request capabilities as raw XML (synchronous).
+    /// </summary>
+    public string GetMassTruncateCapabilitiesRaw()
+        => SendRaw(HttpMethod.Get, "/geoserver/gwc/rest/masstruncate");
+
+    /// <summary>
+    /// Executes a mass truncate request.
+    /// </summary>
+    public Task MassTruncateAsync(string requestType, string? layer = null, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Post, BuildMassTruncatePath(requestType, layer), cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Executes a mass truncate request (synchronous).
+    /// </summary>
+    public void MassTruncate(string requestType, string? layer = null)
+        => Send(HttpMethod.Post, BuildMassTruncatePath(requestType, layer));
+
+    /// <summary>
+    /// Gets disk quota configuration.
+    /// </summary>
+    public Task<GwcDiskQuotaResponse> GetDiskQuotaAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcDiskQuotaResponse>(HttpMethod.Get, "/geoserver/gwc/rest/diskquota.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets disk quota configuration (synchronous).
+    /// </summary>
+    public GwcDiskQuotaResponse GetDiskQuota()
+        => Send<GwcDiskQuotaResponse>(HttpMethod.Get, "/geoserver/gwc/rest/diskquota.json");
+
+    /// <summary>
+    /// Updates disk quota configuration.
+    /// </summary>
+    public Task UpdateDiskQuotaAsync(object diskQuotaPayload, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Put, "/geoserver/gwc/rest/diskquota", diskQuotaPayload, cancellationToken);
+
+    /// <summary>
+    /// Updates disk quota configuration (synchronous).
+    /// </summary>
+    public void UpdateDiskQuota(object diskQuotaPayload)
+        => Send(HttpMethod.Put, "/geoserver/gwc/rest/diskquota", diskQuotaPayload);
+
+    private static string BuildMassTruncatePath(string requestType, string? layer)
+    {
+        if (string.IsNullOrWhiteSpace(requestType))
+        {
+            throw new System.ArgumentException("Value is required.", nameof(requestType));
+        }
+
+        var path = $"/geoserver/gwc/rest/masstruncate?requestType={System.Uri.EscapeDataString(requestType)}";
+        if (!string.IsNullOrWhiteSpace(layer))
+        {
+            path += $"&layer={System.Uri.EscapeDataString(layer)}";
+        }
+
+        return path;
+    }
+
     private static string Encode(string value)
     {
         if (string.IsNullOrWhiteSpace(value))

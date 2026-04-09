@@ -175,4 +175,87 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[5].Method);
         Assert.Equal(HttpMethod.Post, handler.Requests[6].Method);
     }
+
+    [Fact]
+    public async Task MassTruncateEndpointsAsync_UseExpectedRoutes()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json("<massTruncateRequests/>");
+            }
+
+            return TestHttpMessageHandler.NoContent();
+        });
+
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetMassTruncateCapabilitiesRawAsync();
+            await client.GeoWebCache.MassTruncateAsync("truncateLayer", "ws:roads");
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/masstruncate", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal("/geoserver/gwc/rest/masstruncate", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Contains("requestType=truncateLayer", handler.Requests[1].RequestUri!.Query);
+        Assert.Contains("layer=ws%3Aroads", handler.Requests[1].RequestUri!.Query);
+    }
+
+    [Fact]
+    public async Task DiskQuotaCrudAsync_UsesExpectedRoutesAndVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""org.geowebcache.diskquota.DiskQuotaConfig"":{}}");
+            }
+
+            return TestHttpMessageHandler.NoContent();
+        });
+
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetDiskQuotaAsync();
+            await client.GeoWebCache.UpdateDiskQuotaAsync(new { enabled = true, cacheCleanUpFrequency = 10 });
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/diskquota.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal("/geoserver/gwc/rest/diskquota", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Put, handler.Requests[1].Method);
+    }
+
+    [Fact]
+    public void MaintenanceSyncMethods_UseExpectedVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                if (request.RequestUri!.AbsolutePath.EndsWith("diskquota.json"))
+                {
+                    return TestHttpMessageHandler.Json(@"{""org.geowebcache.diskquota.DiskQuotaConfig"":{}}");
+                }
+
+                return TestHttpMessageHandler.Json("<massTruncateRequests/>");
+            }
+
+            return TestHttpMessageHandler.NoContent();
+        });
+
+        using (client)
+        {
+            _ = client.GeoWebCache.GetMassTruncateCapabilitiesRaw();
+            client.GeoWebCache.MassTruncate("truncateOrphans");
+            _ = client.GeoWebCache.GetDiskQuota();
+            client.GeoWebCache.UpdateDiskQuota(new { enabled = false });
+        }
+
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
+    }
 }

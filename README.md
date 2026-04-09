@@ -41,6 +41,7 @@
 - WFS transforms endpoints
 - GeoWebCache core endpoints (index, reload, global config)
 - GeoWebCache layer and seed endpoints
+- GeoWebCache mass truncate and disk quota endpoints
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

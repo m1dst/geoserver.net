@@ -186,6 +186,12 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetLayerSeedStatusAsync` / `GetLayerSeedStatus`
 - `SeedLayerAsync` / `SeedLayer`
 
+### GeoWebCache Maintenance
+- `GetMassTruncateCapabilitiesRawAsync` / `GetMassTruncateCapabilitiesRaw`
+- `MassTruncateAsync` / `MassTruncate`
+- `GetDiskQuotaAsync` / `GetDiskQuota`
+- `UpdateDiskQuotaAsync` / `UpdateDiskQuota`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -232,6 +238,6 @@ This file tracks what is implemented in the wrapper and what remains.
 ## Next Expansion Priorities
 
 1. Importer extension APIs.
-2. Expand GeoWebCache coverage (mass truncate/blobstores/gridsets/bounds/diskquota).
+2. Expand GeoWebCache coverage (blobstores/gridsets/bounds).
 3. Broaden integration tests to cover newer endpoint groups.
 4. Expand typed models for newer generic/raw endpoints.
