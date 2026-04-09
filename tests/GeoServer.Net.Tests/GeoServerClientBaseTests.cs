@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the GeoServerClientBaseTests type.
+/// </summary>
 public sealed class GeoServerClientBaseTests
 {
+    /// <summary>
+    /// Executes the ThrowsGeoServerApiException_OnErrorResponse operation.
+    /// </summary>
     [Fact]
     public async Task ThrowsGeoServerApiException_OnErrorResponse()
     {

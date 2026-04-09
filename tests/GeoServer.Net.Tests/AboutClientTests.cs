@@ -4,8 +4,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the AboutClientTests type.
+/// </summary>
 public sealed class AboutClientTests
 {
+    /// <summary>
+    /// Executes the GetManifestAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetManifestAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class AboutClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
     }
 
+    /// <summary>
+    /// Executes the GetManifestSync_WithQuery_AppendsQuery operation.
+    /// </summary>
     [Fact]
     public void GetManifestSync_WithQuery_AppendsQuery()
     {
@@ -31,6 +40,9 @@ public sealed class AboutClientTests
         Assert.Contains("key=GeoServerModule&value=core", handler.Requests[0].RequestUri!.Query);
     }
 
+    /// <summary>
+    /// Executes the GetVersionAndStatusAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GetVersionAndStatusAsync_UseExpectedRoutes()
     {
@@ -45,6 +57,9 @@ public sealed class AboutClientTests
         Assert.Equal("/geoserver/rest/about/status.json", handler.Requests[1].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the GetVersionAndStatusSync_UseGet operation.
+    /// </summary>
     [Fact]
     public void GetVersionAndStatusSync_UseGet()
     {
@@ -58,6 +73,9 @@ public sealed class AboutClientTests
         Assert.All(handler.Requests, request => Assert.Equal(HttpMethod.Get, request.Method));
     }
 
+    /// <summary>
+    /// Executes the TypedMethods_DeserializeResources operation.
+    /// </summary>
     [Fact]
     public async Task TypedMethods_DeserializeResources()
     {

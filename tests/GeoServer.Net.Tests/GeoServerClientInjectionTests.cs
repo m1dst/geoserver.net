@@ -8,8 +8,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the GeoServerClientInjectionTests type.
+/// </summary>
 public sealed class GeoServerClientInjectionTests
 {
+    /// <summary>
+    /// Executes the DoesNotDisposeExternalHttpClientByDefault operation.
+    /// </summary>
     [Fact]
     public void DoesNotDisposeExternalHttpClientByDefault()
     {
@@ -24,6 +30,9 @@ public sealed class GeoServerClientInjectionTests
         Assert.False(handler.IsDisposed);
     }
 
+    /// <summary>
+    /// Executes the DisposesExternalHttpClientWhenRequested operation.
+    /// </summary>
     [Fact]
     public void DisposesExternalHttpClientWhenRequested()
     {
@@ -38,6 +47,9 @@ public sealed class GeoServerClientInjectionTests
         Assert.True(handler.IsDisposed);
     }
 
+    /// <summary>
+    /// Executes the ExtensionMethodCreatesClient operation.
+    /// </summary>
     [Fact]
     public void ExtensionMethodCreatesClient()
     {
@@ -50,6 +62,9 @@ public sealed class GeoServerClientInjectionTests
 
     private sealed class DisposableProbeHandler : HttpMessageHandler
     {
+        /// <summary>
+        /// Gets or sets the IsDisposed value.
+        /// </summary>
         public bool IsDisposed { get; private set; }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

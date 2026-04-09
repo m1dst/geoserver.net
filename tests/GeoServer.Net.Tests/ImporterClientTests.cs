@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the ImporterClientTests type.
+/// </summary>
 public sealed class ImporterClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -23,6 +29,9 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
     }
 
+    /// <summary>
+    /// Executes the CreateAsync_UsesPostAndQueryParams operation.
+    /// </summary>
     [Fact]
     public async Task CreateAsync_UsesPostAndQueryParams()
     {
@@ -38,6 +47,9 @@ public sealed class ImporterClientTests
         Assert.Contains("async=true", handler.Requests[0].RequestUri!.Query);
     }
 
+    /// <summary>
+    /// Executes the ImportByIdCrudAsync_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task ImportByIdCrudAsync_UsesExpectedRoutesAndVerbs()
     {
@@ -68,6 +80,9 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[4].Method);
     }
 
+    /// <summary>
+    /// Executes the SyncMethods_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncMethods_UseExpectedVerbs()
     {
@@ -105,6 +120,9 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[8].Method);
     }
 
+    /// <summary>
+    /// Executes the TaskCrudAsync_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task TaskCrudAsync_UsesExpectedRoutesAndVerbs()
     {
@@ -145,6 +163,9 @@ public sealed class ImporterClientTests
         Assert.Equal("/geoserver/rest/imports/12/tasks/3/layer", handler.Requests[10].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the DataEndpointsAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task DataEndpointsAsync_UseExpectedRoutes()
     {
@@ -180,6 +201,9 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[7].Method);
     }
 
+    /// <summary>
+    /// Executes the TransformEndpointsAsync_UseExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task TransformEndpointsAsync_UseExpectedRoutesAndVerbs()
     {
@@ -213,6 +237,9 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
     }
 
+    /// <summary>
+    /// Executes the TransformEndpointsSync_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void TransformEndpointsSync_UseExpectedVerbs()
     {
@@ -246,6 +273,9 @@ public sealed class ImporterClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
     }
 
+    /// <summary>
+    /// Executes the UploadTaskFileAsync_UsesPutWithBinaryContent operation.
+    /// </summary>
     [Fact]
     public async Task UploadTaskFileAsync_UsesPutWithBinaryContent()
     {
@@ -261,6 +291,9 @@ public sealed class ImporterClientTests
         Assert.Equal("application/zip", request.Content!.Headers.ContentType!.MediaType);
     }
 
+    /// <summary>
+    /// Executes the CreateTaskFromUrlAsync_UsesFormUrlEncodedPost operation.
+    /// </summary>
     [Fact]
     public async Task CreateTaskFromUrlAsync_UsesFormUrlEncodedPost()
     {
@@ -276,6 +309,9 @@ public sealed class ImporterClientTests
         Assert.Equal("application/x-www-form-urlencoded", request.Content!.Headers.ContentType!.MediaType);
     }
 
+    /// <summary>
+    /// Executes the CreateTaskMultipartAsync_UsesMultipartFormDataPost operation.
+    /// </summary>
     [Fact]
     public async Task CreateTaskMultipartAsync_UsesMultipartFormDataPost()
     {
@@ -291,6 +327,9 @@ public sealed class ImporterClientTests
         Assert.StartsWith("multipart/form-data", request.Content!.Headers.ContentType!.MediaType);
     }
 
+    /// <summary>
+    /// Executes the CreateTaskMultipartSync_UsesPost operation.
+    /// </summary>
     [Fact]
     public void CreateTaskMultipartSync_UsesPost()
     {

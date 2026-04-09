@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the LayersClientTests type.
+/// </summary>
 public sealed class LayersClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetAll_Sync_Works operation.
+    /// </summary>
     [Fact]
     public void GetAll_Sync_Works()
     {
@@ -29,6 +38,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByNameAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetByNameAsync_UsesExpectedRoute()
     {
@@ -40,6 +52,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByName_Sync_ReturnsLayer operation.
+    /// </summary>
     [Fact]
     public void GetByName_Sync_ReturnsLayer()
     {
@@ -51,6 +66,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateAsync_UsesPut()
     {
@@ -62,6 +80,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Update_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void Update_Sync_UsesPut()
     {
@@ -73,6 +94,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteAsync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public async Task DeleteAsync_UsesDelete()
     {
@@ -86,6 +110,9 @@ public sealed class LayersClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Delete_Sync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public void Delete_Sync_UsesDelete()
     {

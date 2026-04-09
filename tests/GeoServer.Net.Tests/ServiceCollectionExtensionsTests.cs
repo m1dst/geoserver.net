@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the ServiceCollectionExtensionsTests type.
+/// </summary>
 public sealed class ServiceCollectionExtensionsTests
 {
+    /// <summary>
+    /// Executes the AddGeoServerClient_WithConfigureOptions_ResolvesClient operation.
+    /// </summary>
     [Fact]
     public void AddGeoServerClient_WithConfigureOptions_ResolvesClient()
     {
@@ -25,6 +31,9 @@ public sealed class ServiceCollectionExtensionsTests
         Assert.NotNull(client);
     }
 
+    /// <summary>
+    /// Executes the AddGeoServerClient_WithPrebuiltOptions_ResolvesClient operation.
+    /// </summary>
     [Fact]
     public void AddGeoServerClient_WithPrebuiltOptions_ResolvesClient()
     {
@@ -43,6 +52,9 @@ public sealed class ServiceCollectionExtensionsTests
         Assert.NotNull(client);
     }
 
+    /// <summary>
+    /// Executes the AddGeoServerClient_ThrowsWhenBaseUriMissing operation.
+    /// </summary>
     [Fact]
     public void AddGeoServerClient_ThrowsWhenBaseUriMissing()
     {

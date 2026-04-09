@@ -7,6 +7,9 @@ namespace geoserver.net;
 
 internal static class GeoServerHttpClient
 {
+    /// <summary>
+    /// Executes the Create operation.
+    /// </summary>
     public static HttpClient Create(GeoServerClientOptions options)
     {
         if (options is null)

@@ -7,8 +7,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the WorkspacesClientTests type.
+/// </summary>
 public sealed class WorkspacesClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -21,6 +27,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetAll_Sync_UsesExpectedVerb operation.
+    /// </summary>
     [Fact]
     public void GetAll_Sync_UsesExpectedVerb()
     {
@@ -32,6 +41,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByNameAsync_EncodesWorkspaceName operation.
+    /// </summary>
     [Fact]
     public async Task GetByNameAsync_EncodesWorkspaceName()
     {
@@ -43,6 +55,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByName_Sync_Works operation.
+    /// </summary>
     [Fact]
     public void GetByName_Sync_Works()
     {
@@ -54,6 +69,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the CreateAsync_PostsWorkspacePayload operation.
+    /// </summary>
     [Fact]
     public async Task CreateAsync_PostsWorkspacePayload()
     {
@@ -69,6 +87,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Create_Sync_PostsWorkspacePayload operation.
+    /// </summary>
     [Fact]
     public void Create_Sync_PostsWorkspacePayload()
     {
@@ -80,6 +101,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateAsync_UsesPut()
     {
@@ -91,6 +115,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Update_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void Update_Sync_UsesPut()
     {
@@ -102,6 +129,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteAsync_UsesDeleteWithRecurse operation.
+    /// </summary>
     [Fact]
     public async Task DeleteAsync_UsesDeleteWithRecurse()
     {
@@ -115,6 +145,9 @@ public sealed class WorkspacesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Delete_Sync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public void Delete_Sync_UsesDelete()
     {

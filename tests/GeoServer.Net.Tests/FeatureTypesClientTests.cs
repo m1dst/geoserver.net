@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the FeatureTypesClientTests type.
+/// </summary>
 public sealed class FeatureTypesClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetAll_Sync_Works operation.
+    /// </summary>
     [Fact]
     public void GetAll_Sync_Works()
     {
@@ -29,6 +38,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByNameAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetByNameAsync_UsesExpectedRoute()
     {
@@ -40,6 +52,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByName_Sync_ReturnsItem operation.
+    /// </summary>
     [Fact]
     public void GetByName_Sync_ReturnsItem()
     {
@@ -51,6 +66,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the CreateAsync_UsesPost operation.
+    /// </summary>
     [Fact]
     public async Task CreateAsync_UsesPost()
     {
@@ -62,6 +80,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Create_Sync_UsesPost operation.
+    /// </summary>
     [Fact]
     public void Create_Sync_UsesPost()
     {
@@ -73,6 +94,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateAsync_UsesPut()
     {
@@ -84,6 +108,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Update_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void Update_Sync_UsesPut()
     {
@@ -95,6 +122,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteAsync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public async Task DeleteAsync_UsesDelete()
     {
@@ -108,6 +138,9 @@ public sealed class FeatureTypesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Delete_Sync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public void Delete_Sync_UsesDelete()
     {

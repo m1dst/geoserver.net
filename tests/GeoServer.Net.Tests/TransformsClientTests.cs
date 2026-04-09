@@ -4,8 +4,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the TransformsClientTests type.
+/// </summary>
 public sealed class TransformsClientTests
 {
+    /// <summary>
+    /// Executes the GetEndpoints_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GetEndpoints_UseExpectedRoutes()
     {
@@ -20,6 +26,9 @@ public sealed class TransformsClientTests
         Assert.Equal("/geoserver/rest/services/wfs/transforms/t1.json", handler.Requests[1].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the CrudAsync_UsesExpectedVerbsAndRoutes operation.
+    /// </summary>
     [Fact]
     public async Task CrudAsync_UsesExpectedVerbsAndRoutes()
     {
@@ -40,6 +49,9 @@ public sealed class TransformsClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the CrudSync_UsesExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void CrudSync_UsesExpectedVerbs()
     {

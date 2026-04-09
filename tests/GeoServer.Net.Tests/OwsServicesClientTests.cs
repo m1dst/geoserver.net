@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the OwsServicesClientTests type.
+/// </summary>
 public sealed class OwsServicesClientTests
 {
+    /// <summary>
+    /// Executes the GetGlobalAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetGlobalAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class OwsServicesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetGlobal_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetGlobal_Sync_UsesGet()
     {
@@ -30,6 +39,9 @@ public sealed class OwsServicesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateGlobalAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateGlobalAsync_UsesPut()
     {
@@ -41,6 +53,9 @@ public sealed class OwsServicesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateGlobal_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void UpdateGlobal_Sync_UsesPut()
     {
@@ -52,6 +67,9 @@ public sealed class OwsServicesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the WorkspaceSettingsCrud_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task WorkspaceSettingsCrud_UsesExpectedRoutesAndVerbs()
     {
@@ -77,6 +95,9 @@ public sealed class OwsServicesClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[2].Method);
     }
 
+    /// <summary>
+    /// Executes the WorkspaceSettingsSyncCrud_UsesExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void WorkspaceSettingsSyncCrud_UsesExpectedVerbs()
     {
@@ -102,6 +123,9 @@ public sealed class OwsServicesClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[2].Method);
     }
 
+    /// <summary>
+    /// Executes the InvalidServiceType_Throws operation.
+    /// </summary>
     [Fact]
     public async Task InvalidServiceType_Throws()
     {

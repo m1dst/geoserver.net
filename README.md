@@ -195,3 +195,4 @@ dotnet pack src\GeoServer.Net\GeoServer.Net.csproj -c Release -o .\artifacts\pac
 
 - GeoServer REST documentation: <https://docs.geoserver.org/main/en/user/rest/>
 - This project follows phased endpoint expansion; phase progress is tracked in `IMPLEMENTATION_STATUS.md`.
+- XML documentation comments are included across public API surface and typed DTOs; targeted inline comments are used in complex test/control-flow sections.

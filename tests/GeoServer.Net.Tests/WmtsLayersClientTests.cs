@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the WmtsLayersClientTests type.
+/// </summary>
 public sealed class WmtsLayersClientTests
 {
+    /// <summary>
+    /// Executes the LayerOperationsAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task LayerOperationsAsync_UseExpectedRoutes()
     {

@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the UserGroupsClientTests type.
+/// </summary>
 public sealed class UserGroupsClientTests
 {
+    /// <summary>
+    /// Executes the GetUsersAndGroupsAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GetUsersAndGroupsAsync_UseExpectedRoutes()
     {
@@ -31,6 +37,9 @@ public sealed class UserGroupsClientTests
         Assert.Equal("/geoserver/rest/security/usergroup/groups", handler.Requests[1].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the UserAndGroupMutations_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public async Task UserAndGroupMutations_UseExpectedVerbs()
     {
@@ -55,6 +64,9 @@ public sealed class UserGroupsClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[6].Method);
     }
 
+    /// <summary>
+    /// Executes the SyncQueries_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncQueries_UseExpectedVerbs()
     {

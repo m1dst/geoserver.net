@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the StylesClientTests type.
+/// </summary>
 public sealed class StylesClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetAll_Sync_Works operation.
+    /// </summary>
     [Fact]
     public void GetAll_Sync_Works()
     {
@@ -29,6 +38,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByNameAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetByNameAsync_UsesExpectedRoute()
     {
@@ -40,6 +52,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByName_Sync_ReturnsStyle operation.
+    /// </summary>
     [Fact]
     public void GetByName_Sync_ReturnsStyle()
     {
@@ -51,6 +66,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the CreateAsync_UsesPost operation.
+    /// </summary>
     [Fact]
     public async Task CreateAsync_UsesPost()
     {
@@ -62,6 +80,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Create_Sync_UsesPost operation.
+    /// </summary>
     [Fact]
     public void Create_Sync_UsesPost()
     {
@@ -73,6 +94,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UploadSldAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UploadSldAsync_UsesPut()
     {
@@ -86,6 +110,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UploadSld_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void UploadSld_Sync_UsesPut()
     {
@@ -97,6 +124,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteAsync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public async Task DeleteAsync_UsesDelete()
     {
@@ -110,6 +140,9 @@ public sealed class StylesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Delete_Sync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public void Delete_Sync_UsesDelete()
     {

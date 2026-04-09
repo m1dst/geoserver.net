@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the ResourcesClientTests type.
+/// </summary>
 public sealed class ResourcesClientTests
 {
+    /// <summary>
+    /// Executes the GetRawAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetRawAsync_UsesExpectedRoute()
     {
@@ -20,6 +26,9 @@ public sealed class ResourcesClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests.Single().Method);
     }
 
+    /// <summary>
+    /// Executes the GetMetadataAsync_UsesMetadataQuery operation.
+    /// </summary>
     [Fact]
     public async Task GetMetadataAsync_UsesMetadataQuery()
     {
@@ -35,6 +44,9 @@ public sealed class ResourcesClientTests
         Assert.Contains("format=json", request.RequestUri.Query);
     }
 
+    /// <summary>
+    /// Executes the HeadAsync_UsesHead operation.
+    /// </summary>
     [Fact]
     public async Task HeadAsync_UsesHead()
     {
@@ -47,6 +59,9 @@ public sealed class ResourcesClientTests
         Assert.Equal(HttpMethod.Head, handler.Requests.Single().Method);
     }
 
+    /// <summary>
+    /// Executes the PutAsync_UsesPutAndMediaType operation.
+    /// </summary>
     [Fact]
     public async Task PutAsync_UsesPutAndMediaType()
     {
@@ -61,6 +76,9 @@ public sealed class ResourcesClientTests
         Assert.Equal("application/vnd.ogc.sld+xml", request.Content!.Headers.ContentType!.MediaType);
     }
 
+    /// <summary>
+    /// Executes the DeleteAsync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public async Task DeleteAsync_UsesDelete()
     {
@@ -74,6 +92,9 @@ public sealed class ResourcesClientTests
         Assert.Equal("/geoserver/rest/resource/styles/new.sld", handler.Requests.Single().RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the SyncMethods_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncMethods_UseExpectedVerbs()
     {

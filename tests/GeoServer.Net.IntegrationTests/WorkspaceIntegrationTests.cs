@@ -6,6 +6,9 @@ using Xunit;
 
 namespace GeoServer.Net.IntegrationTests;
 
+/// <summary>
+/// Represents the WorkspaceIntegrationTests type.
+/// </summary>
 public sealed class WorkspaceIntegrationTests : IClassFixture<GeoServerIntegrationFixture>
 {
     private readonly GeoServerIntegrationFixture _fixture;
@@ -15,6 +18,9 @@ public sealed class WorkspaceIntegrationTests : IClassFixture<GeoServerIntegrati
         _fixture = fixture;
     }
 
+    /// <summary>
+    /// Executes the WorkspaceCrud_WorksAgainstLiveServer operation.
+    /// </summary>
     [Fact]
     public async Task WorkspaceCrud_WorksAgainstLiveServer()
     {

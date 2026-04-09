@@ -4,8 +4,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the GeoWebCacheClientTests type.
+/// </summary>
 public sealed class GeoWebCacheClientTests
 {
+    /// <summary>
+    /// Executes the GetIndexRawAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetIndexRawAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
     }
 
+    /// <summary>
+    /// Executes the ReloadAsync_UsesPost operation.
+    /// </summary>
     [Fact]
     public async Task ReloadAsync_UsesPost()
     {
@@ -32,6 +41,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Post, handler.Requests[0].Method);
     }
 
+    /// <summary>
+    /// Executes the GlobalCrudAsync_UsesExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GlobalCrudAsync_UsesExpectedRoutes()
     {
@@ -57,6 +69,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Put, handler.Requests[1].Method);
     }
 
+    /// <summary>
+    /// Executes the SyncMethods_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncMethods_UseExpectedVerbs()
     {
@@ -84,6 +99,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the LayersCrudAsync_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task LayersCrudAsync_UsesExpectedRoutesAndVerbs()
     {
@@ -112,6 +130,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the SeedEndpointsAsync_UseExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task SeedEndpointsAsync_UseExpectedRoutesAndVerbs()
     {
@@ -138,6 +159,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal("/geoserver/gwc/rest/seed/ws%3Aroads.json", handler.Requests[2].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the LayerAndSeedSyncMethods_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void LayerAndSeedSyncMethods_UseExpectedVerbs()
     {
@@ -176,6 +200,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Post, handler.Requests[6].Method);
     }
 
+    /// <summary>
+    /// Executes the MassTruncateEndpointsAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task MassTruncateEndpointsAsync_UseExpectedRoutes()
     {
@@ -202,6 +229,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Contains("layer=ws%3Aroads", handler.Requests[1].RequestUri!.Query);
     }
 
+    /// <summary>
+    /// Executes the DiskQuotaCrudAsync_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task DiskQuotaCrudAsync_UsesExpectedRoutesAndVerbs()
     {
@@ -227,6 +257,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Put, handler.Requests[1].Method);
     }
 
+    /// <summary>
+    /// Executes the MaintenanceSyncMethods_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void MaintenanceSyncMethods_UseExpectedVerbs()
     {
@@ -259,6 +292,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the BlobStoresCrudAsync_UsesExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task BlobStoresCrudAsync_UsesExpectedRoutes()
     {
@@ -286,6 +322,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the GridSetsCrudAsync_UsesExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GridSetsCrudAsync_UsesExpectedRoutes()
     {
@@ -313,6 +352,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the BoundsEndpointsAsync_UseExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task BoundsEndpointsAsync_UseExpectedRoute()
     {
@@ -326,6 +368,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
     }
 
+    /// <summary>
+    /// Executes the AdvancedSyncMethods_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void AdvancedSyncMethods_UseExpectedVerbs()
     {
@@ -373,6 +418,9 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[8].Method);
     }
 
+    /// <summary>
+    /// Executes the TypedMethods_UseExpectedJsonRoutesAndDeserialize operation.
+    /// </summary>
     [Fact]
     public async Task TypedMethods_UseExpectedJsonRoutesAndDeserialize()
     {

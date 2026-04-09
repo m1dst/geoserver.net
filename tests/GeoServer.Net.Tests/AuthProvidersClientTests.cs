@@ -7,8 +7,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the AuthProvidersClientTests type.
+/// </summary>
 public sealed class AuthProvidersClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAndGetByNameAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAndGetByNameAsync_UseExpectedRoutes()
     {
@@ -23,6 +29,9 @@ public sealed class AuthProvidersClientTests
         Assert.Equal("/geoserver/rest/security/authproviders/default", handler.Requests[1].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the MutationsAsync_UseExpectedVerbsAndPositionQuery operation.
+    /// </summary>
     [Fact]
     public async Task MutationsAsync_UseExpectedVerbsAndPositionQuery()
     {
@@ -44,6 +53,9 @@ public sealed class AuthProvidersClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
     }
 
+    /// <summary>
+    /// Executes the SyncCalls_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncCalls_UseExpectedVerbs()
     {

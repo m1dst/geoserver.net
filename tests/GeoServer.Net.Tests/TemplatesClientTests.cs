@@ -4,8 +4,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the TemplatesClientTests type.
+/// </summary>
 public sealed class TemplatesClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_DefaultScope_UsesTemplatesRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_DefaultScope_UsesTemplatesRoute()
     {
@@ -19,6 +25,9 @@ public sealed class TemplatesClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
     }
 
+    /// <summary>
+    /// Executes the TemplateCrudAsync_UsesScopedRoute operation.
+    /// </summary>
     [Fact]
     public async Task TemplateCrudAsync_UsesScopedRoute()
     {
@@ -45,6 +54,9 @@ public sealed class TemplatesClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[2].Method);
     }
 
+    /// <summary>
+    /// Executes the TemplateCrudSync_UsesExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void TemplateCrudSync_UsesExpectedVerbs()
     {

@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the UrlChecksClientTests type.
+/// </summary>
 public sealed class UrlChecksClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -20,6 +26,9 @@ public sealed class UrlChecksClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests.Single().Method);
     }
 
+    /// <summary>
+    /// Executes the GetByNameAsync_EncodesNameInRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetByNameAsync_EncodesNameInRoute()
     {
@@ -32,6 +41,9 @@ public sealed class UrlChecksClientTests
         Assert.Equal("/geoserver/rest/urlchecks/my%20check.json", handler.Requests.Single().RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the CrudAsync_UsesExpectedVerbsAndRoutes operation.
+    /// </summary>
     [Fact]
     public async Task CrudAsync_UsesExpectedVerbsAndRoutes()
     {
@@ -51,6 +63,9 @@ public sealed class UrlChecksClientTests
         Assert.Equal("/geoserver/rest/urlchecks/check1", handler.Requests[2].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the CrudSync_UsesExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void CrudSync_UsesExpectedVerbs()
     {

@@ -6,6 +6,9 @@ namespace GeoServer.Net.Tests;
 
 internal static class GeoServerClientFactory
 {
+    /// <summary>
+    /// Executes the Create operation.
+    /// </summary>
     public static (GeoServerClient Client, TestHttpMessageHandler Handler) Create(Func<HttpRequestMessage, HttpResponseMessage> responder)
     {
         var handler = new TestHttpMessageHandler(responder);

@@ -7,8 +7,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the CoveragesClientTests type.
+/// </summary>
 public sealed class CoveragesClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -20,6 +26,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetAll_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetAll_Sync_UsesGet()
     {
@@ -31,6 +40,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByNameAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetByNameAsync_UsesExpectedRoute()
     {
@@ -42,6 +54,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetByName_Sync_ReturnsCoverage operation.
+    /// </summary>
     [Fact]
     public void GetByName_Sync_ReturnsCoverage()
     {
@@ -53,6 +68,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the CreateAsync_PostsCoveragePayload operation.
+    /// </summary>
     [Fact]
     public async Task CreateAsync_PostsCoveragePayload()
     {
@@ -67,6 +85,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Create_Sync_UsesPost operation.
+    /// </summary>
     [Fact]
     public void Create_Sync_UsesPost()
     {
@@ -78,6 +99,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateAsync_UsesPut()
     {
@@ -89,6 +113,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Update_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void Update_Sync_UsesPut()
     {
@@ -100,6 +127,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteAsync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public async Task DeleteAsync_UsesDelete()
     {
@@ -113,6 +143,9 @@ public sealed class CoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the Delete_Sync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public void Delete_Sync_UsesDelete()
     {

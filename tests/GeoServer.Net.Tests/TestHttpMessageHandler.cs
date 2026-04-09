@@ -16,6 +16,9 @@ internal sealed class TestHttpMessageHandler : HttpMessageHandler
         _responder = responder;
     }
 
+    /// <summary>
+    /// Gets or sets the Requests value.
+    /// </summary>
     public List<HttpRequestMessage> Requests { get; } = new();
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -24,12 +27,18 @@ internal sealed class TestHttpMessageHandler : HttpMessageHandler
         return Task.FromResult(_responder(request));
     }
 
+    /// <summary>
+    /// Executes the Json operation.
+    /// </summary>
     public static HttpResponseMessage Json(string json, HttpStatusCode statusCode = HttpStatusCode.OK)
         => new(statusCode)
         {
             Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json")
         };
 
+    /// <summary>
+    /// Executes the NoContent operation.
+    /// </summary>
     public static HttpResponseMessage NoContent(HttpStatusCode statusCode = HttpStatusCode.OK)
         => new(statusCode);
 }

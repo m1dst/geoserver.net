@@ -5,6 +5,10 @@ using Xunit;
 
 namespace GeoServer.Net.IntegrationTests;
 
+/// <summary>
+/// Read-only integration checks that validate core and optional extension endpoints
+/// against a live GeoServer instance.
+/// </summary>
 public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegrationFixture>
 {
     private readonly GeoServerIntegrationFixture _fixture;
@@ -16,6 +20,9 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         _fixture = fixture;
     }
 
+    /// <summary>
+    /// Executes the AboutEndpoints_ReturnMetadata operation.
+    /// </summary>
     [Fact]
     public async Task AboutEndpoints_ReturnMetadata()
     {
@@ -38,6 +45,9 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         Assert.NotNull(typedManifest.About.Resources);
     }
 
+    /// <summary>
+    /// Executes the GeoWebCacheCoreReadOnly_ReturnsDataOrSkipsIfUnavailable operation.
+    /// </summary>
     [Fact]
     public async Task GeoWebCacheCoreReadOnly_ReturnsDataOrSkipsIfUnavailable()
     {
@@ -62,6 +72,7 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
             var typedLayers = await client.GeoWebCache.GetLayersTypedAsync();
             Assert.NotNull(typedLayers.Layers);
 
+            // Some servers expose a single "name", others expose a "names" collection.
             var layerName = !string.IsNullOrWhiteSpace(typedLayers.Layers.Name)
                 ? typedLayers.Layers.Name
                 : typedLayers.Layers.Names.Count > 0 ? typedLayers.Layers.Names[0] : null;
@@ -74,6 +85,7 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
             var typedBlobStores = await client.GeoWebCache.GetBlobStoresTypedAsync();
             Assert.NotNull(typedBlobStores.BlobStores);
 
+            // Same normalization pattern for optional detail probes.
             var blobStoreName = !string.IsNullOrWhiteSpace(typedBlobStores.BlobStores.Name)
                 ? typedBlobStores.BlobStores.Name
                 : typedBlobStores.BlobStores.Names.Count > 0 ? typedBlobStores.BlobStores.Names[0] : null;
@@ -97,11 +109,15 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
+            // Optional extension: once unavailable, skip remaining probes in this run.
             _gwcUnavailable = true;
             return;
         }
     }
 
+    /// <summary>
+    /// Executes the ImporterReadOnly_ReturnsDataOrSkipsIfUnavailable operation.
+    /// </summary>
     [Fact]
     public async Task ImporterReadOnly_ReturnsDataOrSkipsIfUnavailable()
     {
@@ -129,11 +145,15 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
+            // Optional extension: once unavailable, skip remaining probes in this run.
             _importerUnavailable = true;
             return;
         }
     }
 
+    /// <summary>
+    /// Executes the MonitoringTypedReadOnly_ReturnsDataOrSkipsIfUnavailable operation.
+    /// </summary>
     [Fact]
     public async Task MonitoringTypedReadOnly_ReturnsDataOrSkipsIfUnavailable()
     {

@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the RolesClientTests type.
+/// </summary>
 public sealed class RolesClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -18,6 +24,9 @@ public sealed class RolesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetAll_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetAll_Sync_UsesGet()
     {
@@ -29,6 +38,9 @@ public sealed class RolesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UserAndGroupQueries_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task UserAndGroupQueries_UseExpectedRoutes()
     {
@@ -43,6 +55,9 @@ public sealed class RolesClientTests
         Assert.Equal("/geoserver/rest/security/roles/group/group1", handler.Requests[1].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the RoleMutations_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public async Task RoleMutations_UseExpectedVerbs()
     {
@@ -65,6 +80,9 @@ public sealed class RolesClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[5].Method);
     }
 
+    /// <summary>
+    /// Executes the SyncRoleMutations_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncRoleMutations_UseExpectedVerbs()
     {

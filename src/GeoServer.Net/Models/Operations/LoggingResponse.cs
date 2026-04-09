@@ -49,18 +49,33 @@ public sealed class LoggingResponse
 /// </summary>
 public sealed class LoggingConfigurationDto
 {
+    /// <summary>
+    /// Gets or sets the Level value.
+    /// </summary>
     [JsonProperty("level")]
     public string? Level { get; set; }
 
+    /// <summary>
+    /// Gets or sets the Location value.
+    /// </summary>
     [JsonProperty("location")]
     public string? Location { get; set; }
 
+    /// <summary>
+    /// Gets or sets the StdOutLogging value.
+    /// </summary>
     [JsonProperty("stdOutLogging")]
     public bool? StdOutLogging { get; set; }
 
+    /// <summary>
+    /// Gets or sets the JdbcLogging value.
+    /// </summary>
     [JsonProperty("jdbcLogging")]
     public bool? JdbcLogging { get; set; }
 
+    /// <summary>
+    /// Gets or sets the AdditionalData value.
+    /// </summary>
     [JsonExtensionData]
     public IDictionary<string, JToken> AdditionalData { get; set; } = new Dictionary<string, JToken>();
 }

@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace geoserver.net;
 
+/// <summary>
+/// Represents the GeoServerClientBase type.
+/// </summary>
 public abstract class GeoServerClientBase
 {
     private readonly HttpClient _httpClient;

@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the StructuredCoveragesClientTests type.
+/// </summary>
 public sealed class StructuredCoveragesClientTests
 {
+    /// <summary>
+    /// Executes the GetIndexAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetIndexAsync_UsesExpectedRoute()
     {
@@ -18,6 +24,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetIndex_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetIndex_Sync_UsesGet()
     {
@@ -29,6 +38,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetGranulesAsync_BuildsQuery operation.
+    /// </summary>
     [Fact]
     public async Task GetGranulesAsync_BuildsQuery()
     {
@@ -44,6 +56,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetGranules_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetGranules_Sync_UsesGet()
     {
@@ -55,6 +70,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteGranulesAsync_UsesDeleteWithParameters operation.
+    /// </summary>
     [Fact]
     public async Task DeleteGranulesAsync_UsesDeleteWithParameters()
     {
@@ -69,6 +87,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the DeleteGranules_Sync_UsesDelete operation.
+    /// </summary>
     [Fact]
     public void DeleteGranules_Sync_UsesDelete()
     {
@@ -80,6 +101,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetGranuleByIdAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetGranuleByIdAsync_UsesExpectedRoute()
     {
@@ -91,6 +115,9 @@ public sealed class StructuredCoveragesClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetGranuleById_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetGranuleById_Sync_UsesGet()
     {

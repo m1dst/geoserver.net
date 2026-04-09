@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the SettingsClientTests type.
+/// </summary>
 public sealed class SettingsClientTests
 {
+    /// <summary>
+    /// Executes the GetGlobalAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetGlobalAsync_UsesExpectedRoute()
     {
@@ -19,6 +25,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetGlobal_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetGlobal_Sync_UsesGet()
     {
@@ -30,6 +39,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateGlobalAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateGlobalAsync_UsesPut()
     {
@@ -41,6 +53,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateGlobal_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void UpdateGlobal_Sync_UsesPut()
     {
@@ -52,6 +67,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetContactAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetContactAsync_UsesExpectedRoute()
     {
@@ -63,6 +81,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the GetContact_Sync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetContact_Sync_UsesGet()
     {
@@ -74,6 +95,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateContactAsync_UsesPut operation.
+    /// </summary>
     [Fact]
     public async Task UpdateContactAsync_UsesPut()
     {
@@ -85,6 +109,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the UpdateContact_Sync_UsesPut operation.
+    /// </summary>
     [Fact]
     public void UpdateContact_Sync_UsesPut()
     {
@@ -96,6 +123,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the WorkspaceSettingsCrud_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task WorkspaceSettingsCrud_UsesExpectedRoutesAndVerbs()
     {
@@ -123,6 +153,9 @@ public sealed class SettingsClientTests
         }
     }
 
+    /// <summary>
+    /// Executes the WorkspaceSettingsSyncCrud_UsesExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void WorkspaceSettingsSyncCrud_UsesExpectedVerbs()
     {

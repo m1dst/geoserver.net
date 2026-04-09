@@ -6,8 +6,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the WmsStoresClientTests type.
+/// </summary>
 public sealed class WmsStoresClientTests
 {
+    /// <summary>
+    /// Executes the CrudAsync_UsesExpectedRoutesAndVerbs operation.
+    /// </summary>
     [Fact]
     public async Task CrudAsync_UsesExpectedRoutesAndVerbs()
     {

@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the FontsClientTests type.
+/// </summary>
 public sealed class FontsClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAsync_UsesExpectedRoute operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAsync_UsesExpectedRoute()
     {
@@ -20,6 +26,9 @@ public sealed class FontsClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests.Single().Method);
     }
 
+    /// <summary>
+    /// Executes the GetAllSync_UsesGet operation.
+    /// </summary>
     [Fact]
     public void GetAllSync_UsesGet()
     {

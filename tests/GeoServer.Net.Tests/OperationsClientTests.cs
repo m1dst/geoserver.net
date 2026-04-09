@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the OperationsClientTests type.
+/// </summary>
 public sealed class OperationsClientTests
 {
+    /// <summary>
+    /// Executes the ResetAndReloadAsync_UsePost operation.
+    /// </summary>
     [Fact]
     public async Task ResetAndReloadAsync_UsePost()
     {
@@ -22,6 +28,9 @@ public sealed class OperationsClientTests
         Assert.All(handler.Requests, r => Assert.Equal(HttpMethod.Post, r.Method));
     }
 
+    /// <summary>
+    /// Executes the LoggingCrudSync_UsesExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void LoggingCrudSync_UsesExpectedVerbs()
     {
@@ -48,6 +57,9 @@ public sealed class OperationsClientTests
         Assert.Equal(HttpMethod.Put, handler.Requests[1].Method);
     }
 
+    /// <summary>
+    /// Executes the MonitoringRawEndpoints_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task MonitoringRawEndpoints_UseExpectedRoutes()
     {
@@ -64,6 +76,9 @@ public sealed class OperationsClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[2].Method);
     }
 
+    /// <summary>
+    /// Executes the MonitoringTypedEndpoints_UseJsonRoutesAndDeserialize operation.
+    /// </summary>
     [Fact]
     public async Task MonitoringTypedEndpoints_UseJsonRoutesAndDeserialize()
     {

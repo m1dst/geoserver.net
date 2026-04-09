@@ -5,8 +5,14 @@ using Xunit;
 
 namespace GeoServer.Net.Tests;
 
+/// <summary>
+/// Represents the AuthFiltersClientTests type.
+/// </summary>
 public sealed class AuthFiltersClientTests
 {
+    /// <summary>
+    /// Executes the GetAllAndGetByNameAsync_UseExpectedRoutes operation.
+    /// </summary>
     [Fact]
     public async Task GetAllAndGetByNameAsync_UseExpectedRoutes()
     {
@@ -21,6 +27,9 @@ public sealed class AuthFiltersClientTests
         Assert.Equal("/geoserver/rest/security/authfilters/anonymous", handler.Requests[1].RequestUri!.AbsolutePath);
     }
 
+    /// <summary>
+    /// Executes the MutationsAsync_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public async Task MutationsAsync_UseExpectedVerbs()
     {
@@ -37,6 +46,9 @@ public sealed class AuthFiltersClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[2].Method);
     }
 
+    /// <summary>
+    /// Executes the SyncCalls_UseExpectedVerbs operation.
+    /// </summary>
     [Fact]
     public void SyncCalls_UseExpectedVerbs()
     {
