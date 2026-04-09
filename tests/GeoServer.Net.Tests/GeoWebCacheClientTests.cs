@@ -83,4 +83,96 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Get, handler.Requests[2].Method);
         Assert.Equal(HttpMethod.Put, handler.Requests[3].Method);
     }
+
+    [Fact]
+    public async Task LayersCrudAsync_UsesExpectedRoutesAndVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""layers"":{}}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetLayersAsync();
+            _ = await client.GeoWebCache.GetLayerAsync("ws:roads");
+            await client.GeoWebCache.PutLayerAsync("ws:roads", new { layer = new { enabled = true } });
+            await client.GeoWebCache.DeleteLayerAsync("ws:roads");
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/layers.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/layers/ws%3Aroads.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Put, handler.Requests[2].Method);
+        Assert.Equal("/geoserver/gwc/rest/layers/ws%3Aroads", handler.Requests[2].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
+    }
+
+    [Fact]
+    public async Task SeedEndpointsAsync_UseExpectedRoutesAndVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                return TestHttpMessageHandler.Json(@"{""long-array-array"":[]}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = await client.GeoWebCache.GetSeedStatusesAsync();
+            _ = await client.GeoWebCache.GetLayerSeedStatusAsync("ws:roads");
+            await client.GeoWebCache.SeedLayerAsync("ws:roads", new { seedRequest = new { name = "ws:roads", type = "seed" } });
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/seed.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/seed/ws%3Aroads.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Post, handler.Requests[2].Method);
+        Assert.Equal("/geoserver/gwc/rest/seed/ws%3Aroads.json", handler.Requests[2].RequestUri!.AbsolutePath);
+    }
+
+    [Fact]
+    public void LayerAndSeedSyncMethods_UseExpectedVerbs()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.Method == HttpMethod.Get)
+            {
+                if (request.RequestUri!.AbsolutePath.EndsWith("/seed.json"))
+                {
+                    return TestHttpMessageHandler.Json(@"{""long-array-array"":[]}");
+                }
+
+                return TestHttpMessageHandler.Json(@"{""layers"":{}}");
+            }
+
+            return TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created);
+        });
+
+        using (client)
+        {
+            _ = client.GeoWebCache.GetLayers();
+            _ = client.GeoWebCache.GetLayer("ws:roads");
+            client.GeoWebCache.PutLayer("ws:roads", new { layer = new { enabled = true } });
+            client.GeoWebCache.DeleteLayer("ws:roads");
+            _ = client.GeoWebCache.GetSeedStatuses();
+            _ = client.GeoWebCache.GetLayerSeedStatus("ws:roads");
+            client.GeoWebCache.SeedLayer("ws:roads", new { seedRequest = new { name = "ws:roads", type = "seed" } });
+        }
+
+        Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[1].Method);
+        Assert.Equal(HttpMethod.Put, handler.Requests[2].Method);
+        Assert.Equal(HttpMethod.Delete, handler.Requests[3].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[4].Method);
+        Assert.Equal(HttpMethod.Get, handler.Requests[5].Method);
+        Assert.Equal(HttpMethod.Post, handler.Requests[6].Method);
+    }
 }
