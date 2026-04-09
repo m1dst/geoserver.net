@@ -195,6 +195,21 @@ Health and endpoint check:
 curl -u admin:geoserver http://localhost:8080/geoserver/rest/about/status.json
 ```
 
+## Running GeoServer with Aspire (optional)
+
+```bash
+dotnet run --project src\GeoServer.Net.AppHost\GeoServer.Net.AppHost.csproj
+```
+
+Then run integration tests in a separate shell:
+
+```bash
+set GEOSERVER_BASE_URL=http://localhost:8080/geoserver/rest/
+set GEOSERVER_USERNAME=admin
+set GEOSERVER_PASSWORD=geoserver
+dotnet test tests\GeoServer.Net.IntegrationTests\GeoServer.Net.IntegrationTests.csproj
+```
+
 ## Packaging
 
 ```bash

@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/GeoServer.Net.AppHost/GeoServer.Net.AppHost.csproj" />
     <Project Path="src/GeoServer.Net/GeoServer.Net.csproj" />
   </Folder>
   <Folder Name="/tests/">

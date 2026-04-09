@@ -137,3 +137,4 @@ catch (GeoServerApiException ex)
 - Async and sync methods are available for implemented operations.
 - See `README.md` for endpoint coverage and `IMPLEMENTATION_STATUS.md` for detailed status.
 - For local integration testing, start GeoServer with `docker compose up -d geoserver` before running `dotnet test` on the integration project.
+- You can also orchestrate GeoServer with Aspire using `dotnet run --project src\GeoServer.Net.AppHost\GeoServer.Net.AppHost.csproj`.
