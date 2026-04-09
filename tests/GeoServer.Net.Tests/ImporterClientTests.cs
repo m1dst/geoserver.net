@@ -256,4 +256,31 @@ public sealed class ImporterClientTests
         Assert.Equal("/geoserver/rest/imports/12/tasks", request.RequestUri!.AbsolutePath);
         Assert.Equal("application/x-www-form-urlencoded", request.Content!.Headers.ContentType!.MediaType);
     }
+
+    [Fact]
+    public async Task CreateTaskMultipartAsync_UsesMultipartFormDataPost()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created));
+        using (client)
+        {
+            await client.Importer.CreateTaskMultipartAsync("12", "roads.zip", Encoding.UTF8.GetBytes("abc"), mediaType: "application/zip");
+        }
+
+        var request = handler.Requests[0];
+        Assert.Equal(HttpMethod.Post, request.Method);
+        Assert.Equal("/geoserver/rest/imports/12/tasks", request.RequestUri!.AbsolutePath);
+        Assert.StartsWith("multipart/form-data", request.Content!.Headers.ContentType!.MediaType);
+    }
+
+    [Fact]
+    public void CreateTaskMultipartSync_UsesPost()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent(System.Net.HttpStatusCode.Created));
+        using (client)
+        {
+            client.Importer.CreateTaskMultipart("12", "roads.zip", Encoding.UTF8.GetBytes("abc"));
+        }
+
+        Assert.Equal(HttpMethod.Post, handler.Requests[0].Method);
+    }
 }

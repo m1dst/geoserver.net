@@ -242,6 +242,7 @@ This file tracks what is implemented in the wrapper and what remains.
 ### Importer Upload Helpers
 - `UploadTaskFileAsync` / `UploadTaskFile`
 - `CreateTaskFromUrlAsync` / `CreateTaskFromUrl`
+- `CreateTaskMultipartAsync` / `CreateTaskMultipart`
 
 ### Feature Types
 - `GetAllAsync` / `GetAll`
@@ -294,6 +295,6 @@ This file tracks what is implemented in the wrapper and what remains.
 ## Next Expansion Priorities
 
 1. Expand typed models for newer generic/raw endpoints.
-2. Add multipart/form-data task upload helpers.
-3. Add selective integration smoke tests for optional extension detection.
-4. Add optional-extension aware integration checks for more endpoint groups.
+2. Add selective integration smoke tests for optional extension detection.
+3. Add optional-extension aware integration checks for more endpoint groups.
+4. Expand importer integration coverage beyond read-only checks.

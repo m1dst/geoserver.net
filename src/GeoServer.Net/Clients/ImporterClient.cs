@@ -449,6 +449,55 @@ public sealed class ImporterClient : GeoServerClientBase
     public void CreateTaskFromUrl(string importId, string fileUrl, string expand = "none")
         => CreateTaskFromUrlAsync(importId, fileUrl, expand).GetAwaiter().GetResult();
 
+    /// <summary>
+    /// Creates task(s) by posting multipart/form-data to imports/{importId}/tasks.
+    /// </summary>
+    public async Task CreateTaskMultipartAsync(
+        string importId,
+        string fileName,
+        byte[] fileBytes,
+        string formFieldName = "filedata",
+        string mediaType = "application/octet-stream",
+        string expand = "none",
+        CancellationToken cancellationToken = default)
+    {
+        if (fileBytes is null)
+        {
+            throw new ArgumentNullException(nameof(fileBytes));
+        }
+
+        using var multipart = new MultipartFormDataContent();
+        var fileContent = new ByteArrayContent(fileBytes);
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(mediaType);
+        multipart.Add(fileContent, formFieldName, fileName ?? throw new ArgumentNullException(nameof(fileName)));
+
+        var request = new HttpRequestMessage(HttpMethod.Post, $"imports/{Encode(importId)}/tasks?expand={Encode(expand)}")
+        {
+            Content = multipart
+        };
+
+        using var response = await HttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        var content = response.Content is null
+            ? string.Empty
+            : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new GeoServerApiException(response.StatusCode, content, $"GeoServer REST call failed for '{request.RequestUri}'.");
+        }
+    }
+
+    /// <summary>
+    /// Creates task(s) by posting multipart/form-data (synchronous).
+    /// </summary>
+    public void CreateTaskMultipart(
+        string importId,
+        string fileName,
+        byte[] fileBytes,
+        string formFieldName = "filedata",
+        string mediaType = "application/octet-stream",
+        string expand = "none")
+        => CreateTaskMultipartAsync(importId, fileName, fileBytes, formFieldName, mediaType, expand).GetAwaiter().GetResult();
+
     private static string BuildImportsPath(string expand)
         => $"imports?expand={Encode(expand)}";
 

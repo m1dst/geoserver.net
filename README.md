@@ -48,6 +48,7 @@
 - Importer extension task and data endpoints
 - Importer extension transform endpoints
 - Importer upload helpers (raw file upload + URL task creation)
+- Importer multipart/form-data upload helper
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 
