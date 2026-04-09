@@ -32,19 +32,14 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<GeoServerClient>((serviceProvider, httpClient) =>
         {
             var options = serviceProvider.GetRequiredService<IOptions<GeoServerClientOptions>>().Value;
-            if (options.BaseUri is null)
+            try
             {
-                throw new InvalidOperationException("GeoServerClientOptions.BaseUri must be configured.");
+                GeoServerHttpClient.ApplyOptions(httpClient, options);
             }
-
-            httpClient.BaseAddress = EnsureTrailingSlash(options.BaseUri);
-            httpClient.Timeout = options.Timeout;
-
-            var authBytes = System.Text.Encoding.UTF8.GetBytes($"{options.Username}:{options.Password}");
-            httpClient.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(authBytes));
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            catch (ArgumentException ex) when (ex.ParamName == nameof(options))
+            {
+                throw new InvalidOperationException("GeoServerClientOptions.BaseUri must be configured.", ex);
+            }
         });
 
         return services;
@@ -73,14 +68,4 @@ public static class ServiceCollectionExtensions
         });
     }
 
-    private static Uri EnsureTrailingSlash(Uri uri)
-    {
-        var text = uri.ToString();
-        if (!text.EndsWith("/", StringComparison.Ordinal))
-        {
-            text += "/";
-        }
-
-        return new Uri(text, UriKind.Absolute);
-    }
 }

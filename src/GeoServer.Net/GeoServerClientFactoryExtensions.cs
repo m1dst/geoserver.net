@@ -15,4 +15,24 @@ public static class GeoServerClientFactoryExtensions
     /// <param name="disposeHttpClient">True to dispose the provided instance when the wrapper is disposed.</param>
     public static GeoServerClient CreateGeoServerClient(this HttpClient httpClient, bool disposeHttpClient = false)
         => new(httpClient ?? throw new ArgumentNullException(nameof(httpClient)), disposeHttpClient);
+
+    /// <summary>
+    /// Creates a <see cref="GeoServerClient"/> from an existing <see cref="HttpClient"/> and applies options.
+    /// </summary>
+    /// <param name="httpClient">Reusable client (for example from IHttpClientFactory).</param>
+    /// <param name="options">GeoServer options to apply (base URI, timeout, auth headers).</param>
+    /// <param name="disposeHttpClient">True to dispose the provided instance when the wrapper is disposed.</param>
+    public static GeoServerClient CreateGeoServerClient(
+        this HttpClient httpClient,
+        GeoServerClientOptions options,
+        bool disposeHttpClient = false)
+    {
+        if (httpClient is null)
+        {
+            throw new ArgumentNullException(nameof(httpClient));
+        }
+
+        GeoServerHttpClient.ApplyOptions(httpClient, options);
+        return new GeoServerClient(httpClient, disposeHttpClient);
+    }
 }

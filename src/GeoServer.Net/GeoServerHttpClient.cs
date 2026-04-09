@@ -28,11 +28,40 @@ internal static class GeoServerHttpClient
             Timeout = options.Timeout
         };
 
+        ApplyOptions(httpClient, options);
+        return httpClient;
+    }
+
+    /// <summary>
+    /// Applies <see cref="GeoServerClientOptions"/> to an existing client.
+    /// </summary>
+    /// <param name="httpClient">Existing reusable HTTP client.</param>
+    /// <param name="options">GeoServer client options.</param>
+    public static void ApplyOptions(HttpClient httpClient, GeoServerClientOptions options)
+    {
+        if (httpClient is null)
+        {
+            throw new ArgumentNullException(nameof(httpClient));
+        }
+
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (options.BaseUri is null)
+        {
+            throw new ArgumentException("BaseUri is required.", nameof(options));
+        }
+
+        httpClient.BaseAddress = EnsureTrailingSlash(options.BaseUri);
+        httpClient.Timeout = options.Timeout;
+
         var authBytes = Encoding.UTF8.GetBytes($"{options.Username}:{options.Password}");
         httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authBytes));
+        httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        return httpClient;
     }
 
     private static Uri EnsureTrailingSlash(Uri uri)

@@ -1,6 +1,8 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using geoserver.net;
@@ -58,6 +60,33 @@ public sealed class GeoServerClientInjectionTests
         using var client = httpClient.CreateGeoServerClient();
         _ = client.Workspaces.GetAll();
         Assert.Single(handler.Requests);
+    }
+
+    /// <summary>
+    /// Executes the ExtensionMethodWithOptions_AppliesOptionsToInjectedHttpClient operation.
+    /// </summary>
+    [Fact]
+    public void ExtensionMethodWithOptions_AppliesOptionsToInjectedHttpClient()
+    {
+        var handler = new TestHttpMessageHandler(_ => TestHttpMessageHandler.Json(@"{""workspaces"":{""workspace"":[]}}"));
+        var httpClient = new HttpClient(handler);
+        var options = new GeoServerClientOptions
+        {
+            BaseUri = new Uri("http://localhost:8080/geoserver/rest"),
+            Username = "admin",
+            Password = "geoserver",
+            Timeout = TimeSpan.FromSeconds(45)
+        };
+
+        using var client = httpClient.CreateGeoServerClient(options);
+        _ = client.Workspaces.GetAll();
+
+        Assert.Single(handler.Requests);
+        Assert.Equal("http://localhost:8080/geoserver/rest/workspaces.json", handler.Requests[0].RequestUri!.AbsoluteUri);
+
+        var expected = Convert.ToBase64String(Encoding.UTF8.GetBytes("admin:geoserver"));
+        Assert.Equal(new AuthenticationHeaderValue("Basic", expected), handler.Requests[0].Headers.Authorization);
+        Assert.Equal(TimeSpan.FromSeconds(45), httpClient.Timeout);
     }
 
     private sealed class DisposableProbeHandler : HttpMessageHandler

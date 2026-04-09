@@ -56,6 +56,7 @@
 - Typed logging response model with backward-compatible `Logging` alias
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
+For a focused setup and code walkthrough, see `USAGE.md`.
 
 ## Install
 
@@ -87,17 +88,20 @@ client.Workspaces.Delete("demo");
 
 ## Reusing Your Own HttpClient (ASP.NET / DI)
 
-Use your own `HttpClient` (for example from `IHttpClientFactory`) so connections are pooled and reused:
+Use your own `HttpClient` (for example from `IHttpClientFactory`) so connections are pooled and reused.
+If you still want to use `GeoServerClientOptions` for auth/base URL/timeout, use the options overload:
 
 ```csharp
 using geoserver.net;
+var options = new GeoServerClientOptions
+{
+    BaseUri = new Uri("https://example.com/geoserver/rest/"),
+    Username = "admin",
+    Password = "geoserver"
+};
 
 // httpClient comes from IHttpClientFactory / DI
-httpClient.BaseAddress = new Uri("https://example.com/geoserver/rest/");
-httpClient.DefaultRequestHeaders.Authorization =
-    new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "<base64-user-pass>");
-
-using var geo = new GeoServerClient(httpClient); // does NOT dispose external HttpClient by default
+using var geo = httpClient.CreateGeoServerClient(options); // options applied automatically
 var layers = await geo.Layers.GetAllAsync();
 ```
 
