@@ -118,6 +118,43 @@ services.AddGeoServerClient(options =>
 });
 ```
 
+## Typed API Examples
+
+```csharp
+using var client = new GeoServerClient(options);
+
+// About (typed)
+var about = await client.About.GetManifestTypedAsync();
+foreach (var resource in about.About.Resources)
+{
+    Console.WriteLine($"{resource.Name} ({resource.Version})");
+}
+
+// Importer (typed)
+var imports = await client.Importer.GetAllTypedAsync();
+if (imports.Imports.Count > 0 && !string.IsNullOrWhiteSpace(imports.Imports[0].Id))
+{
+    var importDetail = await client.Importer.GetByIdTypedAsync(imports.Imports[0].Id!);
+    Console.WriteLine(importDetail.Import.State);
+}
+
+// GeoWebCache (typed)
+var gridSets = await client.GeoWebCache.GetGridSetsTypedAsync();
+if (gridSets.GridSets.Names.Count > 0)
+{
+    var gridSet = await client.GeoWebCache.GetGridSetTypedAsync(gridSets.GridSets.Names[0]);
+    Console.WriteLine(gridSet.GridSets.Name);
+}
+
+// Monitoring (typed)
+var requests = await client.Operations.GetMonitoringRequestsTypedAsync("list=0&max=1");
+if (requests.Requests.Count > 0 && !string.IsNullOrWhiteSpace(requests.Requests[0].Id))
+{
+    var request = await client.Operations.GetMonitoringRequestTypedAsync(requests.Requests[0].Id!);
+    Console.WriteLine($"{request.Request.Method} {request.Request.Path}");
+}
+```
+
 ## Running Tests
 
 Unit tests:
