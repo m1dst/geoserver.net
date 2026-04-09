@@ -212,6 +212,18 @@ This file tracks what is implemented in the wrapper and what remains.
 - `DeleteGridSetAsync` / `DeleteGridSet`
 - `GetBoundsRawAsync` / `GetBoundsRaw`
 
+### GeoWebCache Typed Methods
+- `GetGlobalTypedAsync` / `GetGlobalTyped`
+- `GetLayersTypedAsync` / `GetLayersTyped`
+- `GetLayerTypedAsync` / `GetLayerTyped`
+- `GetSeedStatusesTypedAsync` / `GetSeedStatusesTyped`
+- `GetLayerSeedStatusTypedAsync` / `GetLayerSeedStatusTyped`
+- `GetDiskQuotaTypedAsync` / `GetDiskQuotaTyped`
+- `GetBlobStoresTypedAsync` / `GetBlobStoresTyped`
+- `GetBlobStoreTypedAsync` / `GetBlobStoreTyped`
+- `GetGridSetsTypedAsync` / `GetGridSetsTyped`
+- `GetGridSetTypedAsync` / `GetGridSetTyped`
+
 ### Importer Core
 - `GetAllAsync` / `GetAll`
 - `CreateAsync` / `Create`

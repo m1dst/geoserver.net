@@ -372,4 +372,91 @@ public sealed class GeoWebCacheClientTests
         Assert.Equal(HttpMethod.Delete, handler.Requests[7].Method);
         Assert.Equal(HttpMethod.Get, handler.Requests[8].Method);
     }
+
+    [Fact]
+    public async Task TypedMethods_UseExpectedJsonRoutesAndDeserialize()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            var path = request.RequestUri!.AbsolutePath;
+            if (path.EndsWith("/global.json"))
+            {
+                return TestHttpMessageHandler.Json(@"{""global"":{""enabled"":true}}");
+            }
+
+            if (path.EndsWith("/layers.json"))
+            {
+                return TestHttpMessageHandler.Json(@"{""layers"":{""name"":""ws:roads""}}");
+            }
+
+            if (path.Contains("/layers/"))
+            {
+                return TestHttpMessageHandler.Json(@"{""layers"":{""name"":""ws:roads""}}");
+            }
+
+            if (path.Contains("/seed/") || path.EndsWith("/seed.json"))
+            {
+                return TestHttpMessageHandler.Json(@"{""long-array-array"":[[1,2,3]]}");
+            }
+
+            if (path.EndsWith("/diskquota.json"))
+            {
+                return TestHttpMessageHandler.Json(@"{""org.geowebcache.diskquota.DiskQuotaConfig"":{""enabled"":true}}");
+            }
+
+            if (path.Contains("/blobstores/"))
+            {
+                return TestHttpMessageHandler.Json(@"{""blobStores"":{""name"":""defaultCache""}}");
+            }
+
+            if (path.EndsWith("/blobstores.json"))
+            {
+                return TestHttpMessageHandler.Json(@"{""blobStores"":{""names"":[""defaultCache""]}}");
+            }
+
+            if (path.Contains("/gridsets/"))
+            {
+                return TestHttpMessageHandler.Json(@"{""gridSets"":{""name"":""EPSG:4326""}}");
+            }
+
+            return TestHttpMessageHandler.Json(@"{""gridSets"":{""names"":[""EPSG:4326""]}}");
+        });
+
+        using (client)
+        {
+            var global = await client.GeoWebCache.GetGlobalTypedAsync();
+            var layers = client.GeoWebCache.GetLayersTyped();
+            var layer = await client.GeoWebCache.GetLayerTypedAsync("ws:roads");
+            var seedStatuses = client.GeoWebCache.GetSeedStatusesTyped();
+            var layerSeedStatus = await client.GeoWebCache.GetLayerSeedStatusTypedAsync("ws:roads");
+            var diskQuota = await client.GeoWebCache.GetDiskQuotaTypedAsync();
+            var blobStores = client.GeoWebCache.GetBlobStoresTyped();
+            var blobStore = await client.GeoWebCache.GetBlobStoreTypedAsync("defaultCache");
+            var gridSets = await client.GeoWebCache.GetGridSetsTypedAsync();
+            var gridSet = client.GeoWebCache.GetGridSetTyped("EPSG:4326");
+
+            Assert.True(global.Global.Enabled);
+            Assert.Equal("ws:roads", layers.Layers.Name);
+            Assert.Equal("ws:roads", layer.Layers.Name);
+            Assert.Single(seedStatuses.LongArrayArray);
+            Assert.Single(layerSeedStatus.LongArrayArray);
+            Assert.True(diskQuota.DiskQuotaConfig.Enabled);
+            Assert.Single(blobStores.BlobStores.Names);
+            Assert.Equal("defaultCache", blobStore.BlobStores.Name);
+            Assert.Single(gridSets.GridSets.Names);
+            Assert.Equal("EPSG:4326", gridSet.GridSets.Name);
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/global.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/layers.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/layers/ws%3Aroads.json", handler.Requests[2].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/seed.json", handler.Requests[3].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/seed/ws%3Aroads.json", handler.Requests[4].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/diskquota.json", handler.Requests[5].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/blobstores.json", handler.Requests[6].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/blobstores/defaultCache.json", handler.Requests[7].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/gridsets.json", handler.Requests[8].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/gwc/rest/gridsets/EPSG%3A4326.json", handler.Requests[9].RequestUri!.AbsolutePath);
+        Assert.All(handler.Requests, request => Assert.Equal(HttpMethod.Get, request.Method));
+    }
 }

@@ -51,6 +51,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         => Send<GwcGlobalResponse>(HttpMethod.Get, "/geoserver/gwc/rest/global.json");
 
     /// <summary>
+    /// Gets GeoWebCache global configuration as typed payload.
+    /// </summary>
+    public Task<GwcGlobalTypedResponse> GetGlobalTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcGlobalTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/global.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets GeoWebCache global configuration as typed payload (synchronous).
+    /// </summary>
+    public GwcGlobalTypedResponse GetGlobalTyped()
+        => Send<GwcGlobalTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/global.json");
+
+    /// <summary>
     /// Updates GeoWebCache global configuration.
     /// </summary>
     public Task UpdateGlobalAsync(object globalPayload, CancellationToken cancellationToken = default)
@@ -75,6 +87,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         => Send<GwcLayersResponse>(HttpMethod.Get, "/geoserver/gwc/rest/layers.json");
 
     /// <summary>
+    /// Lists cached layers as typed payload.
+    /// </summary>
+    public Task<GwcLayersTypedResponse> GetLayersTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcLayersTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/layers.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists cached layers as typed payload (synchronous).
+    /// </summary>
+    public GwcLayersTypedResponse GetLayersTyped()
+        => Send<GwcLayersTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/layers.json");
+
+    /// <summary>
     /// Gets one cached layer definition.
     /// </summary>
     public Task<GwcLayersResponse> GetLayerAsync(string layerName, CancellationToken cancellationToken = default)
@@ -85,6 +109,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     /// </summary>
     public GwcLayersResponse GetLayer(string layerName)
         => Send<GwcLayersResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/layers/{Encode(layerName)}.json");
+
+    /// <summary>
+    /// Gets one cached layer definition as typed payload.
+    /// </summary>
+    public Task<GwcLayersTypedResponse> GetLayerTypedAsync(string layerName, CancellationToken cancellationToken = default)
+        => SendAsync<GwcLayersTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/layers/{Encode(layerName)}.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets one cached layer definition as typed payload (synchronous).
+    /// </summary>
+    public GwcLayersTypedResponse GetLayerTyped(string layerName)
+        => Send<GwcLayersTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/layers/{Encode(layerName)}.json");
 
     /// <summary>
     /// Creates or updates a cached layer.
@@ -123,6 +159,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         => Send<GwcSeedStatusResponse>(HttpMethod.Get, "/geoserver/gwc/rest/seed.json");
 
     /// <summary>
+    /// Gets statuses for running seeding tasks as typed payload.
+    /// </summary>
+    public Task<GwcSeedStatusTypedResponse> GetSeedStatusesTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcSeedStatusTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/seed.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets statuses for running seeding tasks as typed payload (synchronous).
+    /// </summary>
+    public GwcSeedStatusTypedResponse GetSeedStatusesTyped()
+        => Send<GwcSeedStatusTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/seed.json");
+
+    /// <summary>
     /// Gets running seeding status for a specific layer.
     /// </summary>
     public Task<GwcSeedStatusResponse> GetLayerSeedStatusAsync(string layerName, CancellationToken cancellationToken = default)
@@ -133,6 +181,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     /// </summary>
     public GwcSeedStatusResponse GetLayerSeedStatus(string layerName)
         => Send<GwcSeedStatusResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/seed/{Encode(layerName)}.json");
+
+    /// <summary>
+    /// Gets running seeding status for a specific layer as typed payload.
+    /// </summary>
+    public Task<GwcSeedStatusTypedResponse> GetLayerSeedStatusTypedAsync(string layerName, CancellationToken cancellationToken = default)
+        => SendAsync<GwcSeedStatusTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/seed/{Encode(layerName)}.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets running seeding status for a specific layer as typed payload (synchronous).
+    /// </summary>
+    public GwcSeedStatusTypedResponse GetLayerSeedStatusTyped(string layerName)
+        => Send<GwcSeedStatusTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/seed/{Encode(layerName)}.json");
 
     /// <summary>
     /// Submits a seed/reseed/truncate request for a layer.
@@ -183,6 +243,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         => Send<GwcDiskQuotaResponse>(HttpMethod.Get, "/geoserver/gwc/rest/diskquota.json");
 
     /// <summary>
+    /// Gets disk quota configuration as typed payload.
+    /// </summary>
+    public Task<GwcDiskQuotaTypedResponse> GetDiskQuotaTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcDiskQuotaTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/diskquota.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets disk quota configuration as typed payload (synchronous).
+    /// </summary>
+    public GwcDiskQuotaTypedResponse GetDiskQuotaTyped()
+        => Send<GwcDiskQuotaTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/diskquota.json");
+
+    /// <summary>
     /// Updates disk quota configuration.
     /// </summary>
     public Task UpdateDiskQuotaAsync(object diskQuotaPayload, CancellationToken cancellationToken = default)
@@ -207,6 +279,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         => Send<GwcBlobStoresResponse>(HttpMethod.Get, "/geoserver/gwc/rest/blobstores.json");
 
     /// <summary>
+    /// Lists configured blob stores as typed payload.
+    /// </summary>
+    public Task<GwcBlobStoresTypedResponse> GetBlobStoresTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcBlobStoresTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/blobstores.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists configured blob stores as typed payload (synchronous).
+    /// </summary>
+    public GwcBlobStoresTypedResponse GetBlobStoresTyped()
+        => Send<GwcBlobStoresTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/blobstores.json");
+
+    /// <summary>
     /// Gets one configured blob store.
     /// </summary>
     public Task<GwcBlobStoresResponse> GetBlobStoreAsync(string blobStoreName, CancellationToken cancellationToken = default)
@@ -217,6 +301,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     /// </summary>
     public GwcBlobStoresResponse GetBlobStore(string blobStoreName)
         => Send<GwcBlobStoresResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}.json");
+
+    /// <summary>
+    /// Gets one configured blob store as typed payload.
+    /// </summary>
+    public Task<GwcBlobStoresTypedResponse> GetBlobStoreTypedAsync(string blobStoreName, CancellationToken cancellationToken = default)
+        => SendAsync<GwcBlobStoresTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets one configured blob store as typed payload (synchronous).
+    /// </summary>
+    public GwcBlobStoresTypedResponse GetBlobStoreTyped(string blobStoreName)
+        => Send<GwcBlobStoresTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/blobstores/{Encode(blobStoreName)}.json");
 
     /// <summary>
     /// Creates or updates a blob store.
@@ -255,6 +351,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         => Send<GwcGridSetsResponse>(HttpMethod.Get, "/geoserver/gwc/rest/gridsets.json");
 
     /// <summary>
+    /// Lists configured grid sets as typed payload.
+    /// </summary>
+    public Task<GwcGridSetsTypedResponse> GetGridSetsTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<GwcGridSetsTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/gridsets.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Lists configured grid sets as typed payload (synchronous).
+    /// </summary>
+    public GwcGridSetsTypedResponse GetGridSetsTyped()
+        => Send<GwcGridSetsTypedResponse>(HttpMethod.Get, "/geoserver/gwc/rest/gridsets.json");
+
+    /// <summary>
     /// Gets one configured grid set.
     /// </summary>
     public Task<GwcGridSetsResponse> GetGridSetAsync(string gridSetName, CancellationToken cancellationToken = default)
@@ -265,6 +373,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     /// </summary>
     public GwcGridSetsResponse GetGridSet(string gridSetName)
         => Send<GwcGridSetsResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}.json");
+
+    /// <summary>
+    /// Gets one configured grid set as typed payload.
+    /// </summary>
+    public Task<GwcGridSetsTypedResponse> GetGridSetTypedAsync(string gridSetName, CancellationToken cancellationToken = default)
+        => SendAsync<GwcGridSetsTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets one configured grid set as typed payload (synchronous).
+    /// </summary>
+    public GwcGridSetsTypedResponse GetGridSetTyped(string gridSetName)
+        => Send<GwcGridSetsTypedResponse>(HttpMethod.Get, $"/geoserver/gwc/rest/gridsets/{Encode(gridSetName)}.json");
 
     /// <summary>
     /// Creates or updates a grid set.
