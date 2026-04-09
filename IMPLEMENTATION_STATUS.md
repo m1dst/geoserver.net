@@ -317,7 +317,7 @@ This file tracks what is implemented in the wrapper and what remains.
 - Integration tests:
   - Live GeoServer workspace CRUD flow implemented.
   - Read-only About endpoint checks implemented.
-  - GeoWebCache read-only checks implemented (skip when GWC unavailable).
+  - GeoWebCache read-only checks implemented (skip when GWC unavailable), including typed list/detail probes.
   - Importer read-only checks implemented (skip when Importer extension unavailable).
   - Typed read-only checks for About manifest/version/status, GeoWebCache, and Importer list/detail implemented.
   - Monitoring typed read-only list/detail probes implemented (skip when unavailable).

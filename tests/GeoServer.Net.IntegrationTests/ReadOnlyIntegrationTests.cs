@@ -61,6 +61,39 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
 
             var typedLayers = await client.GeoWebCache.GetLayersTypedAsync();
             Assert.NotNull(typedLayers.Layers);
+
+            var layerName = !string.IsNullOrWhiteSpace(typedLayers.Layers.Name)
+                ? typedLayers.Layers.Name
+                : typedLayers.Layers.Names.Count > 0 ? typedLayers.Layers.Names[0] : null;
+            if (!string.IsNullOrWhiteSpace(layerName))
+            {
+                var typedLayer = await client.GeoWebCache.GetLayerTypedAsync(layerName!);
+                Assert.NotNull(typedLayer.Layers);
+            }
+
+            var typedBlobStores = await client.GeoWebCache.GetBlobStoresTypedAsync();
+            Assert.NotNull(typedBlobStores.BlobStores);
+
+            var blobStoreName = !string.IsNullOrWhiteSpace(typedBlobStores.BlobStores.Name)
+                ? typedBlobStores.BlobStores.Name
+                : typedBlobStores.BlobStores.Names.Count > 0 ? typedBlobStores.BlobStores.Names[0] : null;
+            if (!string.IsNullOrWhiteSpace(blobStoreName))
+            {
+                var typedBlobStore = await client.GeoWebCache.GetBlobStoreTypedAsync(blobStoreName!);
+                Assert.NotNull(typedBlobStore.BlobStores);
+            }
+
+            var typedGridSets = await client.GeoWebCache.GetGridSetsTypedAsync();
+            Assert.NotNull(typedGridSets.GridSets);
+
+            var gridSetName = !string.IsNullOrWhiteSpace(typedGridSets.GridSets.Name)
+                ? typedGridSets.GridSets.Name
+                : typedGridSets.GridSets.Names.Count > 0 ? typedGridSets.GridSets.Names[0] : null;
+            if (!string.IsNullOrWhiteSpace(gridSetName))
+            {
+                var typedGridSet = await client.GeoWebCache.GetGridSetTypedAsync(gridSetName!);
+                Assert.NotNull(typedGridSet.GridSets);
+            }
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
