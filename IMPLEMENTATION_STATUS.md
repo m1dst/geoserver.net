@@ -140,6 +140,11 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetVersionAsync` / `GetVersion`
 - `GetStatusAsync` / `GetStatus`
 
+### About Typed Methods
+- `GetManifestTypedAsync` / `GetManifestTyped`
+- `GetVersionTypedAsync` / `GetVersionTyped`
+- `GetStatusTypedAsync` / `GetStatusTyped`
+
 ### URL Checks
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`

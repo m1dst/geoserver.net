@@ -50,6 +50,7 @@
 - Importer upload helpers (raw file upload + URL task creation)
 - Importer multipart/form-data upload helper
 - Typed importer response methods for core/tasks/transforms
+- Typed about response methods for manifest/version/status
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

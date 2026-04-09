@@ -57,4 +57,26 @@ public sealed class AboutClientTests
 
         Assert.All(handler.Requests, request => Assert.Equal(HttpMethod.Get, request.Method));
     }
+
+    [Fact]
+    public async Task TypedMethods_DeserializeResources()
+    {
+        var json = @"{""about"":{""resource"":[{""name"":""GeoServer"",""available"":true}]}}";
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.Json(json));
+        using (client)
+        {
+            var manifest = await client.About.GetManifestTypedAsync();
+            var version = client.About.GetVersionTyped();
+            var status = await client.About.GetStatusTypedAsync();
+
+            Assert.Single(manifest.About.Resources);
+            Assert.Single(version.About.Resources);
+            Assert.Single(status.About.Resources);
+        }
+
+        Assert.Equal("/geoserver/rest/about/manifest.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/rest/about/version.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/rest/about/status.json", handler.Requests[2].RequestUri!.AbsolutePath);
+        Assert.All(handler.Requests, request => Assert.Equal(HttpMethod.Get, request.Method));
+    }
 }

@@ -28,6 +28,18 @@ public sealed class AboutClient : GeoServerClientBase
         => Send<AboutResponse>(HttpMethod.Get, BuildPath("about/manifest.json", query));
 
     /// <summary>
+    /// Gets all manifest entries as typed resources.
+    /// </summary>
+    public Task<AboutTypedResponse> GetManifestTypedAsync(string? query = null, CancellationToken cancellationToken = default)
+        => SendAsync<AboutTypedResponse>(HttpMethod.Get, BuildPath("about/manifest.json", query), cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets all manifest entries as typed resources (synchronous).
+    /// </summary>
+    public AboutTypedResponse GetManifestTyped(string? query = null)
+        => Send<AboutTypedResponse>(HttpMethod.Get, BuildPath("about/manifest.json", query));
+
+    /// <summary>
     /// Gets high-level version information for GeoServer/GeoTools/GeoWebCache.
     /// </summary>
     public Task<AboutResponse> GetVersionAsync(string? query = null, CancellationToken cancellationToken = default)
@@ -40,6 +52,18 @@ public sealed class AboutClient : GeoServerClientBase
         => Send<AboutResponse>(HttpMethod.Get, BuildPath("about/version.json", query));
 
     /// <summary>
+    /// Gets high-level version information as typed resources.
+    /// </summary>
+    public Task<AboutTypedResponse> GetVersionTypedAsync(string? query = null, CancellationToken cancellationToken = default)
+        => SendAsync<AboutTypedResponse>(HttpMethod.Get, BuildPath("about/version.json", query), cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets high-level version information as typed resources (synchronous).
+    /// </summary>
+    public AboutTypedResponse GetVersionTyped(string? query = null)
+        => Send<AboutTypedResponse>(HttpMethod.Get, BuildPath("about/version.json", query));
+
+    /// <summary>
     /// Gets status information for installed/configured modules.
     /// </summary>
     public Task<AboutResponse> GetStatusAsync(CancellationToken cancellationToken = default)
@@ -50,6 +74,18 @@ public sealed class AboutClient : GeoServerClientBase
     /// </summary>
     public AboutResponse GetStatus()
         => Send<AboutResponse>(HttpMethod.Get, "about/status.json");
+
+    /// <summary>
+    /// Gets status information for installed/configured modules as typed resources.
+    /// </summary>
+    public Task<AboutTypedResponse> GetStatusTypedAsync(CancellationToken cancellationToken = default)
+        => SendAsync<AboutTypedResponse>(HttpMethod.Get, "about/status.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets status information for installed/configured modules as typed resources (synchronous).
+    /// </summary>
+    public AboutTypedResponse GetStatusTyped()
+        => Send<AboutTypedResponse>(HttpMethod.Get, "about/status.json");
 
     private static string BuildPath(string path, string? query)
     {
