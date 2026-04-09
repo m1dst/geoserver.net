@@ -212,6 +212,26 @@ This file tracks what is implemented in the wrapper and what remains.
 - `PutImportAsync` / `PutImport`
 - `DeleteByIdAsync` / `DeleteById`
 
+### Importer Tasks and Data
+- `GetTasksAsync` / `GetTasks`
+- `CreateTaskAsync` / `CreateTask`
+- `GetTaskAsync` / `GetTask`
+- `UpdateTaskAsync` / `UpdateTask`
+- `DeleteTaskAsync` / `DeleteTask`
+- `GetTaskProgressAsync` / `GetTaskProgress`
+- `GetTaskTargetAsync` / `GetTaskTarget`
+- `UpdateTaskTargetAsync` / `UpdateTaskTarget`
+- `GetTaskLayerAsync` / `GetTaskLayer`
+- `UpdateTaskLayerAsync` / `UpdateTaskLayer`
+- `GetImportDataAsync` / `GetImportData`
+- `GetTaskDataAsync` / `GetTaskData`
+- `GetImportDataFilesAsync` / `GetImportDataFiles`
+- `GetImportDataFileAsync` / `GetImportDataFile`
+- `DeleteImportDataFileAsync` / `DeleteImportDataFile`
+- `GetTaskDataFilesAsync` / `GetTaskDataFiles`
+- `GetTaskDataFileAsync` / `GetTaskDataFile`
+- `DeleteTaskDataFileAsync` / `DeleteTaskDataFile`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -256,7 +276,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Importer extension task/data/transform endpoints.
+1. Importer transforms endpoints.
 2. Broaden integration tests to cover newer endpoint groups.
 3. Expand typed models for newer generic/raw endpoints.
 4. Add real-server coverage for GeoWebCache/importer surfaces.
