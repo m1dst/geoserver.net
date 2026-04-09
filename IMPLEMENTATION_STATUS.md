@@ -318,6 +318,8 @@ This file tracks what is implemented in the wrapper and what remains.
   - Read-only About endpoint checks implemented.
   - GeoWebCache read-only checks implemented (skip when GWC unavailable).
   - Importer read-only checks implemented (skip when Importer extension unavailable).
+  - Typed read-only checks for About/GeoWebCache/Importer implemented.
+  - Monitoring typed read-only probe implemented (skip when unavailable).
 - CI verification:
   - Main CI builds library for both `net10.0` and `net48`.
 

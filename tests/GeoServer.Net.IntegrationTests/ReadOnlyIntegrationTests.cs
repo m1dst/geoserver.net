@@ -26,6 +26,12 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
 
         var status = await client.About.GetStatusAsync();
         Assert.NotNull(status.About);
+
+        var typedVersion = await client.About.GetVersionTypedAsync();
+        Assert.NotNull(typedVersion.About);
+
+        var typedStatus = await client.About.GetStatusTypedAsync();
+        Assert.NotNull(typedStatus.About);
     }
 
     [Fact]
@@ -45,6 +51,12 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
 
             var global = await client.GeoWebCache.GetGlobalAsync();
             Assert.NotNull(global.Global);
+
+            var typedGlobal = await client.GeoWebCache.GetGlobalTypedAsync();
+            Assert.NotNull(typedGlobal.Global);
+
+            var typedLayers = await client.GeoWebCache.GetLayersTypedAsync();
+            Assert.NotNull(typedLayers.Layers);
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
@@ -67,10 +79,29 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         {
             var imports = await client.Importer.GetAllAsync();
             Assert.NotNull(imports.Payload);
+
+            var typedImports = await client.Importer.GetAllTypedAsync();
+            Assert.NotNull(typedImports.Imports);
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
             _importerUnavailable = true;
+            return;
+        }
+    }
+
+    [Fact]
+    public async Task MonitoringTypedReadOnly_ReturnsDataOrSkipsIfUnavailable()
+    {
+        using var client = _fixture.CreateClient();
+
+        try
+        {
+            var requests = await client.Operations.GetMonitoringRequestsTypedAsync("list=0&max=1");
+            Assert.NotNull(requests.Requests);
+        }
+        catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
+        {
             return;
         }
     }
