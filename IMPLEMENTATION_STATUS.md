@@ -135,6 +135,11 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetMonitoringRequestRawAsync` / `GetMonitoringRequestRaw`
 - `ClearMonitoringRequestsAsync` / `ClearMonitoringRequests`
 
+### About
+- `GetManifestAsync` / `GetManifest`
+- `GetVersionAsync` / `GetVersion`
+- `GetStatusAsync` / `GetStatus`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -171,7 +176,6 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Remaining API Areas
 
-- About, manifests, system-status
 - Fonts
 - Resource APIs
 - URL checks
@@ -188,5 +192,5 @@ This file tracks what is implemented in the wrapper and what remains.
 
 1. URL checks and resource APIs.
 2. Fonts and templates/transforms.
-3. About, manifests, and system-status.
-4. GeoWebCache and importer extension APIs.
+3. GeoWebCache and importer extension APIs.
+4. Broaden integration tests to cover newer endpoint groups.

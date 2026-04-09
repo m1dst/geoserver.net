@@ -41,6 +41,7 @@ public sealed class GeoServerClient : IDisposable
         WmtsStores = new WmtsStoresClient(_httpClient);
         WmtsLayers = new WmtsLayersClient(_httpClient);
         Operations = new OperationsClient(_httpClient);
+        About = new AboutClient(_httpClient);
     }
 
     /// <summary>
@@ -73,6 +74,7 @@ public sealed class GeoServerClient : IDisposable
         WmtsStores = new WmtsStoresClient(_httpClient);
         WmtsLayers = new WmtsLayersClient(_httpClient);
         Operations = new OperationsClient(_httpClient);
+        About = new AboutClient(_httpClient);
     }
 
     /// <summary>
@@ -179,6 +181,11 @@ public sealed class GeoServerClient : IDisposable
     /// Reload/reset/logging/monitoring operation endpoints.
     /// </summary>
     public OperationsClient Operations { get; }
+
+    /// <summary>
+    /// About/version/manifest/status endpoints.
+    /// </summary>
+    public AboutClient About { get; }
 
     /// <inheritdoc />
     public void Dispose()

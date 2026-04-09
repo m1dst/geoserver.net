@@ -33,6 +33,7 @@
 - WMS Stores and Layers
 - WMTS Stores and Layers
 - Operations (Reset, Reload, Logging, Monitoring)
+- About endpoints (Manifest, Version, Status)
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 
