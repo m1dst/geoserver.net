@@ -99,6 +99,13 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         {
             var requests = await client.Operations.GetMonitoringRequestsTypedAsync("list=0&max=1");
             Assert.NotNull(requests.Requests);
+
+            var firstId = requests.Requests.Count > 0 ? requests.Requests[0].Id : null;
+            if (!string.IsNullOrWhiteSpace(firstId))
+            {
+                var single = await client.Operations.GetMonitoringRequestTypedAsync(firstId!);
+                Assert.NotNull(single.Request);
+            }
         }
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {

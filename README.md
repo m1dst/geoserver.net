@@ -140,7 +140,7 @@ Integration tests include:
 - Read-only About endpoint validation.
 - GeoWebCache read-only checks (auto-skips if GWC is unavailable).
 - Importer read-only checks (auto-skips if Importer extension is unavailable).
-- Typed read-only checks for About/GeoWebCache/Importer plus optional monitoring typed probe.
+- Typed read-only checks for About/GeoWebCache/Importer plus monitoring typed list/detail probes.
 
 ## Running GeoServer Locally with Docker
 
