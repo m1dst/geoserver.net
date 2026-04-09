@@ -53,6 +53,7 @@
 - Typed about response methods for manifest/version/status
 - Typed monitoring response methods for requests list/detail
 - Typed GeoWebCache response methods for global/layers/seed/diskquota/blobstores/gridsets
+- Typed logging response model with backward-compatible `Logging` alias
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

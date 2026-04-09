@@ -37,8 +37,11 @@ public sealed class OperationsClientTests
 
         using (client)
         {
-            _ = client.Operations.GetLogging();
+            var logging = client.Operations.GetLogging();
             client.Operations.UpdateLogging(new { logging = new { level = "DEFAULT_LOGGING" } });
+
+            Assert.Equal("DEFAULT_LOGGING", logging.LoggingTyped.Level);
+            Assert.Equal("DEFAULT_LOGGING", ((geoserver.net.Models.Operations.LoggingConfigurationDto)logging.Logging!).Level);
         }
 
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);

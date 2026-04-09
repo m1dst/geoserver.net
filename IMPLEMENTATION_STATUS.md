@@ -138,6 +138,7 @@ This file tracks what is implemented in the wrapper and what remains.
 ### Operations Typed Methods
 - `GetMonitoringRequestsTypedAsync` / `GetMonitoringRequestsTyped`
 - `GetMonitoringRequestTypedAsync` / `GetMonitoringRequestTyped`
+- `GetLoggingAsync` / `GetLogging` now return typed logging payload with compatibility alias
 
 ### About
 - `GetManifestAsync` / `GetManifest`
