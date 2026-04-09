@@ -128,6 +128,11 @@ set GEOSERVER_PASSWORD=geoserver
 dotnet test tests\GeoServer.Net.IntegrationTests\GeoServer.Net.IntegrationTests.csproj
 ```
 
+Integration tests include:
+- Workspace CRUD flow.
+- Read-only About endpoint validation.
+- GeoWebCache read-only checks (auto-skips if GWC is unavailable).
+
 ## Running GeoServer Locally with Docker
 
 ```bash

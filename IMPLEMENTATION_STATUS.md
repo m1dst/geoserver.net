@@ -283,11 +283,14 @@ This file tracks what is implemented in the wrapper and what remains.
 ## Test Status
 
 - Unit tests: Implemented for each method in every currently implemented endpoint client.
-- Integration tests: Live GeoServer workspace CRUD flow implemented.
+- Integration tests:
+  - Live GeoServer workspace CRUD flow implemented.
+  - Read-only About endpoint checks implemented.
+  - GeoWebCache read-only checks implemented (skip when GWC unavailable).
 
 ## Next Expansion Priorities
 
-1. Broaden integration tests to cover newer endpoint groups.
+1. Add real-server coverage for importer surfaces.
 2. Expand typed models for newer generic/raw endpoints.
-3. Add real-server coverage for GeoWebCache/importer surfaces.
-4. Add multipart/form-data task upload helpers.
+3. Add multipart/form-data task upload helpers.
+4. Increase net48 runtime verification in CI.
