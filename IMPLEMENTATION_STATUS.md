@@ -25,6 +25,19 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
 
+### Coverages
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### Structured Coverages
+- `GetIndexAsync` / `GetIndex`
+- `GetGranulesAsync` / `GetGranules`
+- `DeleteGranulesAsync` / `DeleteGranules`
+- `GetGranuleByIdAsync` / `GetGranuleById`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -62,7 +75,6 @@ This file tracks what is implemented in the wrapper and what remains.
 ## Remaining API Areas
 
 - About, manifests, system-status
-- Coverages and structured coverages
 - Fonts
 - Global settings and OWS service settings
 - Reload, logging, monitoring
@@ -81,7 +93,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Coverages (including structured coverage operations).
-2. Settings/service configuration APIs.
-3. Security APIs.
-4. WMS/WMTS stores and layers.
+1. Settings/service configuration APIs.
+2. Security APIs.
+3. WMS/WMTS stores and layers.
+4. Fonts and templates/transforms.

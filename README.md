@@ -17,6 +17,8 @@
 - Workspaces
 - Data Stores
 - Coverage Stores
+- Coverages
+- Structured Coverages
 - Feature Types
 - Namespaces
 - Layer Groups

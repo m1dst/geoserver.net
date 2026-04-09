@@ -23,6 +23,8 @@ public sealed class GeoServerClient : IDisposable
         Workspaces = new WorkspacesClient(_httpClient);
         DataStores = new DataStoresClient(_httpClient);
         CoverageStores = new CoverageStoresClient(_httpClient);
+        Coverages = new CoveragesClient(_httpClient);
+        StructuredCoverages = new StructuredCoveragesClient(_httpClient);
         FeatureTypes = new FeatureTypesClient(_httpClient);
         Namespaces = new NamespacesClient(_httpClient);
         LayerGroups = new LayerGroupsClient(_httpClient);
@@ -42,6 +44,8 @@ public sealed class GeoServerClient : IDisposable
         Workspaces = new WorkspacesClient(_httpClient);
         DataStores = new DataStoresClient(_httpClient);
         CoverageStores = new CoverageStoresClient(_httpClient);
+        Coverages = new CoveragesClient(_httpClient);
+        StructuredCoverages = new StructuredCoveragesClient(_httpClient);
         FeatureTypes = new FeatureTypesClient(_httpClient);
         Namespaces = new NamespacesClient(_httpClient);
         LayerGroups = new LayerGroupsClient(_httpClient);
@@ -63,6 +67,16 @@ public sealed class GeoServerClient : IDisposable
     /// Coverage store endpoints.
     /// </summary>
     public CoverageStoresClient CoverageStores { get; }
+
+    /// <summary>
+    /// Coverage endpoints.
+    /// </summary>
+    public CoveragesClient Coverages { get; }
+
+    /// <summary>
+    /// Structured coverage endpoints.
+    /// </summary>
+    public StructuredCoveragesClient StructuredCoverages { get; }
 
     /// <summary>
     /// Feature type endpoints.
