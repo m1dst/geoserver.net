@@ -55,6 +55,45 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateWorkspaceAsync` / `UpdateWorkspace` (WMS/WFS/WCS/WMTS)
 - `DeleteWorkspaceAsync` / `DeleteWorkspace` (WMS/WFS/WCS/WMTS)
 
+### Security Roles
+- `GetAllAsync` / `GetAll`
+- `GetByUserAsync` / `GetByUser`
+- `GetByGroupAsync` / `GetByGroup`
+- `AddRoleAsync` / `AddRole`
+- `DeleteRoleAsync` / `DeleteRole`
+- `AssociateRoleWithUserAsync` / `AssociateRoleWithUser`
+- `RemoveRoleFromUserAsync` / `RemoveRoleFromUser`
+- `AssociateRoleWithGroupAsync` / `AssociateRoleWithGroup`
+- `RemoveRoleFromGroupAsync` / `RemoveRoleFromGroup`
+
+### Security User/Group
+- `GetUsersAsync` / `GetUsers`
+- `CreateUserAsync` / `CreateUser`
+- `UpdateUserAsync` / `UpdateUser`
+- `DeleteUserAsync` / `DeleteUser`
+- `GetGroupsAsync` / `GetGroups`
+- `AddGroupAsync` / `AddGroup`
+- `DeleteGroupAsync` / `DeleteGroup`
+- `GetUsersForGroupAsync` / `GetUsersForGroup`
+- `GetGroupsForUserAsync` / `GetGroupsForUser`
+- `AssociateUserWithGroupAsync` / `AssociateUserWithGroup`
+- `RemoveUserFromGroupAsync` / `RemoveUserFromGroup`
+
+### Security Authentication Providers
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+- `SetOrderAsync` / `SetOrder`
+
+### Security Authentication Filters
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -95,7 +134,6 @@ This file tracks what is implemented in the wrapper and what remains.
 - Fonts
 - Reload, logging, monitoring
 - Resource APIs
-- Security APIs (roles, user groups, auth providers, filter chains)
 - URL checks
 - WMS/WMTS stores and layers
 - Templates and transforms
@@ -109,7 +147,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Security APIs.
-2. WMS/WMTS stores and layers.
-3. Reload, logging, monitoring.
+1. WMS/WMTS stores and layers.
+2. Reload, logging, monitoring.
+3. URL checks and resource APIs.
 4. Fonts and templates/transforms.

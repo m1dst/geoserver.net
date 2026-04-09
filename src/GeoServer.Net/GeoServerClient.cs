@@ -32,6 +32,10 @@ public sealed class GeoServerClient : IDisposable
         Styles = new StylesClient(_httpClient);
         Settings = new SettingsClient(_httpClient);
         OwsServices = new OwsServicesClient(_httpClient);
+        Roles = new RolesClient(_httpClient);
+        UserGroups = new UserGroupsClient(_httpClient);
+        AuthProviders = new AuthProvidersClient(_httpClient);
+        AuthFilters = new AuthFiltersClient(_httpClient);
     }
 
     /// <summary>
@@ -55,6 +59,10 @@ public sealed class GeoServerClient : IDisposable
         Styles = new StylesClient(_httpClient);
         Settings = new SettingsClient(_httpClient);
         OwsServices = new OwsServicesClient(_httpClient);
+        Roles = new RolesClient(_httpClient);
+        UserGroups = new UserGroupsClient(_httpClient);
+        AuthProviders = new AuthProvidersClient(_httpClient);
+        AuthFilters = new AuthFiltersClient(_httpClient);
     }
 
     /// <summary>
@@ -116,6 +124,26 @@ public sealed class GeoServerClient : IDisposable
     /// OWS service settings endpoints.
     /// </summary>
     public OwsServicesClient OwsServices { get; }
+
+    /// <summary>
+    /// Security roles endpoints.
+    /// </summary>
+    public RolesClient Roles { get; }
+
+    /// <summary>
+    /// Security users and groups endpoints.
+    /// </summary>
+    public UserGroupsClient UserGroups { get; }
+
+    /// <summary>
+    /// Security authentication providers endpoints.
+    /// </summary>
+    public AuthProvidersClient AuthProviders { get; }
+
+    /// <summary>
+    /// Security authentication filters endpoints.
+    /// </summary>
+    public AuthFiltersClient AuthFilters { get; }
 
     /// <inheritdoc />
     public void Dispose()

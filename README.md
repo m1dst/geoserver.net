@@ -26,6 +26,10 @@
 - Styles
 - Settings (global, contact, workspace)
 - OWS Service Settings (WMS/WFS/WCS/WMTS, global + workspace)
+- Security Roles
+- Security User/Group management
+- Security Authentication Providers
+- Security Authentication Filters
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 
