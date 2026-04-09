@@ -43,6 +43,7 @@ public sealed class GeoServerClient : IDisposable
         Operations = new OperationsClient(_httpClient);
         About = new AboutClient(_httpClient);
         UrlChecks = new UrlChecksClient(_httpClient);
+        Resources = new ResourcesClient(_httpClient);
     }
 
     /// <summary>
@@ -77,6 +78,7 @@ public sealed class GeoServerClient : IDisposable
         Operations = new OperationsClient(_httpClient);
         About = new AboutClient(_httpClient);
         UrlChecks = new UrlChecksClient(_httpClient);
+        Resources = new ResourcesClient(_httpClient);
     }
 
     /// <summary>
@@ -193,6 +195,11 @@ public sealed class GeoServerClient : IDisposable
     /// URL external access checks endpoints.
     /// </summary>
     public UrlChecksClient UrlChecks { get; }
+
+    /// <summary>
+    /// Data directory resource endpoints.
+    /// </summary>
+    public ResourcesClient Resources { get; }
 
     /// <inheritdoc />
     public void Dispose()

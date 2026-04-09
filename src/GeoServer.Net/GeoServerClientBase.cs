@@ -11,6 +11,7 @@ namespace geoserver.net;
 public abstract class GeoServerClientBase
 {
     private readonly HttpClient _httpClient;
+    protected HttpClient HttpClient => _httpClient;
 
     protected GeoServerClientBase(HttpClient httpClient)
     {
