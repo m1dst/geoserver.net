@@ -51,6 +51,7 @@
 - Importer multipart/form-data upload helper
 - Typed importer response methods for core/tasks/transforms
 - Typed about response methods for manifest/version/status
+- Typed monitoring response methods for requests list/detail
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

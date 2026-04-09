@@ -135,6 +135,10 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetMonitoringRequestRawAsync` / `GetMonitoringRequestRaw`
 - `ClearMonitoringRequestsAsync` / `ClearMonitoringRequests`
 
+### Operations Typed Methods
+- `GetMonitoringRequestsTypedAsync` / `GetMonitoringRequestsTyped`
+- `GetMonitoringRequestTypedAsync` / `GetMonitoringRequestTyped`
+
 ### About
 - `GetManifestAsync` / `GetManifest`
 - `GetVersionAsync` / `GetVersion`

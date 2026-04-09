@@ -60,4 +60,31 @@ public sealed class OperationsClientTests
         Assert.Equal("/geoserver/rest/monitor/requests/123", handler.Requests[1].RequestUri!.AbsolutePath);
         Assert.Equal(HttpMethod.Delete, handler.Requests[2].Method);
     }
+
+    [Fact]
+    public async Task MonitoringTypedEndpoints_UseJsonRoutesAndDeserialize()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(request =>
+        {
+            if (request.RequestUri!.AbsolutePath.EndsWith("/monitor/requests.json"))
+            {
+                return TestHttpMessageHandler.Json(@"{""requests"":[{""id"":""1"",""path"":""/wms"",""method"":""GET""}]}");
+            }
+
+            return TestHttpMessageHandler.Json(@"{""request"":{""id"":""1"",""path"":""/wms"",""method"":""GET""}}");
+        });
+
+        using (client)
+        {
+            var list = await client.Operations.GetMonitoringRequestsTypedAsync("from=2020-01-01");
+            var single = client.Operations.GetMonitoringRequestTyped("1");
+
+            Assert.Single(list.Requests);
+            Assert.Equal("1", single.Request.Id);
+        }
+
+        Assert.Equal("/geoserver/rest/monitor/requests.json", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal("/geoserver/rest/monitor/requests/1.json", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.All(handler.Requests.Take(2), request => Assert.Equal(HttpMethod.Get, request.Method));
+    }
 }

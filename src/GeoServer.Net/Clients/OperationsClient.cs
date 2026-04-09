@@ -72,6 +72,18 @@ public sealed class OperationsClient : GeoServerClientBase
         => SendRaw(HttpMethod.Get, BuildMonitorPath("monitor/requests", query));
 
     /// <summary>
+    /// Gets monitoring requests as typed JSON payload.
+    /// </summary>
+    public Task<MonitoringRequestsResponse> GetMonitoringRequestsTypedAsync(string? query = null, CancellationToken cancellationToken = default)
+        => SendAsync<MonitoringRequestsResponse>(HttpMethod.Get, BuildMonitorPath("monitor/requests.json", query), cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets monitoring requests as typed JSON payload (synchronous).
+    /// </summary>
+    public MonitoringRequestsResponse GetMonitoringRequestsTyped(string? query = null)
+        => Send<MonitoringRequestsResponse>(HttpMethod.Get, BuildMonitorPath("monitor/requests.json", query));
+
+    /// <summary>
     /// Gets a monitoring request record by id as raw payload.
     /// </summary>
     public Task<string> GetMonitoringRequestRawAsync(string requestId, string? query = null, CancellationToken cancellationToken = default)
@@ -82,6 +94,18 @@ public sealed class OperationsClient : GeoServerClientBase
     /// </summary>
     public string GetMonitoringRequestRaw(string requestId, string? query = null)
         => SendRaw(HttpMethod.Get, BuildMonitorPath($"monitor/requests/{requestId}", query));
+
+    /// <summary>
+    /// Gets a monitoring request record by id as typed JSON payload.
+    /// </summary>
+    public Task<MonitoringRequestResponse> GetMonitoringRequestTypedAsync(string requestId, string? query = null, CancellationToken cancellationToken = default)
+        => SendAsync<MonitoringRequestResponse>(HttpMethod.Get, BuildMonitorPath($"monitor/requests/{requestId}.json", query), cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets a monitoring request record by id as typed JSON payload (synchronous).
+    /// </summary>
+    public MonitoringRequestResponse GetMonitoringRequestTyped(string requestId, string? query = null)
+        => Send<MonitoringRequestResponse>(HttpMethod.Get, BuildMonitorPath($"monitor/requests/{requestId}.json", query));
 
     /// <summary>
     /// Clears all monitoring requests.
