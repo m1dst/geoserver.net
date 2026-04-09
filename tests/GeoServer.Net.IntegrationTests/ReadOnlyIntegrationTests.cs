@@ -9,6 +9,7 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
 {
     private readonly GeoServerIntegrationFixture _fixture;
     private bool _gwcUnavailable;
+    private bool _importerUnavailable;
 
     public ReadOnlyIntegrationTests(GeoServerIntegrationFixture fixture)
     {
@@ -48,6 +49,28 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
         catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
         {
             _gwcUnavailable = true;
+            return;
+        }
+    }
+
+    [Fact]
+    public async Task ImporterReadOnly_ReturnsDataOrSkipsIfUnavailable()
+    {
+        if (_importerUnavailable)
+        {
+            return;
+        }
+
+        using var client = _fixture.CreateClient();
+
+        try
+        {
+            var imports = await client.Importer.GetAllAsync();
+            Assert.NotNull(imports.Payload);
+        }
+        catch (GeoServerApiException ex) when ((int)ex.StatusCode == 404)
+        {
+            _importerUnavailable = true;
             return;
         }
     }

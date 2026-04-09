@@ -287,12 +287,13 @@ This file tracks what is implemented in the wrapper and what remains.
   - Live GeoServer workspace CRUD flow implemented.
   - Read-only About endpoint checks implemented.
   - GeoWebCache read-only checks implemented (skip when GWC unavailable).
+  - Importer read-only checks implemented (skip when Importer extension unavailable).
 - CI verification:
   - Main CI builds library for both `net10.0` and `net48`.
 
 ## Next Expansion Priorities
 
-1. Add real-server coverage for importer surfaces.
-2. Expand typed models for newer generic/raw endpoints.
-3. Add multipart/form-data task upload helpers.
-4. Add selective integration smoke tests for optional extension detection.
+1. Expand typed models for newer generic/raw endpoints.
+2. Add multipart/form-data task upload helpers.
+3. Add selective integration smoke tests for optional extension detection.
+4. Add optional-extension aware integration checks for more endpoint groups.

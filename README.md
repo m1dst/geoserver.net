@@ -133,6 +133,7 @@ Integration tests include:
 - Workspace CRUD flow.
 - Read-only About endpoint validation.
 - GeoWebCache read-only checks (auto-skips if GWC is unavailable).
+- Importer read-only checks (auto-skips if Importer extension is unavailable).
 
 ## Running GeoServer Locally with Docker
 
