@@ -52,11 +52,30 @@ public abstract class GeoServerClientBase
     protected Task SendAsync(HttpMethod method, string path, object? body = null, CancellationToken cancellationToken = default)
         => SendAsync<NoContent>(method, path, body, cancellationToken);
 
+    protected async Task<string> SendRawAsync(HttpMethod method, string path, object? body = null, CancellationToken cancellationToken = default)
+    {
+        var request = BuildRequest(method, path, body);
+        using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        var content = response.Content is null
+            ? string.Empty
+            : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw CreateApiException(response.StatusCode, path, content);
+        }
+
+        return content;
+    }
+
     protected T Send<T>(HttpMethod method, string path, object? body = null)
         => SendAsync<T>(method, path, body).GetAwaiter().GetResult();
 
     protected void Send(HttpMethod method, string path, object? body = null)
         => SendAsync(method, path, body).GetAwaiter().GetResult();
+
+    protected string SendRaw(HttpMethod method, string path, object? body = null)
+        => SendRawAsync(method, path, body).GetAwaiter().GetResult();
 
     private static HttpRequestMessage BuildRequest(HttpMethod method, string path, object? body)
     {

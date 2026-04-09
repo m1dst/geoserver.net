@@ -32,6 +32,7 @@
 - Security Authentication Filters
 - WMS Stores and Layers
 - WMTS Stores and Layers
+- Operations (Reset, Reload, Logging, Monitoring)
 
 See `IMPLEMENTATION_STATUS.md` for implemented operations and remaining API surface.
 

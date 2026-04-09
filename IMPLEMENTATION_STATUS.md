@@ -126,6 +126,15 @@ This file tracks what is implemented in the wrapper and what remains.
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
 
+### Operations
+- `ResetAsync` / `Reset`
+- `ReloadAsync` / `Reload`
+- `GetLoggingAsync` / `GetLogging`
+- `UpdateLoggingAsync` / `UpdateLogging`
+- `GetMonitoringRequestsRawAsync` / `GetMonitoringRequestsRaw`
+- `GetMonitoringRequestRawAsync` / `GetMonitoringRequestRaw`
+- `ClearMonitoringRequestsAsync` / `ClearMonitoringRequests`
+
 ### Feature Types
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -164,7 +173,6 @@ This file tracks what is implemented in the wrapper and what remains.
 
 - About, manifests, system-status
 - Fonts
-- Reload, logging, monitoring
 - Resource APIs
 - URL checks
 - Templates and transforms
@@ -178,7 +186,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Next Expansion Priorities
 
-1. Reload, logging, monitoring.
-2. URL checks and resource APIs.
-3. Fonts and templates/transforms.
+1. URL checks and resource APIs.
+2. Fonts and templates/transforms.
+3. About, manifests, and system-status.
 4. GeoWebCache and importer extension APIs.
