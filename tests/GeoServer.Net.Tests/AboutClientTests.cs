@@ -110,7 +110,7 @@ public sealed class AboutClientTests
         {
             if (request.RequestUri!.AbsolutePath.EndsWith("/version.json"))
             {
-                return TestHttpMessageHandler.Json(@"{""about"":{""resource"":[{""@name"":""GeoTools"",""Version"":""1.0.0""}]}}");
+                return TestHttpMessageHandler.Json(@"{""about"":{""resource"":[{""@name"":""GeoTools"",""Version"":""1.0.0"",""Git-Revision"":""abc123"",""Build-Timestamp"":""11-Dec-2012 17:55""}]}}");
             }
 
             return TestHttpMessageHandler.Json(@"{""about"":{""status"":[{""name"":""GeoServer Main"",""isEnabled"":true,""isAvailable"":true}]}}");
@@ -123,6 +123,9 @@ public sealed class AboutClientTests
 
             Assert.Single(version.About.Resources);
             Assert.Equal("GeoTools", version.About.Resources[0].Name);
+            Assert.Equal("1.0.0", version.About.Resources[0].Version);
+            Assert.Equal("abc123", version.About.Resources[0].GitRevision);
+            Assert.Equal("11-Dec-2012 17:55", version.About.Resources[0].BuildTimestamp);
 
             Assert.Single(status.About.Resources);
             Assert.Equal("GeoServer Main", status.About.Resources[0].Name);
@@ -132,6 +135,28 @@ public sealed class AboutClientTests
 
         Assert.Equal("/geoserver/rest/about/version.json", handler.Requests[0].RequestUri!.AbsolutePath);
         Assert.Equal("/geoserver/rest/about/status.json", handler.Requests[1].RequestUri!.AbsolutePath);
+    }
+
+    /// <summary>
+    /// Executes the GetVersionTyped_MapsStandardGeoServerBuildFields operation.
+    /// </summary>
+    [Fact]
+    public async Task GetVersionTyped_MapsStandardGeoServerBuildFields()
+    {
+        var (client, _) = GeoServerClientFactory.Create(_ =>
+            TestHttpMessageHandler.Json(@"{""about"":{""resource"":[{""name"":""GeoServer"",""Build-Timestamp"":""11-Dec-2012 17:55"",""Git-Revision"":""e66f8da85521f73d0fd00b71331069a5f49f7865"",""Version"":""2.3-SNAPSHOT""}]}}"));
+
+        using (client)
+        {
+            var response = await client.About.GetVersionTypedAsync();
+            Assert.Single(response.About.Resources);
+
+            var resource = response.About.Resources[0];
+            Assert.Equal("GeoServer", resource.Name);
+            Assert.Equal("2.3-SNAPSHOT", resource.Version);
+            Assert.Equal("11-Dec-2012 17:55", resource.BuildTimestamp);
+            Assert.Equal("e66f8da85521f73d0fd00b71331069a5f49f7865", resource.GitRevision);
+        }
     }
 
     /// <summary>

@@ -192,6 +192,63 @@ public sealed class AboutResourceDto
     public string? Version { get; set; }
 
     /// <summary>
+    /// Backward-compatible alias for payloads using <c>Version</c>.
+    /// </summary>
+    [JsonProperty("Version")]
+    private string? VersionAlias
+    {
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                Version = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the Git revision value.
+    /// </summary>
+    [JsonProperty("gitRevision")]
+    public string? GitRevision { get; set; }
+
+    /// <summary>
+    /// Backward-compatible alias for payloads using <c>Git-Revision</c>.
+    /// </summary>
+    [JsonProperty("Git-Revision")]
+    private string? GitRevisionAlias
+    {
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                GitRevision = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the build timestamp value.
+    /// </summary>
+    [JsonProperty("buildTimestamp")]
+    public string? BuildTimestamp { get; set; }
+
+    /// <summary>
+    /// Backward-compatible alias for payloads using <c>Build-Timestamp</c>.
+    /// </summary>
+    [JsonProperty("Build-Timestamp")]
+    private string? BuildTimestampAlias
+    {
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                BuildTimestamp = value;
+            }
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the AdditionalData value.
     /// </summary>
     [JsonExtensionData]
