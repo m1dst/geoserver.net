@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace GeoServer.Net.Tests;

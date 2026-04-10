@@ -422,6 +422,18 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
     public string GetBoundsRaw(string layerName, string srs)
         => SendRaw(HttpMethod.Get, $"/geoserver/gwc/rest/bounds/{Encode(layerName)}/{Encode(srs)}/java");
 
+    /// <summary>
+    /// Updates a GeoWebCache request filter using XML payload semantics.
+    /// </summary>
+    public Task UpdateFilterAsync(string filterName, string updateType, GwcFilterUpdateRequest request, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Post, BuildFilterUpdatePath(filterName, updateType), request, cancellationToken);
+
+    /// <summary>
+    /// Updates a GeoWebCache request filter using XML payload semantics (synchronous).
+    /// </summary>
+    public void UpdateFilter(string filterName, string updateType, GwcFilterUpdateRequest request)
+        => Send(HttpMethod.Post, BuildFilterUpdatePath(filterName, updateType), request);
+
     private static string BuildMassTruncatePath(string requestType, string? layer)
     {
         if (string.IsNullOrWhiteSpace(requestType))
@@ -436,6 +448,27 @@ public sealed class GeoWebCacheClient : GeoServerClientBase
         }
 
         return path;
+    }
+
+    private static string BuildFilterUpdatePath(string filterName, string updateType)
+    {
+        if (string.IsNullOrWhiteSpace(filterName))
+        {
+            throw new System.ArgumentException("Value is required.", nameof(filterName));
+        }
+
+        if (string.IsNullOrWhiteSpace(updateType))
+        {
+            throw new System.ArgumentException("Value is required.", nameof(updateType));
+        }
+
+        if (!string.Equals(updateType, "xml", System.StringComparison.OrdinalIgnoreCase)
+            && !string.Equals(updateType, "zip", System.StringComparison.OrdinalIgnoreCase))
+        {
+            throw new System.ArgumentException("Update type must be either 'xml' or 'zip'.", nameof(updateType));
+        }
+
+        return $"/geoserver/gwc/rest/filter/{Encode(filterName)}/update/{System.Uri.EscapeDataString(updateType.ToLowerInvariant())}";
     }
 
     private static string Encode(string value)

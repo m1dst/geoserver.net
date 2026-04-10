@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using geoserver.net.Models.GeoWebCache;
 using Xunit;
 
 namespace GeoServer.Net.Tests;
@@ -366,6 +367,40 @@ public sealed class GeoWebCacheClientTests
 
         Assert.Equal("/geoserver/gwc/rest/bounds/ws%3Aroads/EPSG%3A4326/java", handler.Requests[0].RequestUri!.AbsolutePath);
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);
+    }
+
+    /// <summary>
+    /// Executes the FilterUpdateEndpoints_UseExpectedRoutesAndValidation operation.
+    /// </summary>
+    [Fact]
+    public async Task FilterUpdateEndpoints_UseExpectedRoutesAndValidation()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent());
+        using (client)
+        {
+            var payload = new GwcFilterUpdateRequest
+            {
+                GridSet = "EPSG:4326",
+                ZoomStart = 1,
+                ZoomStop = 5
+            };
+
+            await client.GeoWebCache.UpdateFilterAsync("myfilter", "xml", payload);
+            client.GeoWebCache.UpdateFilter("myfilter", "zip", payload);
+        }
+
+        Assert.Equal("/geoserver/gwc/rest/filter/myfilter/update/xml", handler.Requests[0].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Post, handler.Requests[0].Method);
+        Assert.Equal("/geoserver/gwc/rest/filter/myfilter/update/zip", handler.Requests[1].RequestUri!.AbsolutePath);
+        Assert.Equal(HttpMethod.Post, handler.Requests[1].Method);
+
+        var (validationClient, _) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent());
+        using (validationClient)
+        {
+            var ex = await Assert.ThrowsAsync<System.ArgumentException>(() =>
+                validationClient.GeoWebCache.UpdateFilterAsync("myfilter", "json", new GwcFilterUpdateRequest()));
+            Assert.Equal("updateType", ex.ParamName);
+        }
     }
 
     /// <summary>

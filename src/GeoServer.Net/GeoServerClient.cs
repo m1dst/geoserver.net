@@ -34,15 +34,20 @@ public sealed class GeoServerClient : IDisposable
         OwsServices = new OwsServicesClient(_httpClient);
         Roles = new RolesClient(_httpClient);
         UserGroups = new UserGroupsClient(_httpClient);
+        UserGroupServices = new UserGroupServicesClient(_httpClient);
+        Security = new SecurityConfigClient(_httpClient);
         AuthProviders = new AuthProvidersClient(_httpClient);
         AuthFilters = new AuthFiltersClient(_httpClient);
+        FilterChains = new FilterChainsClient(_httpClient);
         WmsStores = new WmsStoresClient(_httpClient);
         WmsLayers = new WmsLayersClient(_httpClient);
         WmtsStores = new WmtsStoresClient(_httpClient);
         WmtsLayers = new WmtsLayersClient(_httpClient);
         Operations = new OperationsClient(_httpClient);
         About = new AboutClient(_httpClient);
+        Crs = new CrsClient(_httpClient);
         UrlChecks = new UrlChecksClient(_httpClient);
+        ProxyBaseExtension = new ProxyBaseExtensionClient(_httpClient);
         Resources = new ResourcesClient(_httpClient);
         Fonts = new FontsClient(_httpClient);
         Templates = new TemplatesClient(_httpClient);
@@ -74,15 +79,20 @@ public sealed class GeoServerClient : IDisposable
         OwsServices = new OwsServicesClient(_httpClient);
         Roles = new RolesClient(_httpClient);
         UserGroups = new UserGroupsClient(_httpClient);
+        UserGroupServices = new UserGroupServicesClient(_httpClient);
+        Security = new SecurityConfigClient(_httpClient);
         AuthProviders = new AuthProvidersClient(_httpClient);
         AuthFilters = new AuthFiltersClient(_httpClient);
+        FilterChains = new FilterChainsClient(_httpClient);
         WmsStores = new WmsStoresClient(_httpClient);
         WmsLayers = new WmsLayersClient(_httpClient);
         WmtsStores = new WmtsStoresClient(_httpClient);
         WmtsLayers = new WmtsLayersClient(_httpClient);
         Operations = new OperationsClient(_httpClient);
         About = new AboutClient(_httpClient);
+        Crs = new CrsClient(_httpClient);
         UrlChecks = new UrlChecksClient(_httpClient);
+        ProxyBaseExtension = new ProxyBaseExtensionClient(_httpClient);
         Resources = new ResourcesClient(_httpClient);
         Fonts = new FontsClient(_httpClient);
         Templates = new TemplatesClient(_httpClient);
@@ -162,6 +172,16 @@ public sealed class GeoServerClient : IDisposable
     public UserGroupsClient UserGroups { get; }
 
     /// <summary>
+    /// Security user/group service configuration endpoints.
+    /// </summary>
+    public UserGroupServicesClient UserGroupServices { get; }
+
+    /// <summary>
+    /// Root security configuration endpoints.
+    /// </summary>
+    public SecurityConfigClient Security { get; }
+
+    /// <summary>
     /// Security authentication providers endpoints.
     /// </summary>
     public AuthProvidersClient AuthProviders { get; }
@@ -170,6 +190,11 @@ public sealed class GeoServerClient : IDisposable
     /// Security authentication filters endpoints.
     /// </summary>
     public AuthFiltersClient AuthFilters { get; }
+
+    /// <summary>
+    /// Security filter chains endpoints.
+    /// </summary>
+    public FilterChainsClient FilterChains { get; }
 
     /// <summary>
     /// WMS stores endpoints.
@@ -202,9 +227,19 @@ public sealed class GeoServerClient : IDisposable
     public AboutClient About { get; }
 
     /// <summary>
+    /// CRS endpoints.
+    /// </summary>
+    public CrsClient Crs { get; }
+
+    /// <summary>
     /// URL external access checks endpoints.
     /// </summary>
     public UrlChecksClient UrlChecks { get; }
+
+    /// <summary>
+    /// Proxy base extension endpoints.
+    /// </summary>
+    public ProxyBaseExtensionClient ProxyBaseExtension { get; }
 
     /// <summary>
     /// Data directory resource endpoints.

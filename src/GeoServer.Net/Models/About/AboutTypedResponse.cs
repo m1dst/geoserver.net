@@ -82,6 +82,21 @@ public sealed class AboutEnvelopeDto
             }
         }
     }
+
+    /// <summary>
+    /// Backward-compatible alias for payloads using <c>status</c> arrays.
+    /// </summary>
+    [JsonProperty("status")]
+    private List<AboutResourceDto>? StatusAlias
+    {
+        set
+        {
+            if (value is not null && value.Count > 0)
+            {
+                Resources = value;
+            }
+        }
+    }
 }
 
 /// <summary>
@@ -94,6 +109,21 @@ public sealed class AboutResourceDto
     /// </summary>
     [JsonProperty("name")]
     public string? Name { get; set; }
+
+    /// <summary>
+    /// Backward-compatible alias for payloads using <c>@name</c>.
+    /// </summary>
+    [JsonProperty("@name")]
+    private string? NameAlias
+    {
+        set
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                Name = value;
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the Manifest value.
@@ -114,10 +144,40 @@ public sealed class AboutResourceDto
     public bool? Available { get; set; }
 
     /// <summary>
+    /// Backward-compatible alias for payloads using <c>isAvailable</c>.
+    /// </summary>
+    [JsonProperty("isAvailable")]
+    private bool? IsAvailableAlias
+    {
+        set
+        {
+            if (value.HasValue)
+            {
+                Available = value.Value;
+            }
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the Enabled value.
     /// </summary>
     [JsonProperty("enabled")]
     public bool? Enabled { get; set; }
+
+    /// <summary>
+    /// Backward-compatible alias for payloads using <c>isEnabled</c>.
+    /// </summary>
+    [JsonProperty("isEnabled")]
+    private bool? IsEnabledAlias
+    {
+        set
+        {
+            if (value.HasValue)
+            {
+                Enabled = value.Value;
+            }
+        }
+    }
 
     /// <summary>
     /// Gets or sets the Message value.

@@ -29,13 +29,18 @@
 - OWS Service Settings (WMS/WFS/WCS/WMTS, global + workspace)
 - Security Roles
 - Security User/Group management
+- Security User/Group services configuration
+- Security root configuration (master password, self password, catalog mode, ACL catalog reload)
 - Security Authentication Providers
 - Security Authentication Filters
+- Security Filter Chains
 - WMS Stores and Layers
 - WMTS Stores and Layers
 - Operations (Reset, Reload, Logging, Monitoring)
-- About endpoints (Manifest, Version, Status)
+- About endpoints (Manifest, Version, Status, System Status)
+- CRS endpoints (list, authorities, definition JSON, definition WKT)
 - URL Checks endpoints
+- Proxy Base Extension endpoints
 - Resource endpoints (read metadata/content, HEAD, upload/update, delete)
 - Fonts endpoint
 - Templates endpoints (server/workspace/store/type/coverage scopes)
@@ -44,6 +49,7 @@
 - GeoWebCache layer and seed endpoints
 - GeoWebCache mass truncate and disk quota endpoints
 - GeoWebCache blobstores, gridsets, and bounds endpoints
+- GeoWebCache filter update endpoint
 - Importer extension core endpoints (imports lifecycle)
 - Importer extension task and data endpoints
 - Importer extension transform endpoints

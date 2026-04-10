@@ -87,6 +87,18 @@ public sealed class AboutClient : GeoServerClientBase
     public AboutTypedResponse GetStatusTyped()
         => Send<AboutTypedResponse>(HttpMethod.Get, "about/status.json");
 
+    /// <summary>
+    /// Gets system-level status metrics.
+    /// </summary>
+    public Task<SystemStatusResponse> GetSystemStatusAsync(CancellationToken cancellationToken = default)
+        => SendAsync<SystemStatusResponse>(HttpMethod.Get, "about/system-status.json", cancellationToken: cancellationToken);
+
+    /// <summary>
+    /// Gets system-level status metrics (synchronous).
+    /// </summary>
+    public SystemStatusResponse GetSystemStatus()
+        => Send<SystemStatusResponse>(HttpMethod.Get, "about/system-status.json");
+
     private static string BuildPath(string path, string? query)
     {
         if (string.IsNullOrWhiteSpace(query))

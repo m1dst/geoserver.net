@@ -79,6 +79,21 @@ This file tracks what is implemented in the wrapper and what remains.
 - `AssociateUserWithGroupAsync` / `AssociateUserWithGroup`
 - `RemoveUserFromGroupAsync` / `RemoveUserFromGroup`
 
+### Security User/Group Services
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### Security Root Configuration
+- `GetMasterPasswordAsync` / `GetMasterPassword`
+- `UpdateMasterPasswordAsync` / `UpdateMasterPassword`
+- `UpdateSelfPasswordAsync` / `UpdateSelfPassword`
+- `GetCatalogModeAsync` / `GetCatalogMode`
+- `UpdateCatalogModeAsync` / `UpdateCatalogMode`
+- `ReloadAclCatalogAsync` / `ReloadAclCatalog` (PUT and POST)
+
 ### Security Authentication Providers
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
@@ -93,6 +108,14 @@ This file tracks what is implemented in the wrapper and what remains.
 - `CreateAsync` / `Create`
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
+
+### Security Filter Chains
+- `GetAllAsync` / `GetAll`
+- `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update` (supports optional `position` query)
+- `DeleteAsync` / `Delete`
+- `SetOrderAsync` / `SetOrder`
 
 ### WMS Stores
 - `GetAllAsync` / `GetAll`
@@ -144,15 +167,30 @@ This file tracks what is implemented in the wrapper and what remains.
 - `GetManifestAsync` / `GetManifest`
 - `GetVersionAsync` / `GetVersion`
 - `GetStatusAsync` / `GetStatus`
+- `GetSystemStatusAsync` / `GetSystemStatus`
+
+### CRS
+- `GetAllAsync` / `GetAll`
+- `GetByIdentifierAsync` / `GetByIdentifier`
+- `GetWktByIdentifierAsync` / `GetWktByIdentifier`
+- `GetAuthoritiesAsync` / `GetAuthorities`
 
 ### About Typed Methods
 - `GetManifestTypedAsync` / `GetManifestTyped`
 - `GetVersionTypedAsync` / `GetVersionTyped`
 - `GetStatusTypedAsync` / `GetStatusTyped`
+- Includes compatibility aliases for alternate payload fields (`@name`, `status`, `isEnabled`, `isAvailable`, and legacy `statuss`)
 
 ### URL Checks
 - `GetAllAsync` / `GetAll`
 - `GetByNameAsync` / `GetByName`
+- `CreateAsync` / `Create`
+- `UpdateAsync` / `Update`
+- `DeleteAsync` / `Delete`
+
+### Proxy Base Extension
+- `GetAllAsync` / `GetAll`
+- `GetByIdAsync` / `GetById`
 - `CreateAsync` / `Create`
 - `UpdateAsync` / `Update`
 - `DeleteAsync` / `Delete`
@@ -212,6 +250,7 @@ This file tracks what is implemented in the wrapper and what remains.
 - `PutGridSetAsync` / `PutGridSet`
 - `DeleteGridSetAsync` / `DeleteGridSet`
 - `GetBoundsRawAsync` / `GetBoundsRaw`
+- `UpdateFilterAsync` / `UpdateFilter`
 
 ### GeoWebCache Typed Methods
 - `GetGlobalTypedAsync` / `GetGlobalTyped`
@@ -310,6 +349,7 @@ This file tracks what is implemented in the wrapper and what remains.
 
 ## Remaining API Areas
 
+- optional extension APIs (`opensearch-eo`, `params-extractor`, `rat`, `wpsdownload`)
 
 ## Test Status
 
