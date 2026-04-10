@@ -63,9 +63,10 @@ public sealed class CatalogModeResponse
     {
         set
         {
-            if (!string.IsNullOrWhiteSpace(value?.Mode))
+            var nestedMode = value?.Mode;
+            if (!string.IsNullOrWhiteSpace(nestedMode))
             {
-                Mode = value.Mode;
+                Mode = nestedMode;
             }
         }
     }

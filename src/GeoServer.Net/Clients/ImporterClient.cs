@@ -12,7 +12,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class ImporterClient : GeoServerClientBase
 {
-    internal ImporterClient(HttpClient httpClient) : base(httpClient)
+    internal ImporterClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class OwsServicesClient : GeoServerClientBase
 {
-    internal OwsServicesClient(HttpClient httpClient) : base(httpClient)
+    internal OwsServicesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

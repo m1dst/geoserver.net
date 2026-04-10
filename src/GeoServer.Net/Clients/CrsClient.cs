@@ -13,7 +13,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class CrsClient : GeoServerClientBase
 {
-    internal CrsClient(HttpClient httpClient) : base(httpClient)
+    internal CrsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

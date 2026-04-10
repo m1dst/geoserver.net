@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class SecurityConfigClient : GeoServerClientBase
 {
-    internal SecurityConfigClient(HttpClient httpClient) : base(httpClient)
+    internal SecurityConfigClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

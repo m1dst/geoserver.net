@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class UrlChecksClient : GeoServerClientBase
 {
-    internal UrlChecksClient(HttpClient httpClient) : base(httpClient)
+    internal UrlChecksClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

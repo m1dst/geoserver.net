@@ -14,7 +14,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class UserGroupServicesClient : GeoServerClientBase
 {
-    internal UserGroupServicesClient(HttpClient httpClient) : base(httpClient)
+    internal UserGroupServicesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

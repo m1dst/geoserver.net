@@ -12,7 +12,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class TemplatesClient : GeoServerClientBase
 {
-    internal TemplatesClient(HttpClient httpClient) : base(httpClient)
+    internal TemplatesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

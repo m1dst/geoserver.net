@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class WmsStoresClient : GeoServerClientBase
 {
-    internal WmsStoresClient(HttpClient httpClient) : base(httpClient)
+    internal WmsStoresClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

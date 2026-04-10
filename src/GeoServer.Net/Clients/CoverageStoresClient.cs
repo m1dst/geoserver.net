@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class CoverageStoresClient : GeoServerClientBase
 {
-    internal CoverageStoresClient(HttpClient httpClient) : base(httpClient)
+    internal CoverageStoresClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

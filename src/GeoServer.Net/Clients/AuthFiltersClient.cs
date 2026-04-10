@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class AuthFiltersClient : GeoServerClientBase
 {
-    internal AuthFiltersClient(HttpClient httpClient) : base(httpClient)
+    internal AuthFiltersClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

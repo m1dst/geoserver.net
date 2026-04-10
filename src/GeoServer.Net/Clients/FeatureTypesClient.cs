@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class FeatureTypesClient : GeoServerClientBase
 {
-    internal FeatureTypesClient(HttpClient httpClient) : base(httpClient)
+    internal FeatureTypesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

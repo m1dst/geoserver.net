@@ -12,7 +12,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class ResourcesClient : GeoServerClientBase
 {
-    internal ResourcesClient(HttpClient httpClient) : base(httpClient)
+    internal ResourcesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 
@@ -97,16 +97,18 @@ public sealed class ResourcesClient : GeoServerClientBase
 
     private static string BuildPath(string? pathToResource, string? query = null)
     {
-        var path = string.IsNullOrWhiteSpace(pathToResource)
+        var resourcePath = pathToResource ?? string.Empty;
+        var path = string.IsNullOrWhiteSpace(resourcePath)
             ? "resource"
-            : $"resource/{EncodePath(pathToResource)}";
+            : $"resource/{EncodePath(resourcePath)}";
 
         if (string.IsNullOrWhiteSpace(query))
         {
             return path;
         }
 
-        return $"{path}?{query.TrimStart('?')}";
+        var queryValue = query ?? string.Empty;
+        return $"{path}?{queryValue.TrimStart('?')}";
     }
 
     private static string EncodePath(string value)

@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class AboutClient : GeoServerClientBase
 {
-    internal AboutClient(HttpClient httpClient) : base(httpClient)
+    internal AboutClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 
@@ -106,6 +106,7 @@ public sealed class AboutClient : GeoServerClientBase
             return path;
         }
 
-        return $"{path}?{query.TrimStart('?')}";
+        var queryValue = query ?? string.Empty;
+        return $"{path}?{queryValue.TrimStart('?')}";
     }
 }

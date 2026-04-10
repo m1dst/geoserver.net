@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class DataStoresClient : GeoServerClientBase
 {
-    internal DataStoresClient(HttpClient httpClient) : base(httpClient)
+    internal DataStoresClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

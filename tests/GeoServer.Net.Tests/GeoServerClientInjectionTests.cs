@@ -69,7 +69,7 @@ public sealed class GeoServerClientInjectionTests
     public void ExtensionMethodWithOptions_AppliesOptionsToInjectedHttpClient()
     {
         var handler = new TestHttpMessageHandler(_ => TestHttpMessageHandler.Json(@"{""workspaces"":{""workspace"":[]}}"));
-        var httpClient = new HttpClient(handler);
+        var httpClient = new HttpClient(handler) { BaseAddress = new Uri("http://placeholder.local/base/") };
         var options = new GeoServerClientOptions
         {
             BaseUri = new Uri("http://localhost:8080/geoserver/rest"),
@@ -86,7 +86,39 @@ public sealed class GeoServerClientInjectionTests
 
         var expected = Convert.ToBase64String(Encoding.UTF8.GetBytes("admin:geoserver"));
         Assert.Equal(new AuthenticationHeaderValue("Basic", expected), handler.Requests[0].Headers.Authorization);
-        Assert.Equal(TimeSpan.FromSeconds(45), httpClient.Timeout);
+        Assert.Equal("http://placeholder.local/base/", httpClient.BaseAddress!.AbsoluteUri);
+    }
+
+    /// <summary>
+    /// Executes the ConstructorWithOptions_DoesNotMutateInjectedHttpClientDefaults operation.
+    /// </summary>
+    [Fact]
+    public void ConstructorWithOptions_DoesNotMutateInjectedHttpClientDefaults()
+    {
+        var handler = new TestHttpMessageHandler(_ => TestHttpMessageHandler.Json(@"{""workspaces"":{""workspace"":[]}}"));
+        var httpClient = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("http://unchanged.local/base/")
+        };
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "cHJldmlvdXM6YXV0aA==");
+
+        var options = new GeoServerClientOptions
+        {
+            BaseUri = new Uri("http://localhost:8080/geoserver/rest"),
+            Username = "admin",
+            Password = "geoserver"
+        };
+
+        using var client = new GeoServerClient(httpClient, options);
+        _ = client.Workspaces.GetAll();
+
+        Assert.Single(handler.Requests);
+        Assert.Equal("http://localhost:8080/geoserver/rest/workspaces.json", handler.Requests[0].RequestUri!.AbsoluteUri);
+        var expected = Convert.ToBase64String(Encoding.UTF8.GetBytes("admin:geoserver"));
+        Assert.Equal(new AuthenticationHeaderValue("Basic", expected), handler.Requests[0].Headers.Authorization);
+
+        Assert.Equal("http://unchanged.local/base/", httpClient.BaseAddress!.AbsoluteUri);
+        Assert.Equal(new AuthenticationHeaderValue("Basic", "cHJldmlvdXM6YXV0aA=="), httpClient.DefaultRequestHeaders.Authorization);
     }
 
     private sealed class DisposableProbeHandler : HttpMessageHandler

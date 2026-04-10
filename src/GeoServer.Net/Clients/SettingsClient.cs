@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class SettingsClient : GeoServerClientBase
 {
-    internal SettingsClient(HttpClient httpClient) : base(httpClient)
+    internal SettingsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

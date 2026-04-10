@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class ProxyBaseExtensionClient : GeoServerClientBase
 {
-    internal ProxyBaseExtensionClient(HttpClient httpClient) : base(httpClient)
+    internal ProxyBaseExtensionClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

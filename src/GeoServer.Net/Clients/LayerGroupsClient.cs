@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class LayerGroupsClient : GeoServerClientBase
 {
-    internal LayerGroupsClient(HttpClient httpClient) : base(httpClient)
+    internal LayerGroupsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

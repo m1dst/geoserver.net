@@ -32,7 +32,6 @@ public static class GeoServerClientFactoryExtensions
             throw new ArgumentNullException(nameof(httpClient));
         }
 
-        GeoServerHttpClient.ApplyOptions(httpClient, options);
-        return new GeoServerClient(httpClient, disposeHttpClient);
+        return new GeoServerClient(httpClient, options, disposeHttpClient);
     }
 }

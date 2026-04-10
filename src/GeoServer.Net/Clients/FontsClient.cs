@@ -10,7 +10,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class FontsClient : GeoServerClientBase
 {
-    internal FontsClient(HttpClient httpClient) : base(httpClient)
+    internal FontsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class RolesClient : GeoServerClientBase
 {
-    internal RolesClient(HttpClient httpClient) : base(httpClient)
+    internal RolesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

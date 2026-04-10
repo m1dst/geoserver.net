@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using geoserver.net.Clients;
 
 namespace geoserver.net;
 
@@ -22,13 +23,21 @@ internal static class GeoServerHttpClient
             throw new ArgumentException("BaseUri is required.", nameof(options));
         }
 
+        var requestContext = CreateRequestContext(options);
         var httpClient = new HttpClient
         {
-            BaseAddress = EnsureTrailingSlash(options.BaseUri),
+            BaseAddress = requestContext.BaseUri,
             Timeout = options.Timeout
         };
 
-        ApplyOptions(httpClient, options);
+        var auth = requestContext.Authorization;
+        if (auth is not null)
+        {
+            httpClient.DefaultRequestHeaders.Authorization = auth;
+        }
+
+        httpClient.DefaultRequestHeaders.Accept.Clear();
+        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return httpClient;
     }
 
@@ -62,6 +71,30 @@ internal static class GeoServerHttpClient
             new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authBytes));
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    }
+
+    public static GeoServerRequestContext CreateRequestContext(GeoServerClientOptions options)
+    {
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (options.BaseUri is null)
+        {
+            throw new ArgumentException("BaseUri is required.", nameof(options));
+        }
+
+        var username = options.Username ?? string.Empty;
+        var password = options.Password ?? string.Empty;
+        var authBytes = Encoding.UTF8.GetBytes($"{username}:{password}");
+        var authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(authBytes));
+
+        return new GeoServerRequestContext
+        {
+            BaseUri = EnsureTrailingSlash(options.BaseUri),
+            Authorization = authorization
+        };
     }
 
     private static Uri EnsureTrailingSlash(Uri uri)

@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class WorkspacesClient : GeoServerClientBase
 {
-    internal WorkspacesClient(HttpClient httpClient) : base(httpClient)
+    internal WorkspacesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

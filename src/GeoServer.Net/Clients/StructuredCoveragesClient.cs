@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class StructuredCoveragesClient : GeoServerClientBase
 {
-    internal StructuredCoveragesClient(HttpClient httpClient) : base(httpClient)
+    internal StructuredCoveragesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 
@@ -89,7 +89,7 @@ public sealed class StructuredCoveragesClient : GeoServerClientBase
 
         if (!string.IsNullOrWhiteSpace(cqlFilter))
         {
-            Add("filter", cqlFilter);
+            Add("filter", cqlFilter!);
         }
 
         if (offset.HasValue)
@@ -104,7 +104,7 @@ public sealed class StructuredCoveragesClient : GeoServerClientBase
 
         if (!string.IsNullOrWhiteSpace(purge))
         {
-            Add("purge", purge);
+            Add("purge", purge!);
         }
 
         if (updateBBox.HasValue)

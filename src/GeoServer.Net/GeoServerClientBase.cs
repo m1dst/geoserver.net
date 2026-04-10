@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,11 +15,13 @@ namespace geoserver.net;
 public abstract class GeoServerClientBase
 {
     private readonly HttpClient _httpClient;
+    private readonly geoserver.net.Clients.GeoServerRequestContext? _requestContext;
     protected HttpClient HttpClient => _httpClient;
 
-    protected GeoServerClientBase(HttpClient httpClient)
+    private protected GeoServerClientBase(HttpClient httpClient, geoserver.net.Clients.GeoServerRequestContext? requestContext = null)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        _requestContext = requestContext;
     }
 
     protected async Task<T> SendAsync<T>(HttpMethod method, string path, object? body = null, CancellationToken cancellationToken = default)
@@ -83,9 +86,16 @@ public abstract class GeoServerClientBase
     protected string SendRaw(HttpMethod method, string path, object? body = null)
         => SendRawAsync(method, path, body).GetAwaiter().GetResult();
 
-    private static HttpRequestMessage BuildRequest(HttpMethod method, string path, object? body)
+    private HttpRequestMessage BuildRequest(HttpMethod method, string path, object? body)
     {
-        var request = new HttpRequestMessage(method, path);
+        var request = new HttpRequestMessage(method, BuildRequestUri(path));
+        if (_requestContext?.Authorization is not null)
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue(
+                _requestContext.Authorization.Scheme,
+                _requestContext.Authorization.Parameter);
+        }
+
         if (body is not null)
         {
             var json = JsonConvert.SerializeObject(body);
@@ -93,6 +103,17 @@ public abstract class GeoServerClientBase
         }
 
         return request;
+    }
+
+    private Uri BuildRequestUri(string path)
+    {
+        if (_requestContext is null || _requestContext.BaseUri is null)
+        {
+            return new Uri(path, UriKind.RelativeOrAbsolute);
+        }
+
+        var relativePath = path.TrimStart('/');
+        return new Uri(_requestContext.BaseUri, relativePath);
     }
 
     private static GeoServerApiException CreateApiException(HttpStatusCode statusCode, string path, string content)

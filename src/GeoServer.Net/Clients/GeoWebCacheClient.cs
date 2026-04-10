@@ -10,7 +10,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class GeoWebCacheClient : GeoServerClientBase
 {
-    internal GeoWebCacheClient(HttpClient httpClient) : base(httpClient)
+    internal GeoWebCacheClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

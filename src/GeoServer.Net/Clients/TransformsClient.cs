@@ -14,7 +14,7 @@ public sealed class TransformsClient : GeoServerClientBase
 {
     private const string BasePath = "services/wfs/transforms";
 
-    internal TransformsClient(HttpClient httpClient) : base(httpClient)
+    internal TransformsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

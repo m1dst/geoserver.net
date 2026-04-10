@@ -11,7 +11,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class FilterChainsClient : GeoServerClientBase
 {
-    internal FilterChainsClient(HttpClient httpClient) : base(httpClient)
+    internal FilterChainsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 

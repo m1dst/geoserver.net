@@ -10,7 +10,7 @@ namespace geoserver.net.Clients;
 /// </summary>
 public sealed class OperationsClient : GeoServerClientBase
 {
-    internal OperationsClient(HttpClient httpClient) : base(httpClient)
+    internal OperationsClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
     }
 
@@ -126,6 +126,7 @@ public sealed class OperationsClient : GeoServerClientBase
             return basePath;
         }
 
-        return $"{basePath}?{query.TrimStart('?')}";
+        var queryValue = query ?? string.Empty;
+        return $"{basePath}?{queryValue.TrimStart('?')}";
     }
 }

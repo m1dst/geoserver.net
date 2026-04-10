@@ -14,7 +14,7 @@ public sealed class StylesClient : GeoServerClientBase
 {
     private readonly HttpClient _httpClient;
 
-    internal StylesClient(HttpClient httpClient) : base(httpClient)
+    internal StylesClient(HttpClient httpClient, GeoServerRequestContext? requestContext = null) : base(httpClient, requestContext)
     {
         _httpClient = httpClient;
     }

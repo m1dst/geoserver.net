@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using geoserver.net.Clients;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace geoserver.net;
 
@@ -11,6 +12,7 @@ public sealed class GeoServerClient : IDisposable
 {
     private readonly HttpClient _httpClient;
     private readonly bool _ownsHttpClient;
+    private readonly GeoServerRequestContext? _requestContext;
     private bool _disposed;
 
     /// <summary>
@@ -19,7 +21,53 @@ public sealed class GeoServerClient : IDisposable
     public GeoServerClient(GeoServerClientOptions options)
     {
         _httpClient = GeoServerHttpClient.Create(options);
+        _requestContext = GeoServerHttpClient.CreateRequestContext(options);
         _ownsHttpClient = true;
+        Workspaces = new WorkspacesClient(_httpClient, _requestContext);
+        DataStores = new DataStoresClient(_httpClient, _requestContext);
+        CoverageStores = new CoverageStoresClient(_httpClient, _requestContext);
+        Coverages = new CoveragesClient(_httpClient, _requestContext);
+        StructuredCoverages = new StructuredCoveragesClient(_httpClient, _requestContext);
+        FeatureTypes = new FeatureTypesClient(_httpClient, _requestContext);
+        Namespaces = new NamespacesClient(_httpClient, _requestContext);
+        LayerGroups = new LayerGroupsClient(_httpClient, _requestContext);
+        Layers = new LayersClient(_httpClient, _requestContext);
+        Styles = new StylesClient(_httpClient, _requestContext);
+        Settings = new SettingsClient(_httpClient, _requestContext);
+        OwsServices = new OwsServicesClient(_httpClient, _requestContext);
+        Roles = new RolesClient(_httpClient, _requestContext);
+        UserGroups = new UserGroupsClient(_httpClient, _requestContext);
+        UserGroupServices = new UserGroupServicesClient(_httpClient, _requestContext);
+        Security = new SecurityConfigClient(_httpClient, _requestContext);
+        AuthProviders = new AuthProvidersClient(_httpClient, _requestContext);
+        AuthFilters = new AuthFiltersClient(_httpClient, _requestContext);
+        FilterChains = new FilterChainsClient(_httpClient, _requestContext);
+        WmsStores = new WmsStoresClient(_httpClient, _requestContext);
+        WmsLayers = new WmsLayersClient(_httpClient, _requestContext);
+        WmtsStores = new WmtsStoresClient(_httpClient, _requestContext);
+        WmtsLayers = new WmtsLayersClient(_httpClient, _requestContext);
+        Operations = new OperationsClient(_httpClient, _requestContext);
+        About = new AboutClient(_httpClient, _requestContext);
+        Crs = new CrsClient(_httpClient, _requestContext);
+        UrlChecks = new UrlChecksClient(_httpClient, _requestContext);
+        ProxyBaseExtension = new ProxyBaseExtensionClient(_httpClient, _requestContext);
+        Resources = new ResourcesClient(_httpClient, _requestContext);
+        Fonts = new FontsClient(_httpClient, _requestContext);
+        Templates = new TemplatesClient(_httpClient, _requestContext);
+        Transforms = new TransformsClient(_httpClient, _requestContext);
+        GeoWebCache = new GeoWebCacheClient(_httpClient, _requestContext);
+        Importer = new ImporterClient(_httpClient, _requestContext);
+    }
+
+    /// <summary>
+    /// Creates a new client using an existing <see cref="HttpClient"/>.
+    /// </summary>
+    /// <param name="httpClient">Configured HTTP client.</param>
+    /// <param name="disposeHttpClient">Whether dispose should also dispose the provided client.</param>
+    public GeoServerClient(HttpClient httpClient, bool disposeHttpClient)
+    {
+        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        _ownsHttpClient = disposeHttpClient;
         Workspaces = new WorkspacesClient(_httpClient);
         DataStores = new DataStoresClient(_httpClient);
         CoverageStores = new CoverageStoresClient(_httpClient);
@@ -60,45 +108,57 @@ public sealed class GeoServerClient : IDisposable
     /// Creates a new client using an existing <see cref="HttpClient"/>.
     /// </summary>
     /// <param name="httpClient">Configured HTTP client.</param>
+    [ActivatorUtilitiesConstructor]
+    public GeoServerClient(HttpClient httpClient)
+        : this(httpClient, disposeHttpClient: false)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new client using an existing <see cref="HttpClient"/> and per-client request context.
+    /// </summary>
+    /// <param name="httpClient">Reusable HTTP client instance.</param>
+    /// <param name="options">Per-client base URI and credentials used for request construction.</param>
     /// <param name="disposeHttpClient">Whether dispose should also dispose the provided client.</param>
-    public GeoServerClient(HttpClient httpClient, bool disposeHttpClient = false)
+    public GeoServerClient(HttpClient httpClient, GeoServerClientOptions options, bool disposeHttpClient = false)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+        _requestContext = GeoServerHttpClient.CreateRequestContext(options);
         _ownsHttpClient = disposeHttpClient;
-        Workspaces = new WorkspacesClient(_httpClient);
-        DataStores = new DataStoresClient(_httpClient);
-        CoverageStores = new CoverageStoresClient(_httpClient);
-        Coverages = new CoveragesClient(_httpClient);
-        StructuredCoverages = new StructuredCoveragesClient(_httpClient);
-        FeatureTypes = new FeatureTypesClient(_httpClient);
-        Namespaces = new NamespacesClient(_httpClient);
-        LayerGroups = new LayerGroupsClient(_httpClient);
-        Layers = new LayersClient(_httpClient);
-        Styles = new StylesClient(_httpClient);
-        Settings = new SettingsClient(_httpClient);
-        OwsServices = new OwsServicesClient(_httpClient);
-        Roles = new RolesClient(_httpClient);
-        UserGroups = new UserGroupsClient(_httpClient);
-        UserGroupServices = new UserGroupServicesClient(_httpClient);
-        Security = new SecurityConfigClient(_httpClient);
-        AuthProviders = new AuthProvidersClient(_httpClient);
-        AuthFilters = new AuthFiltersClient(_httpClient);
-        FilterChains = new FilterChainsClient(_httpClient);
-        WmsStores = new WmsStoresClient(_httpClient);
-        WmsLayers = new WmsLayersClient(_httpClient);
-        WmtsStores = new WmtsStoresClient(_httpClient);
-        WmtsLayers = new WmtsLayersClient(_httpClient);
-        Operations = new OperationsClient(_httpClient);
-        About = new AboutClient(_httpClient);
-        Crs = new CrsClient(_httpClient);
-        UrlChecks = new UrlChecksClient(_httpClient);
-        ProxyBaseExtension = new ProxyBaseExtensionClient(_httpClient);
-        Resources = new ResourcesClient(_httpClient);
-        Fonts = new FontsClient(_httpClient);
-        Templates = new TemplatesClient(_httpClient);
-        Transforms = new TransformsClient(_httpClient);
-        GeoWebCache = new GeoWebCacheClient(_httpClient);
-        Importer = new ImporterClient(_httpClient);
+        Workspaces = new WorkspacesClient(_httpClient, _requestContext);
+        DataStores = new DataStoresClient(_httpClient, _requestContext);
+        CoverageStores = new CoverageStoresClient(_httpClient, _requestContext);
+        Coverages = new CoveragesClient(_httpClient, _requestContext);
+        StructuredCoverages = new StructuredCoveragesClient(_httpClient, _requestContext);
+        FeatureTypes = new FeatureTypesClient(_httpClient, _requestContext);
+        Namespaces = new NamespacesClient(_httpClient, _requestContext);
+        LayerGroups = new LayerGroupsClient(_httpClient, _requestContext);
+        Layers = new LayersClient(_httpClient, _requestContext);
+        Styles = new StylesClient(_httpClient, _requestContext);
+        Settings = new SettingsClient(_httpClient, _requestContext);
+        OwsServices = new OwsServicesClient(_httpClient, _requestContext);
+        Roles = new RolesClient(_httpClient, _requestContext);
+        UserGroups = new UserGroupsClient(_httpClient, _requestContext);
+        UserGroupServices = new UserGroupServicesClient(_httpClient, _requestContext);
+        Security = new SecurityConfigClient(_httpClient, _requestContext);
+        AuthProviders = new AuthProvidersClient(_httpClient, _requestContext);
+        AuthFilters = new AuthFiltersClient(_httpClient, _requestContext);
+        FilterChains = new FilterChainsClient(_httpClient, _requestContext);
+        WmsStores = new WmsStoresClient(_httpClient, _requestContext);
+        WmsLayers = new WmsLayersClient(_httpClient, _requestContext);
+        WmtsStores = new WmtsStoresClient(_httpClient, _requestContext);
+        WmtsLayers = new WmtsLayersClient(_httpClient, _requestContext);
+        Operations = new OperationsClient(_httpClient, _requestContext);
+        About = new AboutClient(_httpClient, _requestContext);
+        Crs = new CrsClient(_httpClient, _requestContext);
+        UrlChecks = new UrlChecksClient(_httpClient, _requestContext);
+        ProxyBaseExtension = new ProxyBaseExtensionClient(_httpClient, _requestContext);
+        Resources = new ResourcesClient(_httpClient, _requestContext);
+        Fonts = new FontsClient(_httpClient, _requestContext);
+        Templates = new TemplatesClient(_httpClient, _requestContext);
+        Transforms = new TransformsClient(_httpClient, _requestContext);
+        GeoWebCache = new GeoWebCacheClient(_httpClient, _requestContext);
+        Importer = new ImporterClient(_httpClient, _requestContext);
     }
 
     /// <summary>
