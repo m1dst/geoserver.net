@@ -13,14 +13,14 @@ pipelines:
         caches:
           - dotnetcore
         script:
-          - apt-get update && apt-get install -y wget
+          - apt-get update && apt-get install -y curl
           - docker run -d --name geoserver -p 8080:8080 -e GEOSERVER_ADMIN_USER=admin -e GEOSERVER_ADMIN_PASSWORD=geoserver docker.osgeo.org/geoserver:2.28.2
           - |
             set -e
             echo "Waiting for GeoServer readiness (max 60 attempts)..."
             ready=0
             for i in $(seq 1 60); do
-              if wget -q --spider http://localhost:8080/geoserver/rest/about/status.json; then
+              if curl -fsS -u admin:geoserver http://localhost:8080/geoserver/rest/about/status.json > /dev/null; then
                 echo "GeoServer is ready (attempt ${i}/60)."
                 ready=1
                 break
