@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using geoserver.net.Models.FeatureTypes;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace GeoServer.Net.Tests;
@@ -109,6 +110,40 @@ public sealed class FeatureTypesClientTests
     }
 
     /// <summary>
+    /// Executes the UpdateAsync_WithRecalculate_AppendsQuery operation.
+    /// </summary>
+    [Fact]
+    public async Task UpdateAsync_WithRecalculate_AppendsQuery()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent());
+        using (client)
+        {
+            await client.FeatureTypes.UpdateAsync("ws1", "ds1", "ft1", new FeatureTypeCreateRequest { Enabled = true }, "nativebbox,latlonbbox");
+            var request = handler.Requests.Single();
+            Assert.Equal(HttpMethod.Put, request.Method);
+            Assert.Contains("recalculate=nativebbox%2Clatlonbbox", request.RequestUri!.Query);
+        }
+    }
+
+    /// <summary>
+    /// Executes the UpdateAsync_WithEnabledOnly_SendsMinimalBody operation.
+    /// </summary>
+    [Fact]
+    public async Task UpdateAsync_WithEnabledOnly_SendsMinimalBody()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent());
+        using (client)
+        {
+            await client.FeatureTypes.UpdateAsync("ws1", "ds1", "ft1", new FeatureTypeCreateRequest { Enabled = true });
+            var request = handler.Requests.Single();
+            var body = await request.Content!.ReadAsStringAsync();
+            var parsed = JObject.Parse(body);
+            Assert.True((bool?)parsed["featureType"]?["enabled"]);
+            Assert.Null(parsed["featureType"]?["name"]);
+        }
+    }
+
+    /// <summary>
     /// Executes the Update_Sync_UsesPut operation.
     /// </summary>
     [Fact]
@@ -119,6 +154,22 @@ public sealed class FeatureTypesClientTests
         {
             client.FeatureTypes.Update("ws1", "ds1", "ft1", new FeatureTypeCreateRequest { Name = "ft1" });
             Assert.Equal(HttpMethod.Put, handler.Requests.Single().Method);
+        }
+    }
+
+    /// <summary>
+    /// Executes the Update_Sync_WithRecalculate_AppendsQuery operation.
+    /// </summary>
+    [Fact]
+    public void Update_Sync_WithRecalculate_AppendsQuery()
+    {
+        var (client, handler) = GeoServerClientFactory.Create(_ => TestHttpMessageHandler.NoContent());
+        using (client)
+        {
+            client.FeatureTypes.Update("ws1", "ds1", "ft1", new FeatureTypeCreateRequest { Enabled = true }, "nativebbox,latlonbbox");
+            var request = handler.Requests.Single();
+            Assert.Equal(HttpMethod.Put, request.Method);
+            Assert.Contains("recalculate=nativebbox%2Clatlonbbox", request.RequestUri!.Query);
         }
     }
 

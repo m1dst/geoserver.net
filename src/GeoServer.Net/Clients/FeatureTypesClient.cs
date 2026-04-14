@@ -55,13 +55,25 @@ public sealed class FeatureTypesClient : GeoServerClientBase
     /// Updates a feature type.
     /// </summary>
     public Task UpdateAsync(string workspaceName, string dataStoreName, string featureTypeName, FeatureTypeCreateRequest request, CancellationToken cancellationToken = default)
-        => SendAsync(HttpMethod.Put, $"workspaces/{Encode(workspaceName)}/datastores/{Encode(dataStoreName)}/featuretypes/{Encode(featureTypeName)}", new { featureType = request }, cancellationToken);
+        => UpdateAsync(workspaceName, dataStoreName, featureTypeName, request, recalculate: null, cancellationToken);
+
+    /// <summary>
+    /// Updates a feature type with optional bbox recalculation.
+    /// </summary>
+    public Task UpdateAsync(string workspaceName, string dataStoreName, string featureTypeName, FeatureTypeCreateRequest request, string? recalculate, CancellationToken cancellationToken = default)
+        => SendAsync(HttpMethod.Put, $"workspaces/{Encode(workspaceName)}/datastores/{Encode(dataStoreName)}/featuretypes/{Encode(featureTypeName)}{BuildRecalculateQuery(recalculate)}", new { featureType = request }, cancellationToken);
 
     /// <summary>
     /// Updates a feature type (synchronous).
     /// </summary>
     public void Update(string workspaceName, string dataStoreName, string featureTypeName, FeatureTypeCreateRequest request)
-        => Send(HttpMethod.Put, $"workspaces/{Encode(workspaceName)}/datastores/{Encode(dataStoreName)}/featuretypes/{Encode(featureTypeName)}", new { featureType = request });
+        => Update(workspaceName, dataStoreName, featureTypeName, request, recalculate: null);
+
+    /// <summary>
+    /// Updates a feature type with optional bbox recalculation (synchronous).
+    /// </summary>
+    public void Update(string workspaceName, string dataStoreName, string featureTypeName, FeatureTypeCreateRequest request, string? recalculate)
+        => Send(HttpMethod.Put, $"workspaces/{Encode(workspaceName)}/datastores/{Encode(dataStoreName)}/featuretypes/{Encode(featureTypeName)}{BuildRecalculateQuery(recalculate)}", new { featureType = request });
 
     /// <summary>
     /// Deletes a feature type.
@@ -84,4 +96,9 @@ public sealed class FeatureTypesClient : GeoServerClientBase
 
         return Uri.EscapeDataString(value);
     }
+
+    private static string BuildRecalculateQuery(string? recalculate)
+        => string.IsNullOrWhiteSpace(recalculate)
+            ? string.Empty
+            : $"?recalculate={Uri.EscapeDataString(recalculate)}";
 }
