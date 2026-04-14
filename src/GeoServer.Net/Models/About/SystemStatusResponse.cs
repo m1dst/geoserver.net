@@ -112,8 +112,77 @@ public sealed class SystemStatusMetricDto
     public JToken? Value { get; set; }
 
     /// <summary>
+    /// Display value.
+    /// </summary>
+    [JsonProperty("displayValue")]
+    public string? DisplayValue
+    {
+        get
+        {
+            if (Value is null)
+                return null;
+
+            var raw = Value.Type == JTokenType.String
+                ? Value.Value<string>()
+                : Value.ToString(Formatting.None);
+
+            if (string.IsNullOrWhiteSpace(Unit))
+                return raw;
+
+            if (raw.Equals("NOT AVAILABLE", StringComparison.OrdinalIgnoreCase))
+                return raw;
+
+            return MetricFormatters.TryGetValue(Unit, out var formatter)
+                ? formatter(raw ?? string.Empty)
+                : raw;
+        }
+    }
+
+    /// <summary>
     /// Additional unknown metric properties.
     /// </summary>
     [JsonExtensionData]
     public IDictionary<string, JToken> AdditionalData { get; set; } = new Dictionary<string, JToken>();
+
+    private static readonly IReadOnlyDictionary<string, Func<string, string>> MetricFormatters =
+        new Dictionary<string, Func<string, string>>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["%"] = v => double.TryParse(v.TrimEnd('%'), out var parsedValue) ? $"{parsedValue:n0} %" : v,
+            ["bytes"] = v =>
+            {
+                if (long.TryParse(v, out var bytes))
+                {
+                    const long KB = 1024;
+                    const long MB = KB * 1024;
+                    const long GB = MB * 1024;
+                    if (bytes >= GB)
+                        return $"{bytes / (double)GB:n2} GB";
+                    if (bytes >= MB)
+                        return $"{bytes / (double)MB:n2} MB";
+                    if (bytes >= KB)
+                        return $"{bytes / (double)KB:n2} KB";
+                    return $"{bytes} bytes";
+                }
+                return $"{v} bytes";
+            },
+            ["sec"] = v =>
+            {
+                if (double.TryParse(v, out var seconds))
+                {
+                    var timeSpan = TimeSpan.FromSeconds(seconds);
+                    var parts = new List<string>();
+                    if (timeSpan.Days > 0)
+                        parts.Add($"{timeSpan.Days} days");
+                    if (timeSpan.Hours > 0)
+                        parts.Add($"{timeSpan.Hours} hours");
+                    if (timeSpan.Minutes > 0)
+                        parts.Add($"{timeSpan.Minutes} minutes");
+                    if (timeSpan.Seconds > 0 || parts.Count == 0)
+                        parts.Add($"{timeSpan.Seconds} seconds");
+                    return string.Join(", ", parts);
+                }
+                return $"{v} seconds";
+            }
+        };
+
 }
