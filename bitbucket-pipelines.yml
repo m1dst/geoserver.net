@@ -15,7 +15,30 @@ pipelines:
         script:
           - apt-get update && apt-get install -y wget
           - docker run -d --name geoserver -p 8080:8080 -e GEOSERVER_ADMIN_USER=admin -e GEOSERVER_ADMIN_PASSWORD=geoserver docker.osgeo.org/geoserver:2.28.2
-          - for i in $(seq 1 60); do wget -q --spider http://localhost:8080/geoserver/rest/about/status.json && break || sleep 5; done
+          - |
+            set -e
+            echo "Waiting for GeoServer readiness (max 60 attempts)..."
+            ready=0
+            for i in $(seq 1 60); do
+              if wget -q --spider http://localhost:8080/geoserver/rest/about/status.json; then
+                echo "GeoServer is ready (attempt ${i}/60)."
+                ready=1
+                break
+              fi
+
+              if [ $((i % 5)) -eq 0 ]; then
+                echo "Still waiting for GeoServer... attempt ${i}/60"
+              fi
+
+              sleep 5
+            done
+
+            if [ "$ready" -ne 1 ]; then
+              echo "GeoServer failed readiness check after 60 attempts."
+              echo "Last 200 lines of geoserver container logs:"
+              docker logs --tail 200 geoserver || true
+              exit 1
+            fi
           - dotnet restore geoserver.net.slnx
           - dotnet build geoserver.net.slnx -c Release --no-restore
           - dotnet build src/GeoServer.Net/GeoServer.Net.csproj -c Release -f net48 --no-restore
