@@ -1,5 +1,9 @@
 image: mcr.microsoft.com/dotnet/sdk:10.0
 
+clone:
+  # Required by Nerdbank.GitVersioning to compute versions from tags/history.
+  depth: full
+
 pipelines:
   default:
     - step:

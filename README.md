@@ -231,6 +231,34 @@ dotnet test tests\GeoServer.Net.IntegrationTests\GeoServer.Net.IntegrationTests.
 dotnet pack src\GeoServer.Net\GeoServer.Net.csproj -c Release -o .\artifacts\packages
 ```
 
+## Versioning
+
+This repository uses Nerdbank.GitVersioning (NBGV) to derive package and assembly versions from git history.
+
+- Version configuration lives in `version.json` at repo root.
+- Base version is currently `1.0-beta`.
+- Only tags matching `vX.Y` or `vX.Y.Z` are treated as public releases.
+- CI uses full clone history so NBGV can compute version metadata correctly.
+
+Typical outcomes:
+
+- Normal branch build: `1.0.0-beta-g<commit>`
+- Tagged release build (for example `v1.0.0`): `1.0.0`
+
+Local checks:
+
+```bash
+dotnet build src\GeoServer.Net\GeoServer.Net.csproj -c Release
+dotnet pack src\GeoServer.Net\GeoServer.Net.csproj -c Release -o .\artifacts\packages
+```
+
+Create a stable release tag:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
 ## Notes
 
 - GeoServer REST documentation: <https://docs.geoserver.org/main/en/user/rest/>
