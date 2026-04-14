@@ -129,10 +129,10 @@ public sealed class SystemStatusMetricDto
             if (string.IsNullOrWhiteSpace(Unit))
                 return raw;
 
-            if (raw.Equals("NOT AVAILABLE", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(raw, "NOT AVAILABLE", StringComparison.OrdinalIgnoreCase))
                 return raw;
 
-            return MetricFormatters.TryGetValue(Unit, out var formatter)
+            return MetricFormatters.TryGetValue(Unit!, out var formatter)
                 ? formatter(raw ?? string.Empty)
                 : raw;
         }
