@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.Templates;
+using GeoServer.Models.Templates;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around templates endpoints.

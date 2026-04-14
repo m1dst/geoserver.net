@@ -1,9 +1,9 @@
 using System;
-using geoserver.net;
+using GeoServer;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the ServiceCollectionExtensionsTests type.
@@ -27,7 +27,7 @@ public sealed class ServiceCollectionExtensionsTests
 
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();
-        var client = scope.ServiceProvider.GetRequiredService<geoserver.net.GeoServerClient>();
+        var client = scope.ServiceProvider.GetRequiredService<GeoServer.GeoServerClient>();
         Assert.NotNull(client);
     }
 
@@ -38,7 +38,7 @@ public sealed class ServiceCollectionExtensionsTests
     public void AddGeoServerClient_WithPrebuiltOptions_ResolvesClient()
     {
         var services = new ServiceCollection();
-        services.AddGeoServerClient(new geoserver.net.GeoServerClientOptions
+        services.AddGeoServerClient(new GeoServer.GeoServerClientOptions
         {
             BaseUri = new Uri("http://localhost:8080/geoserver/rest/"),
             Username = "admin",
@@ -48,7 +48,7 @@ public sealed class ServiceCollectionExtensionsTests
 
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();
-        var client = scope.ServiceProvider.GetRequiredService<geoserver.net.GeoServerClient>();
+        var client = scope.ServiceProvider.GetRequiredService<GeoServer.GeoServerClient>();
         Assert.NotNull(client);
     }
 
@@ -64,7 +64,7 @@ public sealed class ServiceCollectionExtensionsTests
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();
         var ex = Assert.Throws<InvalidOperationException>(
-            () => scope.ServiceProvider.GetRequiredService<geoserver.net.GeoServerClient>());
+            () => scope.ServiceProvider.GetRequiredService<GeoServer.GeoServerClient>());
         Assert.Contains("BaseUri", ex.Message);
     }
 }

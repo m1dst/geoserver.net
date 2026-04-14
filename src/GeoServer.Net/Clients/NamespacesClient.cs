@@ -2,9 +2,9 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.Namespaces;
+using GeoServer.Models.Namespaces;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around GeoServer namespaces REST endpoints.

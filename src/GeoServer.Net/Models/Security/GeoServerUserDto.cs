@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Security;
+namespace GeoServer.Models.Security;
 
 /// <summary>
 /// GeoServer security user DTO.

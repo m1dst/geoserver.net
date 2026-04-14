@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the AuthFiltersClientTests type.

@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Transforms;
+namespace GeoServer.Models.Transforms;
 
 /// <summary>
 /// Generic transforms response wrapper.

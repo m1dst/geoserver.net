@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.FeatureTypes;
+namespace GeoServer.Models.FeatureTypes;
 
 /// <summary>
 /// Single feature type response wrapper.

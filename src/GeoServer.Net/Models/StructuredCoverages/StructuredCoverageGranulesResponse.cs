@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.StructuredCoverages;
+namespace GeoServer.Models.StructuredCoverages;
 
 /// <summary>
 /// Structured coverage granules collection response.

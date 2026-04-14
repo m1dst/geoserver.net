@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 
-namespace geoserver.net.Models.Workspaces;
+namespace GeoServer.Models.Workspaces;
 
 /// <summary>
 /// List response for workspaces endpoint.

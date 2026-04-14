@@ -1,11 +1,11 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using geoserver.net.Models.Workspaces;
+using GeoServer.Models.Workspaces;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the WorkspacesClientTests type.

@@ -1,9 +1,9 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.Operations;
+using GeoServer.Models.Operations;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around reload, reset, logging and monitoring operations.

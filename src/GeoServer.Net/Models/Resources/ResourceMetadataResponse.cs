@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Resources;
+namespace GeoServer.Models.Resources;
 
 /// <summary>
 /// JSON response wrapper for resource metadata/directory responses.

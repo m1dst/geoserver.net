@@ -2,9 +2,9 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.UrlChecks;
+using GeoServer.Models.UrlChecks;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around URL external access checks endpoints.

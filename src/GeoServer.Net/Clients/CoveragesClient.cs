@@ -2,9 +2,9 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.Coverages;
+using GeoServer.Models.Coverages;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around GeoServer coverages REST endpoints.

@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.Crs;
+using GeoServer.Models.Crs;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around GeoServer CRS endpoints.

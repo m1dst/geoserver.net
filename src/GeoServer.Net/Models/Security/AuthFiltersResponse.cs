@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Security;
+namespace GeoServer.Models.Security;
 
 /// <summary>
 /// Authentication filters response wrapper.

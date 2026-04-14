@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Security;
+namespace GeoServer.Models.Security;
 
 /// <summary>
 /// User/group services list response.

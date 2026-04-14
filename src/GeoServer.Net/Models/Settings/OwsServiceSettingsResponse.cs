@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Settings;
+namespace GeoServer.Models.Settings;
 
 /// <summary>
 /// OWS service settings response with dynamic root key (wms/wfs/wcs/wmts).

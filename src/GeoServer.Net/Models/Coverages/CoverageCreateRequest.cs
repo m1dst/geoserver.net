@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Coverages;
+namespace GeoServer.Models.Coverages;
 
 /// <summary>
 /// Request payload used to create or update a coverage.

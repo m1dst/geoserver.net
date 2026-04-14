@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.About;
+namespace GeoServer.Models.About;
 
 /// <summary>
 /// Typed response wrapper for GeoServer about endpoints.

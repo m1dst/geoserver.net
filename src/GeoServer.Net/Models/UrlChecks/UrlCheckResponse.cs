@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.UrlChecks;
+namespace GeoServer.Models.UrlChecks;
 
 /// <summary>
 /// Response wrapper for a single URL external access check.

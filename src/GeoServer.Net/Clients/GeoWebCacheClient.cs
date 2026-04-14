@@ -1,9 +1,9 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.GeoWebCache;
+using GeoServer.Models.GeoWebCache;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around GeoWebCache core endpoints.

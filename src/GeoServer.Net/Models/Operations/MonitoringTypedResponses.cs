@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Operations;
+namespace GeoServer.Models.Operations;
 
 /// <summary>
 /// Typed response for monitoring requests list.

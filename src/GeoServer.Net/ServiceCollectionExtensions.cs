@@ -2,7 +2,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 /// <summary>
 /// Dependency injection registration extensions.

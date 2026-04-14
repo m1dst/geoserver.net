@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using geoserver.net.Models.Workspaces;
+using GeoServer.Models.Workspaces;
 using Xunit;
 
-namespace GeoServer.Net.IntegrationTests;
+namespace GeoServer.IntegrationTests;
 
 /// <summary>
 /// Represents the WorkspaceIntegrationTests type.

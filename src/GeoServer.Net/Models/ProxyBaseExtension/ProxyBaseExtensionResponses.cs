@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.ProxyBaseExtension;
+namespace GeoServer.Models.ProxyBaseExtension;
 
 /// <summary>
 /// Response wrapper for proxy base extension rule collections.

@@ -1,6 +1,6 @@
 using System;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 /// <summary>
 /// Configuration values for <see cref="GeoServerClient"/>.

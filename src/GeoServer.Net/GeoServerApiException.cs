@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 /// <summary>
 /// Represents a non-success response from GeoServer REST.

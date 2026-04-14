@@ -1,9 +1,9 @@
 using System.Net;
 using System.Threading.Tasks;
-using geoserver.net;
+using GeoServer;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the GeoServerClientBaseTests type.

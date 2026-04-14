@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Workspaces;
+namespace GeoServer.Models.Workspaces;
 
 /// <summary>
 /// Request payload used to create a workspace.

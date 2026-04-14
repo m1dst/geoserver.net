@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Coverages;
+namespace GeoServer.Models.Coverages;
 
 /// <summary>
 /// List response for coverages endpoint.

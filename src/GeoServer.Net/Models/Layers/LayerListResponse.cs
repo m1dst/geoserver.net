@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 
-namespace geoserver.net.Models.Layers;
+namespace GeoServer.Models.Layers;
 
 /// <summary>
 /// List response for layers endpoint.

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.GeoWebCache;
+namespace GeoServer.Models.GeoWebCache;
 
 /// <summary>
 /// Request payload for GeoWebCache filter update endpoint.

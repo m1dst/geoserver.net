@@ -5,10 +5,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net;
+using GeoServer;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the GeoServerClientInjectionTests type.

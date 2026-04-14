@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Wmts;
+namespace GeoServer.Models.Wmts;
 
 /// <summary>
 /// Request payload for creating or updating a WMTS store.

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.About;
+namespace GeoServer.Models.About;
 
 /// <summary>
 /// Generic response wrapper for GeoServer about endpoints.

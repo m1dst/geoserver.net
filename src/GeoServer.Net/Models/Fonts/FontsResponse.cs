@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Fonts;
+namespace GeoServer.Models.Fonts;
 
 /// <summary>
 /// Fonts response wrapper.

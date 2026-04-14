@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.LayerGroups;
+namespace GeoServer.Models.LayerGroups;
 
 /// <summary>
 /// Request payload used to create a layer group.

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Stores;
+namespace GeoServer.Models.Stores;
 
 /// <summary>
 /// Single coverage store response wrapper.

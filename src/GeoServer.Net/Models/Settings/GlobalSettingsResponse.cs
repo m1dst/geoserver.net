@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Settings;
+namespace GeoServer.Models.Settings;
 
 /// <summary>
 /// Global settings response.

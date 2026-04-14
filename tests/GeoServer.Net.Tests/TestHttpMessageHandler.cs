@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 internal sealed class TestHttpMessageHandler : HttpMessageHandler
 {

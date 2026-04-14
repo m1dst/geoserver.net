@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Templates;
+namespace GeoServer.Models.Templates;
 
 /// <summary>
 /// Generic templates list response wrapper.

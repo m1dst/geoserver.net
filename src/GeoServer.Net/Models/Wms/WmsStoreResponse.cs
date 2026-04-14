@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Wms;
+namespace GeoServer.Models.Wms;
 
 /// <summary>
 /// Single WMS store response wrapper.

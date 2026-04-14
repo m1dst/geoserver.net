@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Importer;
+namespace GeoServer.Models.Importer;
 
 /// <summary>
 /// Generic importer response wrapper.

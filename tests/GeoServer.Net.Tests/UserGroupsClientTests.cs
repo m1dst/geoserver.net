@@ -1,10 +1,10 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using geoserver.net.Models.Security;
+using GeoServer.Models.Security;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the UserGroupsClientTests type.

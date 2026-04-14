@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Coverages;
+namespace GeoServer.Models.Coverages;
 
 /// <summary>
 /// Single coverage response wrapper.

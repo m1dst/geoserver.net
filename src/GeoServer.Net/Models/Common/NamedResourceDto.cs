@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Common;
+namespace GeoServer.Models.Common;
 
 /// <summary>
 /// Common named GeoServer resource representation.

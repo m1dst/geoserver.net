@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Crs;
+namespace GeoServer.Models.Crs;
 
 /// <summary>
 /// CRS list response.

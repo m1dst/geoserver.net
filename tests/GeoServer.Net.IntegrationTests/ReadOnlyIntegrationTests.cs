@@ -1,10 +1,10 @@
 using System;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using geoserver.net;
+using GeoServer;
 using Xunit;
 
-namespace GeoServer.Net.IntegrationTests;
+namespace GeoServer.IntegrationTests;
 
 /// <summary>
 /// Read-only integration checks that validate core and optional extension endpoints
@@ -131,7 +131,7 @@ public sealed class ReadOnlyIntegrationTests : IClassFixture<GeoServerIntegratio
                 await client.GeoWebCache.UpdateFilterAsync(
                     "demo-filter",
                     "xml",
-                    new geoserver.net.Models.GeoWebCache.GwcFilterUpdateRequest
+                    new GeoServer.Models.GeoWebCache.GwcFilterUpdateRequest
                     {
                         GridSet = "EPSG:4326",
                         ZoomStart = 1,

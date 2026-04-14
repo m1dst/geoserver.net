@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http.Headers;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 internal sealed class GeoServerRequestContext
 {

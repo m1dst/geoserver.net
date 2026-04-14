@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the ImporterClientTests type.

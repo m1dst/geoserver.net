@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Namespaces;
+namespace GeoServer.Models.Namespaces;
 
 /// <summary>
 /// Request payload used to create a namespace.

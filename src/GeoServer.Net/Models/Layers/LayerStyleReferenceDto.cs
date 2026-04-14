@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Layers;
+namespace GeoServer.Models.Layers;
 
 /// <summary>
 /// Layer style reference payload.

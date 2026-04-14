@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Wmts;
+namespace GeoServer.Models.Wmts;
 
 /// <summary>
 /// WMTS stores list response.

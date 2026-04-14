@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Styles;
+namespace GeoServer.Models.Styles;
 
 /// <summary>
 /// Style representation.

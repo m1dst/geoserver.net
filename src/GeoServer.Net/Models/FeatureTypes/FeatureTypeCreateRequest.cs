@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.FeatureTypes;
+namespace GeoServer.Models.FeatureTypes;
 
 /// <summary>
 /// Request payload used to create or update a feature type.

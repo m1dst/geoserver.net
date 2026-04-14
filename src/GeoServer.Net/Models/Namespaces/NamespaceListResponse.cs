@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Namespaces;
+namespace GeoServer.Models.Namespaces;
 
 /// <summary>
 /// List response for namespaces endpoint.

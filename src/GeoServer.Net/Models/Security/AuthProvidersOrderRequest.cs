@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Security;
+namespace GeoServer.Models.Security;
 
 /// <summary>
 /// Authentication providers order request.

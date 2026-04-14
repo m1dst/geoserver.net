@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.StructuredCoverages;
+namespace GeoServer.Models.StructuredCoverages;
 
 /// <summary>
 /// Structured coverage index schema response.

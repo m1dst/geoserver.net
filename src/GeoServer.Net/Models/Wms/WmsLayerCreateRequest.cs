@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Wms;
+namespace GeoServer.Models.Wms;
 
 /// <summary>
 /// Request payload for publishing/updating a WMS layer.

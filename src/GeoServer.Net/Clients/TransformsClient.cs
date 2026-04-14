@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using geoserver.net.Models.Transforms;
+using GeoServer.Models.Transforms;
 
-namespace geoserver.net.Clients;
+namespace GeoServer.Clients;
 
 /// <summary>
 /// Wrapper around WFS transforms endpoints.

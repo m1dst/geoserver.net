@@ -1,9 +1,9 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using geoserver.net;
+using GeoServer;
 
-namespace GeoServer.Net.IntegrationTests;
+namespace GeoServer.IntegrationTests;
 
 /// <summary>
 /// Represents the GeoServerIntegrationFixture type.

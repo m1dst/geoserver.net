@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.GeoWebCache;
+namespace GeoServer.Models.GeoWebCache;
 
 /// <summary>
 /// GeoWebCache disk quota response wrapper.

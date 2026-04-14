@@ -1,9 +1,9 @@
 using System;
 using System.Net.Http;
-using geoserver.net.Clients;
+using GeoServer.Clients;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 /// <summary>
 /// Root client for GeoServer REST wrapper.

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 
-namespace geoserver.net.Models.Styles;
+namespace GeoServer.Models.Styles;
 
 /// <summary>
 /// List response for styles endpoint.

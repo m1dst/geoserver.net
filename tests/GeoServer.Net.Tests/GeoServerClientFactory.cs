@@ -1,8 +1,8 @@
 using System;
 using System.Net.Http;
-using geoserver.net;
+using GeoServer;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 internal static class GeoServerClientFactory
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 /// <summary>
 /// Helpers for constructing <see cref="GeoServerClient"/> with externally managed <see cref="HttpClient"/>.

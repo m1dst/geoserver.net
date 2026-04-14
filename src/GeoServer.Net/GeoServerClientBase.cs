@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 /// <summary>
 /// Represents the GeoServerClientBase type.
@@ -15,10 +15,10 @@ namespace geoserver.net;
 public abstract class GeoServerClientBase
 {
     private readonly HttpClient _httpClient;
-    private readonly geoserver.net.Clients.GeoServerRequestContext? _requestContext;
+    private readonly GeoServer.Clients.GeoServerRequestContext? _requestContext;
     protected HttpClient HttpClient => _httpClient;
 
-    private protected GeoServerClientBase(HttpClient httpClient, geoserver.net.Clients.GeoServerRequestContext? requestContext = null)
+    private protected GeoServerClientBase(HttpClient httpClient, GeoServer.Clients.GeoServerRequestContext? requestContext = null)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         _requestContext = requestContext;

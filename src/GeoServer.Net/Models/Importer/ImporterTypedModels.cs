@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace geoserver.net.Models.Importer;
+namespace GeoServer.Models.Importer;
 
 /// <summary>
 /// Typed list response for importer contexts.

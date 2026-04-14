@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using geoserver.net.Models.Common;
+using GeoServer.Models.Common;
 
-namespace geoserver.net.Models.FeatureTypes;
+namespace GeoServer.Models.FeatureTypes;
 
 /// <summary>
 /// List response for feature types.

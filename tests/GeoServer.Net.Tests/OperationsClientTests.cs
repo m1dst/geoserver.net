@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace GeoServer.Net.Tests;
+namespace GeoServer.Tests;
 
 /// <summary>
 /// Represents the OperationsClientTests type.
@@ -50,7 +50,7 @@ public sealed class OperationsClientTests
             client.Operations.UpdateLogging(new { logging = new { level = "DEFAULT_LOGGING" } });
 
             Assert.Equal("DEFAULT_LOGGING", logging.LoggingTyped.Level);
-            Assert.Equal("DEFAULT_LOGGING", ((geoserver.net.Models.Operations.LoggingConfigurationDto)logging.Logging!).Level);
+            Assert.Equal("DEFAULT_LOGGING", ((GeoServer.Models.Operations.LoggingConfigurationDto)logging.Logging!).Level);
         }
 
         Assert.Equal(HttpMethod.Get, handler.Requests[0].Method);

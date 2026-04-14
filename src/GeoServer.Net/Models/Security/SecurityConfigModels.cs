@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Security;
+namespace GeoServer.Models.Security;
 
 /// <summary>
 /// Response payload for the current master password endpoint.

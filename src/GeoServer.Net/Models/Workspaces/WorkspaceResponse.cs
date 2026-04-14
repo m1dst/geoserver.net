@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace geoserver.net.Models.Workspaces;
+namespace GeoServer.Models.Workspaces;
 
 /// <summary>
 /// Single workspace response wrapper.

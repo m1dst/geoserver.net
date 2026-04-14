@@ -2,9 +2,9 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using geoserver.net.Clients;
+using GeoServer.Clients;
 
-namespace geoserver.net;
+namespace GeoServer;
 
 internal static class GeoServerHttpClient
 {
