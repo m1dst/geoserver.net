@@ -203,9 +203,17 @@ Integration tests include:
 
 - CI validation runs on push and pull request via `.github/workflows/build-test-pack.yml`.
 - Release publish runs on `v*` tags (and manual dispatch) via `.github/workflows/release-publish.yml`.
+- One-click release can be run from `.github/workflows/release-manual.yml` (workflow_dispatch).
 - To publish packages to NuGet, set repository secret `NUGET_API_KEY`.
 - Release package version is computed by Nerdbank.GitVersioning from `version.json` + git history.
 - Tag names trigger release jobs, but do not directly set NuGet package version.
+
+Manual release workflow behavior:
+
+- Computes `NuGetPackageVersion` via NBGV.
+- Creates and pushes immutable tag `v<NuGetPackageVersion>`.
+- Fails early if the tag already exists on origin.
+- Builds, tests, packs, and publishes to NuGet in one run.
 
 Release checklist:
 

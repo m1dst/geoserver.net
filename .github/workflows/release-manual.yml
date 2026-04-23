@@ -1,0 +1,141 @@
+name: release-manual
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release-manual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          # Required by Nerdbank.GitVersioning to compute versions from tags/history.
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install NBGV CLI
+        run: |
+          dotnet tool update --global nbgv || dotnet tool install --global nbgv
+
+      - name: Compute release version and tag
+        id: release_meta
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          VERSION="$(nbgv get-version -v NuGetPackageVersion)"
+          TAG="v$VERSION"
+
+          echo "Computed NuGetPackageVersion: $VERSION"
+          echo "Release tag to create: $TAG"
+
+          if git ls-remote --tags origin "refs/tags/$TAG" | grep -q "$TAG"; then
+            echo "Tag $TAG already exists on origin. Refusing to proceed." >&2
+            exit 1
+          fi
+
+          echo "package_version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "release_tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push release tag
+        env:
+          RELEASE_TAG: ${{ steps.release_meta.outputs.release_tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$RELEASE_TAG"
+          git push origin "$RELEASE_TAG"
+
+      - name: Start GeoServer container
+        run: |
+          docker pull docker.osgeo.org/geoserver:2.28.2
+          docker run -d --name geoserver -p 8080:8080 \
+            -e GEOSERVER_ADMIN_USER=admin \
+            -e GEOSERVER_ADMIN_PASSWORD=geoserver \
+            docker.osgeo.org/geoserver:2.28.2
+
+      - name: Wait for GeoServer readiness
+        run: |
+          set -e
+          echo "Waiting for GeoServer readiness (max 60 attempts)..."
+          ready=0
+          for i in $(seq 1 60); do
+            if curl -fsS -u admin:geoserver http://localhost:8080/geoserver/rest/about/status.json > /dev/null; then
+              echo "GeoServer is ready (attempt ${i}/60)."
+              ready=1
+              break
+            fi
+
+            if [ $((i % 5)) -eq 0 ]; then
+              echo "Still waiting for GeoServer... attempt ${i}/60"
+            fi
+
+            sleep 5
+          done
+
+          if [ "$ready" -ne 1 ]; then
+            echo "GeoServer failed readiness check after 60 attempts."
+            echo "Last 200 lines of geoserver container logs:"
+            docker logs --tail 200 geoserver || true
+            exit 1
+          fi
+
+      - name: Restore
+        run: dotnet restore geoserver.net.slnx
+
+      - name: Build
+        run: dotnet build geoserver.net.slnx -c Release --no-restore
+
+      - name: Build net48 library
+        run: dotnet build src/GeoServer.Net/GeoServer.Net.csproj -c Release -f net48 --no-restore
+
+      - name: Unit tests
+        run: dotnet test tests/GeoServer.Net.Tests/GeoServer.Net.Tests.csproj -c Release --no-build
+
+      - name: Integration tests
+        env:
+          GEOSERVER_BASE_URL: http://localhost:8080/geoserver/rest/
+          GEOSERVER_USERNAME: admin
+          GEOSERVER_PASSWORD: geoserver
+        run: dotnet test tests/GeoServer.Net.IntegrationTests/GeoServer.Net.IntegrationTests.csproj -c Release --no-build
+
+      - name: Pack
+        run: dotnet pack src/GeoServer.Net/GeoServer.Net.csproj -c Release --no-build -o ./artifacts/packages
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: nuget-packages
+          path: artifacts/packages
+
+      - name: Publish to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          if [ -z "$NUGET_API_KEY" ]; then
+            echo "NUGET_API_KEY is not set. Skipping NuGet publish."
+            exit 0
+          fi
+
+          for pkg in artifacts/packages/*.nupkg artifacts/packages/*.snupkg; do
+            if [ -f "$pkg" ]; then
+              dotnet nuget push "$pkg" \
+                --api-key "$NUGET_API_KEY" \
+                --source https://api.nuget.org/v3/index.json \
+                --skip-duplicate
+            fi
+          done
+
+      - name: Dump GeoServer logs on failure
+        if: failure()
+        run: docker logs --tail 200 geoserver || true
+
+      - name: Stop GeoServer container
+        if: always()
+        run: docker rm -f geoserver || true
