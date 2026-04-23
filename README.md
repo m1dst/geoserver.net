@@ -208,16 +208,22 @@ Integration tests include:
 
 Manual release workflow behavior:
 
-- Computes `NuGetPackageVersion` via NBGV.
-- Creates and pushes immutable tag `v<NuGetPackageVersion>`.
+- Computes `SimpleVersion` via NBGV and creates immutable tag `v<SimpleVersion>`.
+- Checks out the created tag and computes `NuGetPackageVersion` from the tagged ref.
 - Fails early if the tag already exists on origin.
 - Builds, tests, packs, and publishes to NuGet in one run.
+- Accepts `release_ref` input so you can release from `main`, a release branch, a tag, or a commit SHA.
+
+Recommended release lanes:
+
+- Beta lane: keep `main` at prerelease base in `version.json` (for example `1.1-beta`) and run `release-manual` with `release_ref=main`.
+- Stable lane: use a release branch (for example `release/1.0`) with stable base in `version.json` (for example `1.0`) and run `release-manual` with `release_ref=release/1.0`.
 
 Release checklist:
 
 - Ensure `version.json` has the desired base version (for example `1.0-beta` for prerelease or `1.0` for stable).
 - Optionally check computed package version locally before release: `dotnet tool update -g nbgv || dotnet tool install -g nbgv` then `nbgv get-version -v NuGetPackageVersion`.
-- In GitHub Actions, run `release-manual`.
+- In GitHub Actions, run `release-manual` and set `release_ref`.
 - In workflow logs, confirm `Computed NuGetPackageVersion` output before publish.
 
 ## Running GeoServer Locally with Docker

@@ -2,6 +2,11 @@ name: release-manual
 
 on:
   workflow_dispatch:
+    inputs:
+      release_ref:
+        description: Branch, tag, or commit SHA to release from
+        required: true
+        default: main
 
 jobs:
   release-manual:
@@ -13,6 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
+          ref: ${{ inputs.release_ref }}
           # Required by Nerdbank.GitVersioning to compute versions from tags/history.
           fetch-depth: 0
 
@@ -25,14 +31,16 @@ jobs:
         run: |
           dotnet tool update --global nbgv || dotnet tool install --global nbgv
 
-      - name: Compute release version and tag
+      - name: Compute release tag
         id: release_meta
         run: |
           export PATH="$PATH:$HOME/.dotnet/tools"
-          VERSION="$(nbgv get-version -v NuGetPackageVersion)"
-          TAG="v$VERSION"
+          echo "Release ref: ${{ inputs.release_ref }}"
+          echo "Release commit: $(git rev-parse --short HEAD)"
+          TAG_VERSION="$(nbgv get-version -v SimpleVersion)"
+          TAG="v$TAG_VERSION"
 
-          echo "Computed NuGetPackageVersion: $VERSION"
+          echo "Computed tag version (SimpleVersion): $TAG_VERSION"
           echo "Release tag to create: $TAG"
 
           if git ls-remote --tags origin "refs/tags/$TAG" | grep -q "$TAG"; then
@@ -40,7 +48,6 @@ jobs:
             exit 1
           fi
 
-          echo "package_version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "release_tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Create and push release tag
@@ -51,6 +58,19 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag "$RELEASE_TAG"
           git push origin "$RELEASE_TAG"
+
+      - name: Checkout created release tag
+        env:
+          RELEASE_TAG: ${{ steps.release_meta.outputs.release_tag }}
+        run: |
+          git fetch --tags --force
+          git checkout "$RELEASE_TAG"
+
+      - name: Show computed NuGetPackageVersion (tagged ref)
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          VERSION="$(nbgv get-version -v NuGetPackageVersion)"
+          echo "Computed NuGetPackageVersion on tag: $VERSION"
 
       - name: Start GeoServer container
         run: |
