@@ -9,7 +9,8 @@
 - Centralized HTTP error handling (`GeoServerApiException`).
 - Unit tests validating each endpoint method behavior.
 - Integration tests against a real GeoServer instance.
-- CI support for GitHub Actions and Bitbucket Pipelines.
+- CI support for GitHub Actions.
+- Tag-based GitHub Actions release workflow with optional NuGet publish.
 - NuGet-ready packaging configuration.
 - CI explicitly builds both `net10.0` and `net48` targets.
 
@@ -197,6 +198,12 @@ Integration tests include:
 - GeoWebCache read-only checks (auto-skips if GWC is unavailable).
 - Importer read-only checks (auto-skips if Importer extension is unavailable).
 - Typed read-only checks for About (manifest/version/status), GeoWebCache (list/detail), Importer (list/detail), plus monitoring typed list/detail probes.
+
+## GitHub Actions Release Publish
+
+- CI validation runs on push and pull request via `.github/workflows/build-test-pack.yml`.
+- Release publish runs on `v*` tags (and manual dispatch) via `.github/workflows/release-publish.yml`.
+- To publish packages to NuGet, set repository secret `NUGET_API_KEY`.
 
 ## Running GeoServer Locally with Docker
 
