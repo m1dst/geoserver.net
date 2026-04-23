@@ -202,7 +202,9 @@ Integration tests include:
 ## GitHub Actions Release
 
 - CI validation runs on push and pull request via `.github/workflows/build-test-pack.yml`.
-- Releases are run from `.github/workflows/release-manual.yml` using the Run workflow button.
+- Releases are run from `.github/workflows/release-manual.yml`.
+- Pushes to any `release/*` branch auto-publish packages.
+- Manual releases can be run from the Run workflow button.
 - To publish packages to NuGet, set repository secret `NUGET_API_KEY`.
 - Release package version is computed by Nerdbank.GitVersioning from `version.json` + git history.
 
@@ -213,6 +215,12 @@ Manual release workflow behavior:
 - Fails early if the tag already exists on origin.
 - Builds, tests, packs, and publishes to NuGet in one run.
 - Accepts `release_ref` input so you can release from `main`, a release branch, a tag, or a commit SHA.
+
+Automatic release branch behavior:
+
+- Trigger: push to `release/*`.
+- Does not create a new git tag.
+- Builds, tests, packs, and publishes using NBGV version for that commit.
 
 Recommended release lanes:
 
