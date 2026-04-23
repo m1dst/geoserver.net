@@ -61,22 +61,6 @@ jobs:
       - name: Restore
         run: dotnet restore geoserver.net.slnx
 
-      - name: Build
-        run: dotnet build geoserver.net.slnx -c Release --no-restore
-
-      - name: Build net48 library
-        run: dotnet build src/GeoServer.Net/GeoServer.Net.csproj -c Release -f net48 --no-restore
-
-      - name: Unit tests
-        run: dotnet test tests/GeoServer.Net.Tests/GeoServer.Net.Tests.csproj -c Release --no-build
-
-      - name: Integration tests
-        env:
-          GEOSERVER_BASE_URL: http://localhost:8080/geoserver/rest/
-          GEOSERVER_USERNAME: admin
-          GEOSERVER_PASSWORD: geoserver
-        run: dotnet test tests/GeoServer.Net.IntegrationTests/GeoServer.Net.IntegrationTests.csproj -c Release --no-build
-
       - name: Derive package version from tag
         id: release_version
         run: |
@@ -92,8 +76,24 @@ jobs:
             exit 1
           fi
 
+      - name: Build
+        run: dotnet build geoserver.net.slnx -c Release --no-restore /p:Version=${{ steps.release_version.outputs.package_version }}
+
+      - name: Build net48 library
+        run: dotnet build src/GeoServer.Net/GeoServer.Net.csproj -c Release -f net48 --no-restore /p:Version=${{ steps.release_version.outputs.package_version }}
+
+      - name: Unit tests
+        run: dotnet test tests/GeoServer.Net.Tests/GeoServer.Net.Tests.csproj -c Release --no-build
+
+      - name: Integration tests
+        env:
+          GEOSERVER_BASE_URL: http://localhost:8080/geoserver/rest/
+          GEOSERVER_USERNAME: admin
+          GEOSERVER_PASSWORD: geoserver
+        run: dotnet test tests/GeoServer.Net.IntegrationTests/GeoServer.Net.IntegrationTests.csproj -c Release --no-build
+
       - name: Pack
-        run: dotnet pack src/GeoServer.Net/GeoServer.Net.csproj -c Release --no-build -o ./artifacts/packages /p:PackageVersion=${{ steps.release_version.outputs.package_version }}
+        run: dotnet pack src/GeoServer.Net/GeoServer.Net.csproj -c Release -o ./artifacts/packages /p:Version=${{ steps.release_version.outputs.package_version }} /p:PackageVersion=${{ steps.release_version.outputs.package_version }}
 
       - name: Upload packages
         uses: actions/upload-artifact@v7
