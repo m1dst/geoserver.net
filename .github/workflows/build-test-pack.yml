@@ -79,7 +79,7 @@ jobs:
         run: dotnet pack src/GeoServer.Net/GeoServer.Net.csproj -c Release --no-build -o ./artifacts/packages
 
       - name: Upload packages
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: nuget-packages
           path: artifacts/packages
