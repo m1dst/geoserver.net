@@ -204,6 +204,7 @@ Integration tests include:
 - CI validation runs on push and pull request via `.github/workflows/build-test-pack.yml`.
 - Release publish runs on `v*` tags (and manual dispatch) via `.github/workflows/release-publish.yml`.
 - To publish packages to NuGet, set repository secret `NUGET_API_KEY`.
+- Release package version is derived directly from the tag name (`v1.2.3` -> `1.2.3`, `v1.2.3-beta.1` -> `1.2.3-beta.1`).
 
 ## Running GeoServer Locally with Docker
 

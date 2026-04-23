@@ -77,8 +77,23 @@ jobs:
           GEOSERVER_PASSWORD: geoserver
         run: dotnet test tests/GeoServer.Net.IntegrationTests/GeoServer.Net.IntegrationTests.csproj -c Release --no-build
 
+      - name: Derive package version from tag
+        id: release_version
+        run: |
+          TAG="$GITHUB_REF_NAME"
+          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            VERSION="${TAG#v}"
+            echo "package_version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "Release tag: $TAG"
+            echo "Package version: $VERSION"
+          else
+            echo "This workflow must run from a tag like v1.2.3 or v1.2.3-beta.1" >&2
+            echo "Current ref: $TAG" >&2
+            exit 1
+          fi
+
       - name: Pack
-        run: dotnet pack src/GeoServer.Net/GeoServer.Net.csproj -c Release --no-build -o ./artifacts/packages
+        run: dotnet pack src/GeoServer.Net/GeoServer.Net.csproj -c Release --no-build -o ./artifacts/packages /p:PackageVersion=${{ steps.release_version.outputs.package_version }}
 
       - name: Upload packages
         uses: actions/upload-artifact@v7
