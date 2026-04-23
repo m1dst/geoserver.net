@@ -199,14 +199,12 @@ Integration tests include:
 - Importer read-only checks (auto-skips if Importer extension is unavailable).
 - Typed read-only checks for About (manifest/version/status), GeoWebCache (list/detail), Importer (list/detail), plus monitoring typed list/detail probes.
 
-## GitHub Actions Release Publish
+## GitHub Actions Release
 
 - CI validation runs on push and pull request via `.github/workflows/build-test-pack.yml`.
-- Release publish runs on `v*` tags (and manual dispatch) via `.github/workflows/release-publish.yml`.
-- One-click release can be run from `.github/workflows/release-manual.yml` (workflow_dispatch).
+- Releases are run from `.github/workflows/release-manual.yml` using the Run workflow button.
 - To publish packages to NuGet, set repository secret `NUGET_API_KEY`.
 - Release package version is computed by Nerdbank.GitVersioning from `version.json` + git history.
-- Tag names trigger release jobs, but do not directly set NuGet package version.
 
 Manual release workflow behavior:
 
@@ -218,9 +216,9 @@ Manual release workflow behavior:
 Release checklist:
 
 - Ensure `version.json` has the desired base version (for example `1.0-beta` for prerelease or `1.0` for stable).
-- Check computed package version locally before tagging: `dotnet tool update -g nbgv || dotnet tool install -g nbgv` then `nbgv get-version -v NuGetPackageVersion`.
-- Push a `v*` tag to trigger release workflow.
-- In workflow logs, confirm `Show computed NuGet package version (NBGV)` output before publish.
+- Optionally check computed package version locally before release: `dotnet tool update -g nbgv || dotnet tool install -g nbgv` then `nbgv get-version -v NuGetPackageVersion`.
+- In GitHub Actions, run `release-manual`.
+- In workflow logs, confirm `Computed NuGetPackageVersion` output before publish.
 
 ## Running GeoServer Locally with Docker
 
