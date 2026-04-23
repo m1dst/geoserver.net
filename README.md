@@ -204,7 +204,15 @@ Integration tests include:
 - CI validation runs on push and pull request via `.github/workflows/build-test-pack.yml`.
 - Release publish runs on `v*` tags (and manual dispatch) via `.github/workflows/release-publish.yml`.
 - To publish packages to NuGet, set repository secret `NUGET_API_KEY`.
-- Release package version is derived directly from the tag name (`v1.2.3` -> `1.2.3`, `v1.2.3-beta.1` -> `1.2.3-beta.1`).
+- Release package version is computed by Nerdbank.GitVersioning from `version.json` + git history.
+- Tag names trigger release jobs, but do not directly set NuGet package version.
+
+Release checklist:
+
+- Ensure `version.json` has the desired base version (for example `1.0-beta` for prerelease or `1.0` for stable).
+- Check computed package version locally before tagging: `dotnet tool update -g nbgv || dotnet tool install -g nbgv` then `nbgv get-version -v NuGetPackageVersion`.
+- Push a `v*` tag to trigger release workflow.
+- In workflow logs, confirm `Show computed NuGet package version (NBGV)` output before publish.
 
 ## Running GeoServer Locally with Docker
 
@@ -248,10 +256,10 @@ This repository uses Nerdbank.GitVersioning (NBGV) to derive package and assembl
 - Only tags matching `vX.Y` or `vX.Y.Z` are treated as public releases.
 - CI uses full clone history so NBGV can compute version metadata correctly.
 
-Typical outcomes:
+Typical outcomes with current `version.json` (`1.0-beta`):
 
-- Normal branch build: `1.0.0-beta-g<commit>`
-- Tagged release build (for example `v1.0.0`): `1.0.0`
+- Normal branch build: `1.0.<height>-beta`
+- Tagged release build: still `1.0.<height>-beta` unless `version.json` is changed to a stable base.
 
 Local checks:
 
